@@ -58,13 +58,10 @@
 		1805FF981D1B11440005E8AD /* vaperite */ = {
 			isa = PBXGroup;
 			children = (
-				1805FF9C1D1B11440005E8AD /* AppDelegate.h */,
-				1805FF9D1D1B11440005E8AD /* AppDelegate.m */,
+				1805FFB71D1B1FAD0005E8AD /* Resources */,
+				1805FFB61D1B1F9D0005E8AD /* Classes */,
 				1805FF9F1D1B11440005E8AD /* ViewController.h */,
 				1805FFA01D1B11440005E8AD /* ViewController.m */,
-				1805FFA21D1B11450005E8AD /* Main.storyboard */,
-				1805FFA51D1B11450005E8AD /* Assets.xcassets */,
-				1805FFA71D1B11450005E8AD /* LaunchScreen.storyboard */,
 				1805FFAA1D1B11450005E8AD /* Info.plist */,
 				1805FF991D1B11440005E8AD /* Supporting Files */,
 			);
@@ -77,6 +74,73 @@
 				1805FF9A1D1B11440005E8AD /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1805FFB01D1B1F490005E8AD /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		1805FFB11D1B1F600005E8AD /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				1805FF9C1D1B11440005E8AD /* AppDelegate.h */,
+				1805FF9D1D1B11440005E8AD /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		1805FFB21D1B1F6C0005E8AD /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		1805FFB31D1B1F740005E8AD /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		1805FFB41D1B1F7B0005E8AD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		1805FFB51D1B1F820005E8AD /* UX */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = UX;
+			sourceTree = "<group>";
+		};
+		1805FFB61D1B1F9D0005E8AD /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1805FFB51D1B1F820005E8AD /* UX */,
+				1805FFB41D1B1F7B0005E8AD /* Models */,
+				1805FFB31D1B1F740005E8AD /* Managers */,
+				1805FFB21D1B1F6C0005E8AD /* Libraries */,
+				1805FFB11D1B1F600005E8AD /* AppDelegate */,
+				1805FFB01D1B1F490005E8AD /* Categories */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1805FFB71D1B1FAD0005E8AD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1805FFA21D1B11450005E8AD /* Main.storyboard */,
+				1805FFA71D1B11450005E8AD /* LaunchScreen.storyboard */,
+				1805FFA51D1B11450005E8AD /* Assets.xcassets */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
