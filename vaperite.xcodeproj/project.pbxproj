@@ -9,10 +9,17 @@
 /* Begin PBXBuildFile section */
 		1805FF9B1D1B11440005E8AD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1805FF9A1D1B11440005E8AD /* main.m */; };
 		1805FF9E1D1B11440005E8AD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1805FF9D1D1B11440005E8AD /* AppDelegate.m */; };
-		1805FFA11D1B11440005E8AD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1805FFA01D1B11440005E8AD /* ViewController.m */; };
 		1805FFA41D1B11450005E8AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1805FFA21D1B11450005E8AD /* Main.storyboard */; };
 		1805FFA61D1B11450005E8AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1805FFA51D1B11450005E8AD /* Assets.xcassets */; };
 		1805FFA91D1B11450005E8AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1805FFA71D1B11450005E8AD /* LaunchScreen.storyboard */; };
+		1805FFC01D1B37780005E8AD /* VPSliderMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1805FFBF1D1B37780005E8AD /* VPSliderMenuVC.m */; };
+		1805FFC31D1B37A40005E8AD /* VPECSliderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1805FFC21D1B37A40005E8AD /* VPECSliderVC.m */; };
+		1805FFC61D1B38770005E8AD /* VPTest1VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1805FFC51D1B38770005E8AD /* VPTest1VC.m */; };
+		1805FFC91D1B388D0005E8AD /* VPTest2VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1805FFC81D1B388D0005E8AD /* VPTest2VC.m */; };
+		180DDB371D1C093E00083967 /* MEDynamicTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB301D1C093E00083967 /* MEDynamicTransition.m */; };
+		180DDB381D1C093E00083967 /* MEFoldAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB321D1C093E00083967 /* MEFoldAnimationController.m */; };
+		180DDB391D1C093E00083967 /* METransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB341D1C093E00083967 /* METransitions.m */; };
+		180DDB3A1D1C093E00083967 /* MEZoomAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB361D1C093E00083967 /* MEZoomAnimationController.m */; };
 		C785C07E658B2F6FF4D83CB1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C05A173179EE92871EC128 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -21,12 +28,26 @@
 		1805FF9A1D1B11440005E8AD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1805FF9C1D1B11440005E8AD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1805FF9D1D1B11440005E8AD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1805FF9F1D1B11440005E8AD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		1805FFA01D1B11440005E8AD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		1805FFA31D1B11450005E8AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1805FFA51D1B11450005E8AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1805FFA81D1B11450005E8AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1805FFAA1D1B11450005E8AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1805FFBE1D1B37780005E8AD /* VPSliderMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPSliderMenuVC.h; path = Classes/UX/VPSliderMenuVC.h; sourceTree = "<group>"; };
+		1805FFBF1D1B37780005E8AD /* VPSliderMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPSliderMenuVC.m; path = Classes/UX/VPSliderMenuVC.m; sourceTree = "<group>"; };
+		1805FFC11D1B37A40005E8AD /* VPECSliderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPECSliderVC.h; path = Classes/UX/VPECSliderVC.h; sourceTree = "<group>"; };
+		1805FFC21D1B37A40005E8AD /* VPECSliderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPECSliderVC.m; path = Classes/UX/VPECSliderVC.m; sourceTree = "<group>"; };
+		1805FFC41D1B38770005E8AD /* VPTest1VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPTest1VC.h; path = Classes/UX/VPTest1VC.h; sourceTree = "<group>"; };
+		1805FFC51D1B38770005E8AD /* VPTest1VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPTest1VC.m; path = Classes/UX/VPTest1VC.m; sourceTree = "<group>"; };
+		1805FFC71D1B388D0005E8AD /* VPTest2VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPTest2VC.h; sourceTree = "<group>"; };
+		1805FFC81D1B388D0005E8AD /* VPTest2VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPTest2VC.m; sourceTree = "<group>"; };
+		180DDB2F1D1C093E00083967 /* MEDynamicTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEDynamicTransition.h; sourceTree = "<group>"; };
+		180DDB301D1C093E00083967 /* MEDynamicTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEDynamicTransition.m; sourceTree = "<group>"; };
+		180DDB311D1C093E00083967 /* MEFoldAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEFoldAnimationController.h; sourceTree = "<group>"; };
+		180DDB321D1C093E00083967 /* MEFoldAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEFoldAnimationController.m; sourceTree = "<group>"; };
+		180DDB331D1C093E00083967 /* METransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = METransitions.h; sourceTree = "<group>"; };
+		180DDB341D1C093E00083967 /* METransitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = METransitions.m; sourceTree = "<group>"; };
+		180DDB351D1C093E00083967 /* MEZoomAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEZoomAnimationController.h; sourceTree = "<group>"; };
+		180DDB361D1C093E00083967 /* MEZoomAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEZoomAnimationController.m; sourceTree = "<group>"; };
 		6954208BCF3AE6D358BC3B4A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		8E1A2E89789860391325720C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F1C05A173179EE92871EC128 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,8 +88,6 @@
 			children = (
 				1805FFB71D1B1FAD0005E8AD /* Resources */,
 				1805FFB61D1B1F9D0005E8AD /* Classes */,
-				1805FF9F1D1B11440005E8AD /* ViewController.h */,
-				1805FFA01D1B11440005E8AD /* ViewController.m */,
 				1805FFAA1D1B11450005E8AD /* Info.plist */,
 				1805FF991D1B11440005E8AD /* Supporting Files */,
 			);
@@ -123,6 +142,15 @@
 		1805FFB51D1B1F820005E8AD /* UX */ = {
 			isa = PBXGroup;
 			children = (
+				180DDB2E1D1C093E00083967 /* Transitions */,
+				1805FFBE1D1B37780005E8AD /* VPSliderMenuVC.h */,
+				1805FFBF1D1B37780005E8AD /* VPSliderMenuVC.m */,
+				1805FFC11D1B37A40005E8AD /* VPECSliderVC.h */,
+				1805FFC21D1B37A40005E8AD /* VPECSliderVC.m */,
+				1805FFC41D1B38770005E8AD /* VPTest1VC.h */,
+				1805FFC51D1B38770005E8AD /* VPTest1VC.m */,
+				1805FFC71D1B388D0005E8AD /* VPTest2VC.h */,
+				1805FFC81D1B388D0005E8AD /* VPTest2VC.m */,
 			);
 			name = UX;
 			sourceTree = "<group>";
@@ -148,6 +176,22 @@
 				1805FFA51D1B11450005E8AD /* Assets.xcassets */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		180DDB2E1D1C093E00083967 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				180DDB2F1D1C093E00083967 /* MEDynamicTransition.h */,
+				180DDB301D1C093E00083967 /* MEDynamicTransition.m */,
+				180DDB311D1C093E00083967 /* MEFoldAnimationController.h */,
+				180DDB321D1C093E00083967 /* MEFoldAnimationController.m */,
+				180DDB331D1C093E00083967 /* METransitions.h */,
+				180DDB341D1C093E00083967 /* METransitions.m */,
+				180DDB351D1C093E00083967 /* MEZoomAnimationController.h */,
+				180DDB361D1C093E00083967 /* MEZoomAnimationController.m */,
+			);
+			name = Transitions;
+			path = Classes/UX/Transitions;
 			sourceTree = "<group>";
 		};
 		7965E9904499BE3830A3DC33 /* Frameworks */ = {
@@ -288,9 +332,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1805FFA11D1B11440005E8AD /* ViewController.m in Sources */,
 				1805FF9E1D1B11440005E8AD /* AppDelegate.m in Sources */,
+				180DDB3A1D1C093E00083967 /* MEZoomAnimationController.m in Sources */,
+				180DDB381D1C093E00083967 /* MEFoldAnimationController.m in Sources */,
+				1805FFC91D1B388D0005E8AD /* VPTest2VC.m in Sources */,
+				180DDB391D1C093E00083967 /* METransitions.m in Sources */,
+				1805FFC01D1B37780005E8AD /* VPSliderMenuVC.m in Sources */,
 				1805FF9B1D1B11440005E8AD /* main.m in Sources */,
+				1805FFC61D1B38770005E8AD /* VPTest1VC.m in Sources */,
+				180DDB371D1C093E00083967 /* MEDynamicTransition.m in Sources */,
+				1805FFC31D1B37A40005E8AD /* VPECSliderVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

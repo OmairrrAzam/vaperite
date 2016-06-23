@@ -1,25 +1,132 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--SliderVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="VPECSliderVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="topViewControllerStoryboardId" value="Main" localized="YES"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="underLeftViewControllerStoryboardId" value="Menu" localized="YES"/>
+                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="312" y="506"/>
+        </scene>
+        <!--Slider MenuVC-->
+        <scene sceneID="v3g-ZI-Ngq">
+            <objects>
+                <viewController storyboardIdentifier="Menu" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dQA-hu-i2y" customClass="VPSliderMenuVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FE3-Ef-hhz"/>
+                        <viewControllerLayoutGuide type="bottom" id="AvR-Le-vom"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="U1Y-Lb-Xyh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="menu-background" translatesAutoresizingMaskIntoConstraints="NO" id="f8n-AH-M65">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="B6O-eY-b4M">
+                                <rect key="frame" x="0.0" y="86" width="320" height="482"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="dQA-hu-i2y" id="Bog-7L-y2a"/>
+                                    <outlet property="delegate" destination="dQA-hu-i2y" id="JpZ-Z6-XxC"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="B6O-eY-b4M" id="mEY-sr-Xde"/>
+                        <segue destination="lcs-H7-QbV" kind="modal" customClass="ECSlidingSegue" id="yoe-oV-Bth"/>
+                        <segue destination="Tad-k2-zpa" kind="modal" customClass="ECSlidingSegue" id="ErU-gE-IJB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MID-DQ-NZw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="144" y="-344"/>
+        </scene>
+        <!--Test1VC-->
+        <scene sceneID="Pva-jq-SKX">
+            <objects>
+                <viewController storyboardIdentifier="Main" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lcs-H7-QbV" customClass="VPTest1VC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dkC-Nv-tOM"/>
+                        <viewControllerLayoutGuide type="bottom" id="dVv-l4-Y3T"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="w06-3U-9CE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Do8-7p-cGF">
+                                <rect key="frame" x="0.0" y="28" width="46" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="eoa-7v-YFv" kind="unwind" unwindAction="unwindToMenuViewController:" id="mby-7i-Btu"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="dTR-5m-lIV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zRK-Y9-ZEe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="eoa-7v-YFv" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="903" y="-279"/>
+        </scene>
+        <!--Test2VC-->
+        <scene sceneID="MMe-Z4-v9n">
+            <objects>
+                <viewController storyboardIdentifier="Second" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Tad-k2-zpa" customClass="VPTest2VC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="W4G-hq-Bue"/>
+                        <viewControllerLayoutGuide type="bottom" id="UQY-Mr-EbC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9yX-O5-R66">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZD6-qN-SKQ">
+                                <rect key="frame" x="0.0" y="28" width="46" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="Pcx-ZH-sGc" kind="unwind" unwindAction="unwindToMenuViewController:" id="H53-ta-vCc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="lY3-XU-Z7s"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FXO-Sm-C9i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Pcx-ZH-sGc" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="903" y="478"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="menu-background" width="520" height="763"/>
+    </resources>
 </document>
