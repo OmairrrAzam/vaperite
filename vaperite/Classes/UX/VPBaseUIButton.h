@@ -1,5 +1,5 @@
 //
-//  VPTest1VC.h
+//  VPBaseUIButton.h
 //  vaperite
 //
 //  Created by Apple on 23/06/2016.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VPTest1VC : UIViewController
+@interface VPBaseUIButton : UIButton
 
 @end

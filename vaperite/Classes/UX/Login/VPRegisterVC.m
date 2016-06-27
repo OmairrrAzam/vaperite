@@ -1,31 +1,28 @@
 //
-//  VPTest1VC.m
+//  VPRegisterVC.m
 //  vaperite
 //
-//  Created by Apple on 23/06/2016.
+//  Created by Apple on 27/06/2016.
 //  Copyright © 2016 Apple. All rights reserved.
 //
 
-#import "VPTest1VC.h"
-#import "VPSliderMenuVC.h"
-#import "UIViewController+ECSlidingViewController.h"
+#import "VPRegisterVC.h"
 
-@interface VPTest1VC ()
+@interface VPRegisterVC ()
+@property (weak, nonatomic) IBOutlet UITextField *tfFirstName;
+@property (weak, nonatomic) IBOutlet UITextField *tfLastName;
+@property (weak, nonatomic) IBOutlet UITextField *tfEmail;
+@property (weak, nonatomic) IBOutlet UITextField *tfPassword;
+@property (weak, nonatomic) IBOutlet UITextField *tfConfirmPassword;
 
 @end
 
-@implementation VPTest1VC
+@implementation VPRegisterVC
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.view.layer.shadowOpacity = 0.75f;
-    self.view.layer.shadowRadius  = 10.0f;
-    self.view.layer.shadowColor   = [UIColor blackColor].CGColor;
-    
-    [self.slidingViewController.topViewController.view addGestureRecognizer:self.slidingViewController.panGesture];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,4 +40,7 @@
 }
 */
 
+# pragma mark - IBAction 
+- (IBAction)btnRegister:(UIButton *)sender {
+}
 @end

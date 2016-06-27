@@ -1,18 +1,19 @@
 //
-//  VPTest2VC.m
+//  VPFogotPasswordVC.m
 //  vaperite
 //
-//  Created by Apple on 23/06/2016.
+//  Created by Apple on 27/06/2016.
 //  Copyright © 2016 Apple. All rights reserved.
 //
 
-#import "VPTest2VC.h"
+#import "VPFogotPasswordVC.h"
 
-@interface VPTest2VC ()
+@interface VPFogotPasswordVC ()
+@property (weak, nonatomic) IBOutlet UITextField *tfEmail;
 
 @end
 
-@implementation VPTest2VC
+@implementation VPFogotPasswordVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,4 +35,8 @@
 }
 */
 
+#pragma mark - IBActions
+
+- (IBAction)btnForgot:(UIButton *)sender {
+}
 @end
