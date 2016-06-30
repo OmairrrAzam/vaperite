@@ -31,6 +31,9 @@
 		18F3D7CF1D20F18E009D8EE3 /* VPRegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7CE1D20F18E009D8EE3 /* VPRegisterVC.m */; };
 		18F3D7D61D214F21009D8EE3 /* VPDashboardVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7D51D214F21009D8EE3 /* VPDashboardVc.m */; };
 		18F3D7F81D21866B009D8EE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18F3D7F71D21866B009D8EE3 /* Assets.xcassets */; };
+		18F3D7FB1D239F48009D8EE3 /* VPBaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7FA1D239F47009D8EE3 /* VPBaseCollectionViewCell.m */; };
+		18F3D7FE1D23A68E009D8EE3 /* VPProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7FD1D23A68E009D8EE3 /* VPProductCollectionViewCell.m */; };
+		18F3D8011D23EC45009D8EE3 /* VPBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D8001D23EC45009D8EE3 /* VPBaseNavigationController.m */; };
 		C785C07E658B2F6FF4D83CB1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C05A173179EE92871EC128 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +84,12 @@
 		18F3D7D41D214F21009D8EE3 /* VPDashboardVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPDashboardVc.h; path = Classes/UX/VPDashboardVc.h; sourceTree = "<group>"; };
 		18F3D7D51D214F21009D8EE3 /* VPDashboardVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPDashboardVc.m; path = Classes/UX/VPDashboardVc.m; sourceTree = "<group>"; };
 		18F3D7F71D21866B009D8EE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		18F3D7F91D239F47009D8EE3 /* VPBaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPBaseCollectionViewCell.h; path = Classes/UX/VPBaseCollectionViewCell.h; sourceTree = "<group>"; };
+		18F3D7FA1D239F47009D8EE3 /* VPBaseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPBaseCollectionViewCell.m; path = Classes/UX/VPBaseCollectionViewCell.m; sourceTree = "<group>"; };
+		18F3D7FC1D23A68E009D8EE3 /* VPProductCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPProductCollectionViewCell.h; sourceTree = "<group>"; };
+		18F3D7FD1D23A68E009D8EE3 /* VPProductCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPProductCollectionViewCell.m; sourceTree = "<group>"; };
+		18F3D7FF1D23EC45009D8EE3 /* VPBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPBaseNavigationController.h; sourceTree = "<group>"; };
+		18F3D8001D23EC45009D8EE3 /* VPBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPBaseNavigationController.m; sourceTree = "<group>"; };
 		6954208BCF3AE6D358BC3B4A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		8E1A2E89789860391325720C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F1C05A173179EE92871EC128 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,6 +191,8 @@
 				180DDB2E1D1C093E00083967 /* Transitions */,
 				18F3D7D41D214F21009D8EE3 /* VPDashboardVc.h */,
 				18F3D7D51D214F21009D8EE3 /* VPDashboardVc.m */,
+				18F3D7FC1D23A68E009D8EE3 /* VPProductCollectionViewCell.h */,
+				18F3D7FD1D23A68E009D8EE3 /* VPProductCollectionViewCell.m */,
 			);
 			name = UX;
 			sourceTree = "<group>";
@@ -234,6 +245,10 @@
 				18F3D7B21D1CB8C6009D8EE3 /* VPBaseTextField.m */,
 				18F3D7BE1D1D00E8009D8EE3 /* VPBaseVC.h */,
 				18F3D7BF1D1D00E8009D8EE3 /* VPBaseVC.m */,
+				18F3D7F91D239F47009D8EE3 /* VPBaseCollectionViewCell.h */,
+				18F3D7FA1D239F47009D8EE3 /* VPBaseCollectionViewCell.m */,
+				18F3D7FF1D23EC45009D8EE3 /* VPBaseNavigationController.h */,
+				18F3D8001D23EC45009D8EE3 /* VPBaseNavigationController.m */,
 			);
 			name = BaseControllers;
 			sourceTree = "<group>";
@@ -416,13 +431,16 @@
 				18F3D7CF1D20F18E009D8EE3 /* VPRegisterVC.m in Sources */,
 				1805FF9E1D1B11440005E8AD /* AppDelegate.m in Sources */,
 				18F3D7AD1D1CB6E6009D8EE3 /* VPLoginVC.m in Sources */,
+				18F3D8011D23EC45009D8EE3 /* VPBaseNavigationController.m in Sources */,
 				180DDB3A1D1C093E00083967 /* MEZoomAnimationController.m in Sources */,
 				18F3D7C31D20E3EE009D8EE3 /* VPProductModel.m in Sources */,
 				18F3D7BD1D1CFFFB009D8EE3 /* NSDictionary+Helper.m in Sources */,
 				180DDB381D1C093E00083967 /* MEFoldAnimationController.m in Sources */,
 				180DDB391D1C093E00083967 /* METransitions.m in Sources */,
+				18F3D7FB1D239F48009D8EE3 /* VPBaseCollectionViewCell.m in Sources */,
 				18F3D7C61D20E52F009D8EE3 /* VPCategoriesModel.m in Sources */,
 				1805FFC01D1B37780005E8AD /* VPSliderMenuVC.m in Sources */,
+				18F3D7FE1D23A68E009D8EE3 /* VPProductCollectionViewCell.m in Sources */,
 				18F3D7B31D1CB8C6009D8EE3 /* VPBaseTextField.m in Sources */,
 				18F3D7C91D20E550009D8EE3 /* VPUsersModel.m in Sources */,
 				18F3D7C01D1D00E8009D8EE3 /* VPBaseVC.m in Sources */,

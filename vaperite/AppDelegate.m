@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AFNetworkReachabilityManager.h"
+#import "NXOAuth2.h"
 
 @interface AppDelegate ()
 
@@ -24,8 +25,24 @@
     }];
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-
+    
+    [[NXOAuth2AccountStore sharedStore] setClientID:@"6e1d10e6193b08ecd310c227d7b158c3"
+                                             secret:@"1e8b98d07d01ded22a3062d5f5aca59e"
+                                   authorizationURL:[NSURL URLWithString:@"www.vaperite.com/oauth/authorize"]
+                                           tokenURL:[NSURL URLWithString:@"www.vaperite.com/oauth/token"]
+                                        redirectURL:[NSURL URLWithString:@"myapp://callback"]
+                                     forAccountType:@"Magento"];
+    
+    
+    
+    
     return YES;
+}
+
+- (BOOL) application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
+    NSLog(@"We recieved a callback");
+    
+   return  [[NXOAuth2AccountStore sharedStore] handleRedirectURL:url];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

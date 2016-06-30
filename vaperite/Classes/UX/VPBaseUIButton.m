@@ -7,6 +7,7 @@
 //
 
 #import "VPBaseUIButton.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation VPBaseUIButton
 
@@ -17,5 +18,10 @@
     // Drawing code
 }
 */
-
+-(void)awakeFromNib {
+    //it works
+    self.layer.cornerRadius = 12;
+    self.clipsToBounds = YES;
+    //[btn setTitle:@"My title"];
+}
 @end

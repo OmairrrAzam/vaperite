@@ -10,6 +10,7 @@
 #import "VPBaseUIButton.h"
 #import "VPBaseTextField.h"
 #import "AFNetworkReachabilityManager.h"
+#import "NXOAuth2.h"
 
 @interface VPLoginVC ()
 
@@ -76,12 +77,13 @@
 
 - (IBAction)btnLogin:(VPBaseUIButton *)sender {
     
-    [self.tfUsername resignFirstResponder];
+    [[NXOAuth2AccountStore sharedStore]requestAccessToAccountWithType:@"Magento"];
+    /*[self.tfUsername resignFirstResponder];
     [self.tfPassword resignFirstResponder];
     
     if ([self validate]) {
         
-    }
+    }*/
 
 }
 @end
