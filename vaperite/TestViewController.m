@@ -10,6 +10,7 @@
 
 @interface TestViewController ()
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentBtns;
 @property (weak, nonatomic) UIViewController *currentViewController;
 @end
 
@@ -21,7 +22,28 @@
      self.currentViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
     [self addChildViewController:self.currentViewController];
     [self addSubview:self.currentViewController.view toView:self.containerView];
-    [super viewDidLoad];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.segmentBtns
+                                                                  attribute:NSLayoutAttributeHeight
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:nil
+                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                 multiplier:1
+                                                                   constant:46];
+    [self.segmentBtns addConstraint:constraint];
+    [[UISegmentedControl appearance] setBackgroundColor:[UIColor colorWithRed:98/255.0 green:99/255.0 blue:100/255.0 alpha:1]];
+    //[[UISegmentedControl appearance] setTitleTextAttributes:@{NSBackgroundColorAttributeName: [UIColor blackColor] } forState:UIControlStateNormal];
+    //[self.segmentBtns setSelectedSegmentIndex:-1];
+    self.segmentBtns.tintColor = [UIColor  colorWithRed:210/255.0 green:190/255.0 blue:29/255.0 alpha:1];
+    //colorWithRed:211 green:187 blue:0 alpha:1
+    
+    // change text's color
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                //[UIFont boldSystemFontOfSize:17], NSFontAttributeName,
+                                [UIColor whiteColor], NSForegroundColorAttributeName,
+                                nil];
+    [self.segmentBtns setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    NSDictionary *highlightedAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    [self.segmentBtns setTitleTextAttributes:highlightedAttributes forState:UIControlStateSelected];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,12 +79,12 @@
 
 - (IBAction)showComponent:(UISegmentedControl *)sender {
     if (sender.selectedSegmentIndex == 0) {
-        UIViewController *newViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"A"];
+        UITableViewController *newViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"A"];
         newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
         [self cycleFromViewController:self.currentViewController toViewController:newViewController];
         self.currentViewController = newViewController;
     } else {
-        UIViewController *newViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"B"];
+        UIViewController *newViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Map"];
         newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
         [self cycleFromViewController:self.currentViewController toViewController:newViewController];
         self.currentViewController = newViewController;

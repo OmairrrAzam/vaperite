@@ -40,7 +40,7 @@
     [self.collectionView setShowsHorizontalScrollIndicator:NO];
     [self.collectionView setShowsVerticalScrollIndicator:YES];
     self.collectionView.layer.borderWidth = 1;
-     self.collectionView.layer.borderColor = [UIColor colorWithRed:203 green:226 blue:221 alpha:1].CGColor;
+    self.collectionView.layer.borderColor = [UIColor colorWithRed:203 green:226 blue:221 alpha:1].CGColor;
     
     
 }

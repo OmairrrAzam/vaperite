@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AFNetworkReachabilityManager.h"
+#import <GoogleMaps/GoogleMaps.h>
 #import "NXOAuth2.h"
 
 @interface AppDelegate ()
@@ -18,13 +19,23 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    //Gmap initialization
+    [GMSServices provideAPIKey:@"AIzaSyDU84AYMFzQeWEZWtIYkfHLwx2mXzw34IE"];
+    
+    
+    
+    
+    // aftnetworking initialization
     
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         NSLog(@"Reachability: %@", AFStringFromNetworkReachabilityStatus(status));
     }];
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
+    
+    // oauth initialization
     
     [[NXOAuth2AccountStore sharedStore] setClientID:@"6e1d10e6193b08ecd310c227d7b158c3"
                                              secret:@"1e8b98d07d01ded22a3062d5f5aca59e"
