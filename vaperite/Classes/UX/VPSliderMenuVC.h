@@ -11,5 +11,6 @@
 
 @interface VPSliderMenuVC :VPBaseVC <UITableViewDataSource>
 
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end

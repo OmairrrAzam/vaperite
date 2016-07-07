@@ -23,6 +23,8 @@
 		182DC7C81D27AD3200B049D6 /* VPMapTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7C71D27AD3200B049D6 /* VPMapTableVC.m */; };
 		182DC7CB1D27B8D200B049D6 /* VPBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7CA1D27B8D200B049D6 /* VPBaseTableViewCell.m */; };
 		182DC7CE1D27B9CA00B049D6 /* VPMapTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7CD1D27B9CA00B049D6 /* VPMapTableViewCell.m */; };
+		182DC7D51D29221900B049D6 /* leftMenu.plist in Resources */ = {isa = PBXBuildFile; fileRef = 182DC7D41D29221900B049D6 /* leftMenu.plist */; };
+		18E3EE6F1D2BBD7F000729E3 /* VPMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E3EE6E1D2BBD7F000729E3 /* VPMenuTableViewCell.m */; };
 		18F3D7AD1D1CB6E6009D8EE3 /* VPLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7AC1D1CB6E6009D8EE3 /* VPLoginVC.m */; };
 		18F3D7B31D1CB8C6009D8EE3 /* VPBaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7B21D1CB8C6009D8EE3 /* VPBaseTextField.m */; };
 		18F3D7B91D1CFDB8009D8EE3 /* TMBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7B61D1CFDB8009D8EE3 /* TMBaseManager.m */; };
@@ -74,6 +76,9 @@
 		182DC7CA1D27B8D200B049D6 /* VPBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPBaseTableViewCell.m; path = Classes/UX/VPBaseTableViewCell.m; sourceTree = "<group>"; };
 		182DC7CC1D27B9CA00B049D6 /* VPMapTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPMapTableViewCell.h; path = Classes/UX/VPMapTableViewCell.h; sourceTree = "<group>"; };
 		182DC7CD1D27B9CA00B049D6 /* VPMapTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPMapTableViewCell.m; path = Classes/UX/VPMapTableViewCell.m; sourceTree = "<group>"; };
+		182DC7D41D29221900B049D6 /* leftMenu.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = leftMenu.plist; sourceTree = "<group>"; };
+		18E3EE6D1D2BBD7F000729E3 /* VPMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPMenuTableViewCell.h; sourceTree = "<group>"; };
+		18E3EE6E1D2BBD7F000729E3 /* VPMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPMenuTableViewCell.m; sourceTree = "<group>"; };
 		18F3D7AB1D1CB6E6009D8EE3 /* VPLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPLoginVC.h; path = Classes/UX/VPLoginVC.h; sourceTree = "<group>"; };
 		18F3D7AC1D1CB6E6009D8EE3 /* VPLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPLoginVC.m; path = Classes/UX/VPLoginVC.m; sourceTree = "<group>"; };
 		18F3D7B11D1CB8C6009D8EE3 /* VPBaseTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPBaseTextField.h; sourceTree = "<group>"; };
@@ -143,6 +148,7 @@
 		1805FF981D1B11440005E8AD /* vaperite */ = {
 			isa = PBXGroup;
 			children = (
+				182DC7D41D29221900B049D6 /* leftMenu.plist */,
 				1805FFB11D1B1F600005E8AD /* AppDelegate */,
 				1805FFB71D1B1FAD0005E8AD /* Resources */,
 				1805FFB61D1B1F9D0005E8AD /* Classes */,
@@ -217,6 +223,8 @@
 				182DC7C71D27AD3200B049D6 /* VPMapTableVC.m */,
 				182DC7CC1D27B9CA00B049D6 /* VPMapTableViewCell.h */,
 				182DC7CD1D27B9CA00B049D6 /* VPMapTableViewCell.m */,
+				18E3EE6D1D2BBD7F000729E3 /* VPMenuTableViewCell.h */,
+				18E3EE6E1D2BBD7F000729E3 /* VPMenuTableViewCell.m */,
 			);
 			name = UX;
 			sourceTree = "<group>";
@@ -391,6 +399,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				182DC7D51D29221900B049D6 /* leftMenu.plist in Resources */,
 				1805FFA91D1B11450005E8AD /* LaunchScreen.storyboard in Resources */,
 				18F3D7F81D21866B009D8EE3 /* Assets.xcassets in Resources */,
 				1805FFA41D1B11450005E8AD /* Main.storyboard in Resources */,
@@ -456,6 +465,7 @@
 				18F3D7CF1D20F18E009D8EE3 /* VPRegisterVC.m in Sources */,
 				1805FF9E1D1B11440005E8AD /* AppDelegate.m in Sources */,
 				18F3D7AD1D1CB6E6009D8EE3 /* VPLoginVC.m in Sources */,
+				18E3EE6F1D2BBD7F000729E3 /* VPMenuTableViewCell.m in Sources */,
 				18F3D8011D23EC45009D8EE3 /* VPBaseNavigationController.m in Sources */,
 				180DDB3A1D1C093E00083967 /* MEZoomAnimationController.m in Sources */,
 				18F3D7C31D20E3EE009D8EE3 /* VPProductModel.m in Sources */,
