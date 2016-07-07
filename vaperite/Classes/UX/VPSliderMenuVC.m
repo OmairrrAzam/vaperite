@@ -122,7 +122,7 @@
     // This undoes the Zoom Transition's scale because it affects the other transitions.
     // You normally wouldn't need to do anything like this, but we're changing transitions
     // dynamically so everything needs to start in a consistent state.
-     self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
+    
     
     
     
@@ -132,7 +132,7 @@
     
     NSDictionary *actualElement = [[self.cellDescriptors objectAtIndex:indexPath.section]objectAtIndex:selectedRow.intValue];
     
-    if ([actualElement objectForKey:@"isExpandable"] ) {
+    if ([[actualElement objectForKey:@"isExpandable"]boolValue] ) {
         
         NSNumber *shouldExpandAndShowSubRows = [NSNumber numberWithBool:FALSE];
         Boolean isExpanded = [[actualElement objectForKey:@"isExpanded"]boolValue];
@@ -154,7 +154,8 @@
         [self getIndicesOfVisibleRows];
         [self.tableView reloadData];
     }else{
-        self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Location"];
+        self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
+        self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:[actualElement objectForKey:@"viewController"]];
         [self.slidingViewController resetTopViewAnimated:YES];
     }
     

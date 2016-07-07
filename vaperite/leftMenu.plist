@@ -4,6 +4,8 @@
 <array>
 	<array>
 		<dict>
+			<key>viewController</key>
+			<string>Main</string>
 			<key>isChild</key>
 			<false/>
 			<key>ivIcon</key>
@@ -46,6 +48,8 @@
 			<integer>2</integer>
 		</dict>
 		<dict>
+			<key>viewController</key>
+			<string></string>
 			<key>isChild</key>
 			<true/>
 			<key>isExpandable</key>
@@ -86,6 +90,8 @@
 			<integer>0</integer>
 		</dict>
 		<dict>
+			<key>viewController</key>
+			<string>Location</string>
 			<key>isChild</key>
 			<false/>
 			<key>ivIcon</key>

@@ -9,6 +9,5 @@
 #import "VPBaseVC.h"
 #import "ECSlidingViewController.h"
 
-@interface VPDashboardVc : VPBaseVC <ECSlidingViewControllerDelegate>
-- (IBAction)menuButtonTapped:(id)sender;
+@interface VPDashboardVc : VPBaseVC
 @end

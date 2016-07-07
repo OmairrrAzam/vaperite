@@ -9,7 +9,6 @@
 #import "VPDashboardVc.h"
 #import "QuartzCore/QuartzCore.h"
 #import "VPProductCollectionViewCell.h"
-#import "UIViewController+ECSlidingViewController.h"
 #import "MEDynamicTransition.h"
 #import "METransitions.h"
 
@@ -109,8 +108,6 @@
 }
 */
 
-- (IBAction)menuButtonTapped:(id)sender {
-    [self.slidingViewController anchorTopViewToRightAnimated:YES];
-}
+
 
 @end

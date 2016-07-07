@@ -8,6 +8,7 @@
 
 #import "VPBaseVC.h"
 #import <KVNProgress/KVNProgress.h>
+#import "UIViewController+ECSlidingViewController.h"
 
 
 @interface VPBaseVC ()
@@ -118,6 +119,10 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
         [KVNProgress showSuccessWithStatus:@"Success"];
         [KVNProgress setConfiguration:self.basicConfiguration];
     });
+}
+
+- (IBAction)menuButtonTapped:(id)sender {
+    [self.slidingViewController anchorTopViewToRightAnimated:YES];
 }
 
 

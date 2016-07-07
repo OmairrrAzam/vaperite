@@ -61,6 +61,9 @@
                                 <rect key="frame" x="16" y="9" width="30" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="menu-icon"/>
+                                <connections>
+                                    <action selector="menuButtonTapped:" destination="f6q-nY-GbC" eventType="touchUpInside" id="lsf-iY-mji"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="vAA-Ld-nqL">

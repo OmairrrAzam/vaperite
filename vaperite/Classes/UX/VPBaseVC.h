@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ECSlidingViewController.h"
 
-@interface VPBaseVC : UIViewController
+@interface VPBaseVC : UIViewController <ECSlidingViewControllerDelegate>
 - (void)startAnimating;
+- (IBAction)menuButtonTapped:(id)sender;
 @end
