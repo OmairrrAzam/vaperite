@@ -46,7 +46,11 @@ BOOL over18 = FALSE;
     [self.segmentBtns setTitleTextAttributes:attributes forState:UIControlStateNormal];
      NSDictionary *highlightedAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     [self.segmentBtns setTitleTextAttributes:highlightedAttributes forState:UIControlStateSelected];
+   
+    
+
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -60,6 +64,7 @@ BOOL over18 = FALSE;
     if(over18){
         self.eighteenPlusView.hidden = YES;
         [self loadMapTableContainer];
+        //[self startAnimating];
     }else{
         self.navigationController.navigationBar.layer.zPosition = -1;
         [self stopAnimating];

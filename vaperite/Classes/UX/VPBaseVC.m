@@ -21,16 +21,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.basicConfiguration = [KVNProgressConfiguration defaultConfiguration];
+    self.basicConfiguration  = [KVNProgressConfiguration defaultConfiguration];
     self.customConfiguration = [self customKVNProgressUIConfiguration];
     [KVNProgress setConfiguration:self.customConfiguration];
-    
+    self.navigationItem.rightBarButtonItem =[self cartButton];
+    self.navigationItem.leftBarButtonItem  =[self menuButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    
     [super viewDidAppear:animated];
-    
     [self startAnimating];
 }
 
@@ -84,7 +83,7 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 }
 
 
-#pragma mark - UI
+#pragma mark - Private Methods
 
 - (KVNProgressConfiguration *)customKVNProgressUIConfiguration
 {
@@ -137,6 +136,38 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 - (IBAction)menuButtonTapped:(id)sender {
     
     [self.slidingViewController anchorTopViewToRightAnimated:YES];
+    if ([self.slidingViewController currentTopViewPosition] == ECSlidingViewControllerTopViewPositionAnchoredRight) {
+        [self.slidingViewController resetTopViewAnimated:YES];
+    }
+}
+
+- (UIBarButtonItem *)cartButton
+{
+    UIImage *image = [UIImage imageNamed:@"add-to-cart-icon.png"];
+    CGRect buttonFrame = CGRectMake(0, 0, image.size.width, image.size.height);
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
+    [button addTarget:self action:@selector(menuButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [button setImage:image forState:UIControlStateNormal];
+    
+    UIBarButtonItem *item= [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    
+    return item;
+}
+
+- (UIBarButtonItem *)menuButton
+{
+    UIImage *image = [UIImage imageNamed:@"menu-icon.png"];
+    CGRect buttonFrame = CGRectMake(0, 0, image.size.width, image.size.height);
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
+    [button addTarget:self action:@selector(menuButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [button setImage:image forState:UIControlStateNormal];
+    
+    UIBarButtonItem *item= [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    return item;
 }
 
 

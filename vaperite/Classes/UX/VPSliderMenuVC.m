@@ -29,11 +29,6 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    self.menuItems = [NSArray arrayWithObjects:@"Main", @"Second", nil];
-    //self.tableView.separatorColor = [UIColor clearColor];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -69,7 +64,6 @@
             }
         }
         [self.visibleRowsPerSection addObject:visibleRows];
-        
     }
 }
 
@@ -110,7 +104,6 @@
     VPMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if(cell == nil){
-        
         cell = [[VPMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier ];
     }
     
@@ -156,6 +149,7 @@
             childrenCount--;
         }
         [self getIndicesOfVisibleRows];
+        
         [self.tableView reloadData];
     }else{
         self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);

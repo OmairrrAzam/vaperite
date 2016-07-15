@@ -35,7 +35,7 @@
             }
         }else{
             self.ivDropDown.image = [UIImage imageNamed:@"uk"];
-            
+            self.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
             if ([[self.menuItem objectForKey:@"isChild"]boolValue]){
                 self.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0);
             }
@@ -43,8 +43,6 @@
         self.ivIcon.image = [UIImage imageNamed:[self.menuItem objectForKey:@"ivIcon"]];
         self.lblTitle.text = [self.menuItem objectForKey:@"value"];
         [self setBackgroundColor:[UIColor clearColor]];
-    
-    
 }
 
 @end

@@ -99,13 +99,20 @@ NSArray *timess;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    //VPMarkerModel *selectedLocation =  [VPMarkerModel currentStore];
+    VPMarkerModel *clickedLocation = [self.markers objectAtIndex:indexPath.section];
+//    if (selectedLocation) {
+//        if (selectedLocation.id == clickedLocation.id) {
+//            return;
+//        }
+//    }
+    [clickedLocation save];
     self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
     self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
     [self.slidingViewController resetTopViewAnimated:YES];//    NSString * storyboardName = @"Main";
     
-    VPMarkerModel *selectedMarker = [self.markers objectAtIndex:indexPath.section];
-    [selectedMarker save];
+    
+    
 
 }
 
