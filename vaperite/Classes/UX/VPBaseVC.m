@@ -23,11 +23,15 @@
     // Do any additional setup after loading the view.
     self.basicConfiguration = [KVNProgressConfiguration defaultConfiguration];
     self.customConfiguration = [self customKVNProgressUIConfiguration];
+    [KVNProgress setConfiguration:self.customConfiguration];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+    
     [super viewDidAppear:animated];
-    [KVNProgress setConfiguration:self.customConfiguration];
+    
+    [self startAnimating];
 }
 
 
@@ -87,13 +91,13 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
     KVNProgressConfiguration *configuration = [[KVNProgressConfiguration alloc] init];
     
     // See the documentation of KVNProgressConfiguration
-    configuration.statusColor = [UIColor whiteColor];
-    configuration.statusFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:15.0f];
-    configuration.circleStrokeForegroundColor = [UIColor whiteColor];
+    configuration.statusColor = [UIColor blackColor];
+    //configuration.statusFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:15.0f];
+    configuration.circleStrokeForegroundColor = [UIColor blueColor];
     configuration.circleStrokeBackgroundColor = [UIColor colorWithWhite:1.0f alpha:0.3f];
     configuration.circleFillBackgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f];
     configuration.backgroundFillColor = [UIColor colorWithRed:0.173f green:0.263f blue:0.856f alpha:0.9f];
-    configuration.backgroundTintColor = [UIColor colorWithRed:0.173f green:0.263f blue:0.856f alpha:0.4f];
+    //configuration.backgroundTintColor = [UIColor colorWithRed:0.173f green:0.263f blue:0.856f alpha:0.4f];
     configuration.successColor = [UIColor whiteColor];
     configuration.errorColor = [UIColor whiteColor];
     configuration.stopColor = [UIColor whiteColor];
@@ -110,18 +114,28 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 }
 
 -(void)startAnimating{
-    [KVNProgress showProgress:0.0f
-                   status:@"You can custom several things like colors, fonts, circle size, and more!"];
+      [KVNProgress showWithStatus:@"Loading..."];
+    //[KVNProgress showProgress:0.0f
+                   //status:@"You can custom several things like colors, fonts, circle size, and more!"];
 
-    [self updateProgress];
+    //[self updateProgress];
 
-    dispatch_main_after(5.5f, ^{
-        [KVNProgress showSuccessWithStatus:@"Success"];
-        [KVNProgress setConfiguration:self.basicConfiguration];
-    });
+//    dispatch_main_after(5.5f, ^{
+//        [KVNProgress showSuccessWithStatus:@"Success"];
+//        [KVNProgress setConfiguration:self.basicConfiguration];
+//    });
 }
 
+-(void)stopAnimating{
+    
+    [KVNProgress dismiss];
+}
+
+-(void)showError:(NSString*)errorMsg{
+    [KVNProgress showErrorWithStatus:errorMsg];
+}
 - (IBAction)menuButtonTapped:(id)sender {
+    
     [self.slidingViewController anchorTopViewToRightAnimated:YES];
 }
 

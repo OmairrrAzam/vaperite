@@ -10,4 +10,10 @@
 
 @interface VPProductModel : NSObject
 
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *price;
+@property (strong, nonatomic) NSString *imgUrl;
+
++ (NSArray *)loadFromArray:(NSArray *)arrProducts;
+
 @end

@@ -11,5 +11,7 @@
 
 @interface VPBaseVC : UIViewController <ECSlidingViewControllerDelegate>
 - (void)startAnimating;
+- (void)stopAnimating;
 - (IBAction)menuButtonTapped:(id)sender;
+- (void)showError:(NSString*)errorMsg;
 @end

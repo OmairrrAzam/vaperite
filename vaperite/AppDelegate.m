@@ -10,6 +10,7 @@
 #import "AFNetworkReachabilityManager.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import "NXOAuth2.h"
+#import "AFNetworkActivityLogger.h"
 
 @interface AppDelegate ()
 
@@ -45,7 +46,8 @@
                                      forAccountType:@"Magento"];
     
     
-    
+    [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
+    [[AFNetworkActivityLogger sharedLogger] startLogging];
     
     return YES;
 }

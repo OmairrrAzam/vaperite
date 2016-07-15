@@ -36,6 +36,11 @@
     //self.tableView.separatorColor = [UIColor clearColor];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self stopAnimating];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -123,8 +128,7 @@
     // You normally wouldn't need to do anything like this, but we're changing transitions
     // dynamically so everything needs to start in a consistent state.
     
-    
-    
+
     
     //NSString *menuItem = self.menuItems[indexPath.row];
     NSMutableArray *selectedSection = [self.visibleRowsPerSection objectAtIndex:indexPath.section];

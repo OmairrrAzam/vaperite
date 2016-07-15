@@ -10,4 +10,7 @@
 
 @interface VPUsersModel : NSObject
 
+@property (strong, nonatomic) NSString *token;
++(void)saveToSession:(NSDictionary*)dict;
++(NSDictionary*)getTokenFromSession;
 @end

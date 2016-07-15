@@ -6,8 +6,8 @@
 //  Copyright © 2016 Apple. All rights reserved.
 //
 
-#import "VPBaseVC.h"
+#import "VPBaseLocationVC.h"
 
-@interface VPGMapVC : VPBaseVC
+@interface VPGMapVC : VPBaseLocationVC
 
 @end

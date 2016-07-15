@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VPBaseLocationVC.h"
 
-@interface VPMapTableVC : UITableViewController
+@interface VPMapTableVC : VPBaseLocationVC <UITableViewDelegate, UITableViewDataSource>
 
 
 @end

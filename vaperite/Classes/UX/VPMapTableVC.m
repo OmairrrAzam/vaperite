@@ -8,8 +8,11 @@
 
 #import "VPMapTableVC.h"
 #import "VPMapTableViewCell.h"
+#import "VPDashboardVc.h"
+#import "UIViewController+ECSlidingViewController.h"
 
 @interface VPMapTableVC ()
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 
 @end
@@ -22,15 +25,7 @@ NSArray *timess;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Initialize table data
-    tableData = [NSArray arrayWithObjects:@"Egg Benedict", @"starbucks_coffee", @"japanese_noodle_with_pork", nil];
-    
-    // Initialize thumbnails
-    thumbnails = [NSArray arrayWithObjects:@"egg_benedict.png", @"starbucks_coffee.png", @"japanese_noodle_with_pork.png", nil];
 
-    numbers = [NSArray arrayWithObjects:@"Contact Number 470-348-5938", @"Contact Number 470-348-5938", @"Contact Number 470-348-5938", nil];
-    
-    timess = [NSArray arrayWithObjects:@"Opening Time: 06:00Am to 09:00Pm", @"Opening Time: 07:00Am to 09:00Pm", @"Opening Time: 08:00Am to 09:00Pm", nil];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.tableView setBackgroundColor : [UIColor colorWithRed:203/255.0 green:227/255.0 blue:222/255.0 alpha:1]];
     // Uncomment the following line to preserve selection between presentations.
@@ -46,12 +41,11 @@ NSArray *timess;
 }
 
 
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 3;
+   return [self.markers count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -70,7 +64,7 @@ NSArray *timess;
     return v;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+  
     static NSString *cellIdentifier = @"MapCell";
     VPMapTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
@@ -81,61 +75,36 @@ NSArray *timess;
     //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
     // Configure the cell...
-    cell.imgMap.image   = [UIImage imageNamed:[thumbnails objectAtIndex:indexPath.row]];
-    cell.lblName.text = @"Vaperite woodssstock 10900 Medlock Bridge road Suite 301";
-    cell.lblCellNo.text = [numbers objectAtIndex:indexPath.section];
-    cell.lblDistance.text = @"5Km";
-    cell.lblTime.text = [timess objectAtIndex:indexPath.section];
-    cell.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:248/255.0 alpha:1];
+    VPMarkerModel *currentLocation = [self.markers objectAtIndex:indexPath.section];
+    
+    cell.imgMap.image       = [UIImage imageNamed:currentLocation.imgName];
+    cell.lblName.text       = currentLocation.title;
+    cell.lblCellNo.text     = currentLocation.contactNumber;
+    cell.lblDistance.text   = [NSString stringWithFormat:@"%i Km",(int)currentLocation.distantFromCurrentLocation.intValue];
+    cell.lblTime.text       = currentLocation.timings;
+    cell.backgroundColor    = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:248/255.0 alpha:1];
     
     return cell;
 }
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
+    self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
+    [self.slidingViewController resetTopViewAnimated:YES];//    NSString * storyboardName = @"Main";
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+//    VPDashboardVc * vc = [storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
+//    [self presentViewController:vc animated:nil completion:nil];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+#pragma mark - VPLocationManagerDelegate Methods
+
+- (void)locationManager:(VPLocationManager *)manager didFetchDistance:(NSMutableArray *)markerArray {
+    [super locationManager:manager didFetchDistance:markerArray];
+    [self.tableView reloadData];
+    
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
- 
-*/
 
 
 

@@ -8,20 +8,24 @@
 
 #import "TestViewController.h"
 
+
 @interface TestViewController ()
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentBtns;
 @property (weak, nonatomic) UIViewController *currentViewController;
+@property (weak, nonatomic) IBOutlet UIView *eighteenPlusView;
 @end
 
 @implementation TestViewController
+BOOL over18 = FALSE;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     self.currentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"A"];
-     self.currentViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addChildViewController:self.currentViewController];
-    [self addSubview:self.currentViewController.view toView:self.containerView];
+    
+    //showing eighteen+ view over all other view ..... can't be set from storyboard
+    //self.eighteenPlusView.layer.zPosition = 100;
+    
+    
     NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.segmentBtns
                                                                   attribute:NSLayoutAttributeHeight
                                                                   relatedBy:NSLayoutRelationEqual
@@ -31,18 +35,16 @@
                                                                    constant:46];
     [self.segmentBtns addConstraint:constraint];
     [[UISegmentedControl appearance] setBackgroundColor:[UIColor colorWithRed:98/255.0 green:99/255.0 blue:100/255.0 alpha:1]];
-    //[[UISegmentedControl appearance] setTitleTextAttributes:@{NSBackgroundColorAttributeName: [UIColor blackColor] } forState:UIControlStateNormal];
-    //[self.segmentBtns setSelectedSegmentIndex:-1];
-    self.segmentBtns.tintColor = [UIColor  colorWithRed:210/255.0 green:190/255.0 blue:29/255.0 alpha:1];
-    //colorWithRed:211 green:187 blue:0 alpha:1
+   
     
-    // change text's color
+    self.segmentBtns.tintColor = [UIColor  colorWithRed:210/255.0 green:190/255.0 blue:29/255.0 alpha:1];
+    
+    
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                //[UIFont boldSystemFontOfSize:17], NSFontAttributeName,
-                                [UIColor whiteColor], NSForegroundColorAttributeName,
+                               [UIColor whiteColor], NSForegroundColorAttributeName,
                                 nil];
     [self.segmentBtns setTitleTextAttributes:attributes forState:UIControlStateNormal];
-    NSDictionary *highlightedAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+     NSDictionary *highlightedAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     [self.segmentBtns setTitleTextAttributes:highlightedAttributes forState:UIControlStateSelected];
 }
 
@@ -51,6 +53,20 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    
+    if(over18){
+        self.eighteenPlusView.hidden = YES;
+        [self loadMapTableContainer];
+    }else{
+        self.navigationController.navigationBar.layer.zPosition = -1;
+        [self stopAnimating];
+    }
+    
+    
+}
 /*
 #pragma mark - Navigation
 
@@ -112,4 +128,27 @@
                          [newViewController didMoveToParentViewController:self];
                      }];
 }
+
+#pragma mark - IBAction methods
+
+- (IBAction)btnOver18:(id)sender {
+    [self.eighteenPlusView removeFromSuperview];
+    over18 = TRUE;
+    self.navigationController.navigationBar.layer.zPosition = 1;
+    [self loadMapTableContainer];
+    
+}
+- (IBAction)btnUnder18:(id)sender {
+    exit(0);
+}
+#pragma mark - private methods
+
+- (void)loadMapTableContainer{
+    //Container Views Switching
+    self.currentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"A"];
+    self.currentViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addChildViewController:self.currentViewController];
+    [self addSubview:self.currentViewController.view toView:self.containerView];
+}
+
 @end

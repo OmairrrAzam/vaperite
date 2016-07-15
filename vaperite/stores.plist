@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>title</key>
+		<string>VapeRite Woodstock</string>
+		<key>snippet</key>
+		<string>VapeRite Woodstock Store</string>
+		<key>latitude</key>
+		<real>34.0870804</real>
+		<key>longitude</key>
+		<real>-84.53318729999999</real>
+		<key>contactNumber</key>
+		<string>Contact Number: 678-494-2261</string>
+		<key>timings</key>
+		<string>Monday - Saturday 10 AM to 9 PM, Sundays, from 11 - 6PM.</string>
+		<key>imageName</key>
+		<string>vaperite_woodstock</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>VapeRite Atlanta</string>
+		<key>snippet</key>
+		<string>VapeRite Atlanta Store</string>
+		<key>latitude</key>
+		<real>33.8191469</real>
+		<key>longitude</key>
+		<real>-84.3527308</real>
+		<key>contactNumber</key>
+		<string>Contact Number: 404-500-5826</string>
+		<key>timings</key>
+		<string>Monday - Saturday 10 AM to 9 PM, Sundays, from 11 - 6PM.</string>
+		<key>imageName</key>
+		<string>vaperite_atlanta</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>VapeRite Johns Creek</string>
+		<key>snippet</key>
+		<string>VapeRite Johns Creek Store</string>
+		<key>latitude</key>
+		<real>34.0479263</real>
+		<key>longitude</key>
+		<real>-84.1791415</real>
+		<key>contactNumber</key>
+		<string>Contact Number: 470-375-5938</string>
+		<key>timings</key>
+		<string>Monday - Saturday 10 AM to 8 PM, Sundays, from 11 - 5PM.</string>
+		<key>imageName</key>
+		<string>vaperite_johns_creek</string>
+	</dict>
+</array>
+</plist>
