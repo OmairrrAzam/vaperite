@@ -38,6 +38,7 @@ MKRouteStep *lastStep;
     NSNumber *longitude = [dictMarker objectForKeyHandlingNull:@"longitude"];
     
     self.title              = [dictMarker objectForKeyHandlingNull:@"title"];
+    self.id              = [dictMarker objectForKeyHandlingNull:@"id"];
     self.snippet            = [dictMarker objectForKeyHandlingNull:@"snippet"] ;
     self.appearAnimation    = kGMSMarkerAnimationPop;
     self.contactNumber      = [dictMarker objectForKeyHandlingNull:@"contactNumber"];
@@ -48,20 +49,16 @@ MKRouteStep *lastStep;
     return self;
 }
 
-+(void)saveToSession:(NSDictionary*)dict {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:dict[@"oauth_token"] forKey:kSelectedStoreId];
-}
 
-+(NSDictionary*)getTokenFromSession{
-    
+
++ (VPMarkerModel *)currentStore {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    NSDictionary *tokenDict = [[NSDictionary alloc]initWithObjectsAndKeys:
-                               [defaults objectForKey:kOauthToken], kOauthToken,
-                               [defaults objectForKey:kOauthTokenSecret], kOauthTokenSecret,nil];
-    
-    
-    return tokenDict;
+    NSString *storeId = [defaults objectForKey:kSelectedStoreId];
+    VPMarkerModel *marker = nil;
+    if (storeId) {
+        marker = [[VPMarkerModel alloc] init];
+        marker.id = storeId;
+    }
+    return marker;
 }
 @end

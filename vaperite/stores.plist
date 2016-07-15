@@ -3,6 +3,8 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>id</key>
+		<string>1</string>
 		<key>title</key>
 		<string>VapeRite Woodstock</string>
 		<key>snippet</key>
@@ -19,6 +21,8 @@
 		<string>vaperite_woodstock</string>
 	</dict>
 	<dict>
+		<key>id</key>
+		<string>2</string>
 		<key>title</key>
 		<string>VapeRite Atlanta</string>
 		<key>snippet</key>
@@ -35,6 +39,8 @@
 		<string>vaperite_atlanta</string>
 	</dict>
 	<dict>
+		<key>3</key>
+		<string>3</string>
 		<key>title</key>
 		<string>VapeRite Johns Creek</string>
 		<key>snippet</key>

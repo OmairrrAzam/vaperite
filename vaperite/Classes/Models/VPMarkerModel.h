@@ -11,6 +11,7 @@
 
 @interface VPMarkerModel : GMSMarker
 
+@property (strong, nonatomic) NSString *id;
 @property (strong, nonatomic) NSNumber *distantFromCurrentLocation;
 @property (strong, nonatomic) NSString *timings;
 @property (strong, nonatomic) NSString *contactNumber;
@@ -21,5 +22,5 @@
 - (id)initWithDictionary:(NSDictionary *)dictMarker;
 + (NSArray *)loadFromArray:(NSArray *)arrMarkers;
 +(void)saveToSession:(NSDictionary*)dict;
-
++ (VPMarkerModel *)currentStore;
 @end
