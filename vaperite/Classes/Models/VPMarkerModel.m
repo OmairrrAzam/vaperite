@@ -28,6 +28,16 @@ MKRouteStep *lastStep;
     return markers;
 }
 
++ (VPMarkerModel *)currentStore {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *storeId = [defaults objectForKey:kSelectedStoreId];
+    VPMarkerModel *marker = nil;
+    if (storeId) {
+        marker = [[VPMarkerModel alloc] init];
+        marker.id = storeId;
+    }
+    return marker;
+}
 
 
 - (id)initWithDictionary:(NSDictionary *)dictMarker {
@@ -49,16 +59,19 @@ MKRouteStep *lastStep;
     return self;
 }
 
-
-
-+ (VPMarkerModel *)currentStore {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *storeId = [defaults objectForKey:kSelectedStoreId];
-    VPMarkerModel *marker = nil;
-    if (storeId) {
-        marker = [[VPMarkerModel alloc] init];
-        marker.id = storeId;
-    }
-    return marker;
+- (NSDictionary *)toDictionary {
+    NSMutableDictionary *dictMarker = [[NSMutableDictionary alloc] init];
+    [dictMarker setObject:self.id forKey:@"id"];
+    return @{@"marker": dictMarker};
 }
+
+- (void)save {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:self.id forKey:kSelectedStoreId];
+    [defaults synchronize];
+}
+
+
+
+
 @end

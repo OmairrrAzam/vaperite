@@ -63,6 +63,7 @@ NSArray *timess;
     [v setBackgroundColor:[UIColor clearColor]];
     return v;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   
     static NSString *cellIdentifier = @"MapCell";
@@ -71,29 +72,41 @@ NSArray *timess;
     if(cell == nil){
         cell = [[VPMapTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier ];
     }
+    
+    VPMarkerModel *location = [self.markers objectAtIndex:indexPath.section];
+    VPMarkerModel *selectedLocation =  [VPMarkerModel currentStore];
+    
+    cell.imgMap.image       = [UIImage imageNamed:location.imgName];
+    cell.lblName.text       = location.title;
+    cell.lblCellNo.text     = location.contactNumber;
+    cell.lblDistance.text   = [NSString stringWithFormat:@"%i Km",(int)location.distantFromCurrentLocation.intValue];
+    cell.lblTime.text       = location.timings;
+    cell.backgroundColor    = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:248/255.0 alpha:1];
+    
 
+    if (selectedLocation) {
+        if (selectedLocation.id == location.id) {
+            cell.backgroundColor = [UIColor  colorWithRed:210/255.0 green:190/255.0 blue:29/255.0 alpha:1];
+        
+        }
+    }
     //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
     // Configure the cell...
-    VPMarkerModel *currentLocation = [self.markers objectAtIndex:indexPath.section];
     
-    cell.imgMap.image       = [UIImage imageNamed:currentLocation.imgName];
-    cell.lblName.text       = currentLocation.title;
-    cell.lblCellNo.text     = currentLocation.contactNumber;
-    cell.lblDistance.text   = [NSString stringWithFormat:@"%i Km",(int)currentLocation.distantFromCurrentLocation.intValue];
-    cell.lblTime.text       = currentLocation.timings;
-    cell.backgroundColor    = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:248/255.0 alpha:1];
     
     return cell;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
     self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
     [self.slidingViewController resetTopViewAnimated:YES];//    NSString * storyboardName = @"Main";
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-//    VPDashboardVc * vc = [storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
-//    [self presentViewController:vc animated:nil completion:nil];
+    
+    VPMarkerModel *selectedMarker = [self.markers objectAtIndex:indexPath.section];
+    [selectedMarker save];
+
 }
 
 #pragma mark - VPLocationManagerDelegate Methods

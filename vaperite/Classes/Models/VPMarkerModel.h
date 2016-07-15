@@ -17,10 +17,10 @@
 @property (strong, nonatomic) NSString *contactNumber;
 @property (strong, nonatomic) NSString *imgName;
 
-
-
-- (id)initWithDictionary:(NSDictionary *)dictMarker;
 + (NSArray *)loadFromArray:(NSArray *)arrMarkers;
-+(void)saveToSession:(NSDictionary*)dict;
 + (VPMarkerModel *)currentStore;
+- (id)initWithDictionary:(NSDictionary *)dictMarker;
+- (NSDictionary *)toDictionary;
+- (void)save;
+
 @end
