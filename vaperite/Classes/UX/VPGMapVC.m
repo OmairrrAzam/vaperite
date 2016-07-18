@@ -19,6 +19,11 @@
     [super viewDidLoad];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self startAnimating];
+}
+
 -(void)showMap{
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.currentLocation.coordinate.latitude
                                                             longitude:self.currentLocation.coordinate.longitude

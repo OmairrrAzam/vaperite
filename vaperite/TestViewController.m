@@ -7,7 +7,7 @@
 //
 
 #import "TestViewController.h"
-
+#define kUserOver18         @"vaperite.user.over18"
 
 @interface TestViewController ()
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -17,7 +17,8 @@
 @end
 
 @implementation TestViewController
-BOOL over18 = FALSE;
+BOOL over18;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,7 +37,9 @@ BOOL over18 = FALSE;
     [self.segmentBtns addConstraint:constraint];
     [[UISegmentedControl appearance] setBackgroundColor:[UIColor colorWithRed:98/255.0 green:99/255.0 blue:100/255.0 alpha:1]];
    
-    
+   // [[[self.segmentBtns subviews] objectAtIndex:0] setTintColor:[UIColor clearColor]];
+    //[[UISegmentedControl appearance] setBackgroundColor:[UIColor clearColor]];
+   // [[[self.segmentBtns subviews] objectAtIndex:1] setTintColor:[UIColor clearColor]];
     self.segmentBtns.tintColor = [UIColor  colorWithRed:210/255.0 green:190/255.0 blue:29/255.0 alpha:1];
     
     
@@ -46,8 +49,19 @@ BOOL over18 = FALSE;
     [self.segmentBtns setTitleTextAttributes:attributes forState:UIControlStateNormal];
      NSDictionary *highlightedAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     [self.segmentBtns setTitleTextAttributes:highlightedAttributes forState:UIControlStateSelected];
-   
     
+    
+    
+   
+    over18 = [[NSUserDefaults standardUserDefaults] boolForKey:kUserOver18];
+    
+    if(over18) {
+        self.eighteenPlusView.hidden = YES;
+        
+        [self loadMapTableContainer];
+    } else {
+        self.navigationController.navigationBar.layer.zPosition = -1;
+    }
 
 }
 
@@ -61,16 +75,7 @@ BOOL over18 = FALSE;
     
     [super viewDidAppear:animated];
     
-    if(over18){
-        self.eighteenPlusView.hidden = YES;
-        [self loadMapTableContainer];
-        //[self startAnimating];
-    }else{
-        self.navigationController.navigationBar.layer.zPosition = -1;
-        [self stopAnimating];
-    }
-    
-    
+    [self stopAnimating];
 }
 /*
 #pragma mark - Navigation
@@ -138,7 +143,12 @@ BOOL over18 = FALSE;
 
 - (IBAction)btnOver18:(id)sender {
     [self.eighteenPlusView removeFromSuperview];
-    over18 = TRUE;
+    
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:YES forKey:kUserOver18];
+    [defaults synchronize];
+    
     self.navigationController.navigationBar.layer.zPosition = 1;
     [self loadMapTableContainer];
     

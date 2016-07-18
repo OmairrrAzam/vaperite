@@ -10,7 +10,7 @@
 #import "UIViewController+ECSlidingViewController.h"
 #import "VPMenuTableViewCell.h"
 
-@interface VPSliderMenuVC ()
+@interface VPSliderMenuVC () <UITableViewDataSource, UITableViewDelegate>
 @property (strong,nonatomic) NSArray *menuItems;
 @property (nonatomic, strong) NSMutableArray *cellDescriptors;
 @property (nonatomic, strong) NSMutableArray *visibleRowsPerSection;
@@ -111,6 +111,10 @@
     [cell configure];
     
     return cell;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 #pragma mark - UITableViewDelegate

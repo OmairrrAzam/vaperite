@@ -66,7 +66,7 @@
     
 //    // TAbs styling
 //    
-//    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.pageTabs
+   // NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.pageTabs
 //                                                                  attribute:NSLayoutAttributeHeight
 //                                                                  relatedBy:NSLayoutRelationEqual
 //                                                                     toItem:nil
@@ -90,7 +90,7 @@
 //    [self.pageTabs setWidth:80.0 forSegmentAtIndex:0];
 //    [self.pageTabs setWidth:80.0 forSegmentAtIndex:1];
 //    [self.pageTabs setWidth:80.0 forSegmentAtIndex:2];
-    
+//    
 //    self.pageTabs.layer.cornerRadius = 15.0;
 //    self.pageTabs.layer.borderColor = [UIColor grayColor].CGColor;
 //    self.pageTabs.layer.borderWidth = 1.0f;
@@ -98,21 +98,24 @@
     
     
     
-//    
+    
 //    NSArray *items = @[@"Features", @"Recommended", @"Award"];
 //    VPTabsUISegmentedControl *tabsControl = [[VPTabsUISegmentedControl alloc] initWithItems:items];
 //    
 //    
-//    tabsControl.frame = CGRectMake(10, 7, self.view.frame.size.width - 20, tabsControl.frame.size.height);
+//    tabsControl.frame =  CGRectMake(15, 200, self.mainView.bounds.size.width-25.0, 35);
 //    tabsControl.selectedSegmentIndex = 0;
 //    //tabsControl.tintColor = [UIColor  colorWithRed:254/255.0 green:116/255.0 blue:12/255.0 alpha:1];
-//    
-//    [tabsControl setWidth:80.0 forSegmentAtIndex:0];
-//    [tabsControl setWidth:60.0 forSegmentAtIndex:1];
-//    [tabsControl setWidth:80.0 forSegmentAtIndex:2];
+//    //tabsControl.tintColor = [UIColor yellowColor];
+//    //[tabscontrol setBackgroundImage:[UIColor clearColor] forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+//    //[tabsControl setWidth:tabsControl.bounds.size.width/3 forSegmentAtIndex:0];
+//    //[tabsControl setWidth:tabsControl.bounds.size.width/3 - 20  forSegmentAtIndex:1];
+//    //[tabsControl setWidth:tabsControl.bounds.size.width/3 forSegmentAtIndex:2];
 //
+//    //[[[tabsControl subviews] objectAtIndex:0] setTintColor:[UIColor redColor]];
+//    //[[[tabsControl subviews] objectAtIndex:0] sel];
 //    //tabsControl.tintColor = [UIColor  clearColor];
-//    
+//    tabsControl.backgroundColor = [UIColor clearColor];
 //    [self.mainView addSubview:tabsControl];
     
 }
@@ -239,11 +242,10 @@
     self.products = products;
     [self.collectionView reloadData];
     [self stopAnimating];
-    
 }
 
 - (void)productManager:(VPProductManager *)manager didFailToFetchProducts:(NSString *)message{
-    
+    [self showError:message];
 }
 
 @end

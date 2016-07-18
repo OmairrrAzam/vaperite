@@ -11,10 +11,8 @@
 #import "VPDashboardVc.h"
 #import "UIViewController+ECSlidingViewController.h"
 
-@interface VPMapTableVC ()
+@interface VPMapTableVC () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-
 @end
 
 @implementation VPMapTableVC
@@ -35,6 +33,12 @@ NSArray *timess;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    [self startAnimating];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -44,14 +48,14 @@ NSArray *timess;
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
+    
    return [self.markers count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
     return 1;
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 3;
@@ -74,8 +78,9 @@ NSArray *timess;
     }
     
     VPMarkerModel *location = [self.markers objectAtIndex:indexPath.section];
+   
     VPMarkerModel *selectedLocation =  [VPMarkerModel currentStore];
-    
+  
     cell.imgMap.image       = [UIImage imageNamed:location.imgName];
     cell.lblName.text       = location.title;
     cell.lblCellNo.text     = location.contactNumber;
@@ -84,7 +89,7 @@ NSArray *timess;
     cell.backgroundColor    = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:248/255.0 alpha:1];
     
 
-    if (selectedLocation) {
+    if (selectedLocation != nil) {
         if (selectedLocation.id == location.id) {
             cell.backgroundColor = [UIColor  colorWithRed:210/255.0 green:190/255.0 blue:29/255.0 alpha:1];
         
@@ -110,22 +115,15 @@ NSArray *timess;
     self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
     self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
     [self.slidingViewController resetTopViewAnimated:YES];//    NSString * storyboardName = @"Main";
-    
-    
-    
-
 }
 
 #pragma mark - VPLocationManagerDelegate Methods
 
 - (void)locationManager:(VPLocationManager *)manager didFetchDistance:(NSMutableArray *)markerArray {
+    
     [super locationManager:manager didFetchDistance:markerArray];
     [self.tableView reloadData];
     
 }
-
-
-
-
 
 @end

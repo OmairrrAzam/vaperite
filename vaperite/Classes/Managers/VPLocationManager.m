@@ -1,6 +1,6 @@
 
 #import "VPLocationManager.h"
-
+#import "VPMarkerModel.h"
 
 @interface VPLocationManager ()
 @property (strong, nonatomic) NSArray *markers;
@@ -12,6 +12,7 @@
 
 
 - (void)fetchDistance:(CLLocation*)currentLocation {
+    
     NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"stores" ofType:@"plist"];
     NSArray *markers = [NSMutableArray arrayWithContentsOfFile:plistPath];
     self.markers = [VPMarkerModel loadFromArray:markers];

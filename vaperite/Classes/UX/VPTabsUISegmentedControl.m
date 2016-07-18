@@ -20,6 +20,8 @@
         [self setBackgroundImage:normalBackgroundImage
                         forState:UIControlStateNormal
                       barMetrics:UIBarMetricsDefault];
+        
+        
         UIImage *selectedBackgroundImage = [UIImage imageNamed:@"small-orange-button.png"];
         [self setBackgroundImage:selectedBackgroundImage
                         forState:UIControlStateSelected

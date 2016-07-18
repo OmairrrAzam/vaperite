@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "VPBaseVC.h"
 
-@interface VPSliderMenuVC :VPBaseVC <UITableViewDataSource>
+@interface VPSliderMenuVC :VPBaseVC
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

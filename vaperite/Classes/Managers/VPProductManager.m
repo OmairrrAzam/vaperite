@@ -3,15 +3,24 @@
 #import "VPProductManager.h"
 #import "VPSessionManager.h"
 #import "VPProductModel.h"
+#import "VPMarkerModel.h"
 
 @implementation VPProductManager
 
 - (void)fetchProducts {
     
+    VPMarkerModel *currentStore = [VPMarkerModel currentStore];
+    NSString *storeId;
+    if (currentStore != nil){
+        storeId = currentStore.id;
+    }else{
+        storeId = @"1";
+    }
+    
     VPSessionManager *manager = [VPSessionManager sharedManager];
     [manager.requestSerializer setValue:@"application/xml" forHTTPHeaderField:@"Accept"];
     NSString *path = nil;
-    path = [NSString stringWithFormat:@"api/rest/products"];
+    path = [NSString stringWithFormat:@"api/rest/products/store/%@",storeId];
     
     manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
     
