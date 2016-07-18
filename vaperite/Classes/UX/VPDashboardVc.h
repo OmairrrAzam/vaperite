@@ -10,4 +10,5 @@
 #import "ECSlidingViewController.h"
 
 @interface VPDashboardVc : VPBaseVC
+
 @end

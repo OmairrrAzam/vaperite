@@ -10,8 +10,15 @@
 #import "ECSlidingViewController.h"
 
 @interface VPBaseVC : UIViewController <ECSlidingViewControllerDelegate>
+
 - (void)startAnimating;
 - (void)stopAnimating;
 - (IBAction)menuButtonTapped:(id)sender;
 - (void)showError:(NSString*)errorMsg;
+- (BOOL)validateEmail:(NSString *)emailAddress;
+- (void)beautifyTextFields;
+- (BOOL)isStaging;
+
+@property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFields;
+
 @end

@@ -24,7 +24,6 @@
 		182DC7CB1D27B8D200B049D6 /* VPBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7CA1D27B8D200B049D6 /* VPBaseTableViewCell.m */; };
 		182DC7CE1D27B9CA00B049D6 /* VPMapTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7CD1D27B9CA00B049D6 /* VPMapTableViewCell.m */; };
 		182DC7D51D29221900B049D6 /* leftMenu.plist in Resources */ = {isa = PBXBuildFile; fileRef = 182DC7D41D29221900B049D6 /* leftMenu.plist */; };
-		183CD5CD1D373F730067B0DC /* VP18plusVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5CC1D373F730067B0DC /* VP18plusVC.m */; };
 		183CD5D01D38C1CF0067B0DC /* stores.plist in Resources */ = {isa = PBXBuildFile; fileRef = 183CD5CF1D38C1CE0067B0DC /* stores.plist */; };
 		18C73AC81D338AE100BEF533 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C73AC71D338AE000BEF533 /* CoreLocation.framework */; };
 		18C73ACB1D339E8500BEF533 /* VPBaseLocationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C73ACA1D339E8500BEF533 /* VPBaseLocationVC.m */; };
@@ -52,6 +51,7 @@
 		18F887481D3695EF0086255A /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F887471D3695EF0086255A /* NSString+URLEncoding.m */; };
 		18F8874B1D36AACC0086255A /* VPProductManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F8874A1D36AACC0086255A /* VPProductManager.m */; };
 		C785C07E658B2F6FF4D83CB1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C05A173179EE92871EC128 /* libPods.a */; };
+		CE18E1461D39496600ABC710 /* VPAgeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CE18E1451D39496600ABC710 /* VPAgeVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,8 +87,6 @@
 		182DC7CC1D27B9CA00B049D6 /* VPMapTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPMapTableViewCell.h; path = Classes/UX/VPMapTableViewCell.h; sourceTree = "<group>"; };
 		182DC7CD1D27B9CA00B049D6 /* VPMapTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPMapTableViewCell.m; path = Classes/UX/VPMapTableViewCell.m; sourceTree = "<group>"; };
 		182DC7D41D29221900B049D6 /* leftMenu.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = leftMenu.plist; sourceTree = "<group>"; };
-		183CD5CB1D373F730067B0DC /* VP18plusVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VP18plusVC.h; path = Classes/UX/VP18plusVC.h; sourceTree = "<group>"; };
-		183CD5CC1D373F730067B0DC /* VP18plusVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VP18plusVC.m; path = Classes/UX/VP18plusVC.m; sourceTree = "<group>"; };
 		183CD5CF1D38C1CE0067B0DC /* stores.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stores.plist; sourceTree = "<group>"; };
 		18C73AC71D338AE000BEF533 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		18C73AC91D339E8500BEF533 /* VPBaseLocationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPBaseLocationVC.h; path = Classes/UX/VPBaseLocationVC.h; sourceTree = "<group>"; };
@@ -140,6 +138,8 @@
 		18F8874A1D36AACC0086255A /* VPProductManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPProductManager.m; sourceTree = "<group>"; };
 		6954208BCF3AE6D358BC3B4A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		8E1A2E89789860391325720C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		CE18E1441D39496600ABC710 /* VPAgeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPAgeVC.h; path = Classes/UX/VPAgeVC.h; sourceTree = "<group>"; };
+		CE18E1451D39496600ABC710 /* VPAgeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPAgeVC.m; path = Classes/UX/VPAgeVC.m; sourceTree = "<group>"; };
 		F1C05A173179EE92871EC128 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -260,8 +260,8 @@
 				18E3EE6E1D2BBD7F000729E3 /* VPMenuTableViewCell.m */,
 				18F887401D3665310086255A /* VPTabsUISegmentedControl.h */,
 				18F887411D3665310086255A /* VPTabsUISegmentedControl.m */,
-				183CD5CB1D373F730067B0DC /* VP18plusVC.h */,
-				183CD5CC1D373F730067B0DC /* VP18plusVC.m */,
+				CE18E1441D39496600ABC710 /* VPAgeVC.h */,
+				CE18E1451D39496600ABC710 /* VPAgeVC.m */,
 			);
 			name = UX;
 			sourceTree = "<group>";
@@ -540,6 +540,7 @@
 				18C73ACE1D33D5E400BEF533 /* VPMarkerModel.m in Sources */,
 				182DC7C21D263FA400B049D6 /* TestViewController.m in Sources */,
 				182DC7C51D26962200B049D6 /* VPGMapVC.m in Sources */,
+				CE18E1461D39496600ABC710 /* VPAgeVC.m in Sources */,
 				18F3D7B31D1CB8C6009D8EE3 /* VPBaseTextField.m in Sources */,
 				18F3D7C91D20E550009D8EE3 /* VPUsersModel.m in Sources */,
 				18F887451D3692980086255A /* VPUserManager.m in Sources */,
@@ -551,7 +552,6 @@
 				18F3D7D61D214F21009D8EE3 /* VPDashboardVc.m in Sources */,
 				182DC7CB1D27B8D200B049D6 /* VPBaseTableViewCell.m in Sources */,
 				180DDB371D1C093E00083967 /* MEDynamicTransition.m in Sources */,
-				183CD5CD1D373F730067B0DC /* VP18plusVC.m in Sources */,
 				18F3D7BA1D1CFDB8009D8EE3 /* VPSessionManager.m in Sources */,
 				18F8874B1D36AACC0086255A /* VPProductManager.m in Sources */,
 				1805FFC31D1B37A40005E8AD /* VPECSliderVC.m in Sources */,
