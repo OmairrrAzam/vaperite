@@ -16,35 +16,29 @@
 
 @property (weak, nonatomic) IBOutlet VPBaseTextField *tfUsername;
 @property (weak, nonatomic) IBOutlet VPBaseTextField *tfPassword;
+@property (weak, nonatomic) IBOutlet VPBaseUIButton *btnRegister;
+@property (weak, nonatomic) IBOutlet VPBaseUIButton *btnForgot;
 
-- (IBAction)btnLogin:(VPBaseUIButton *)sender;
-- (IBAction)btnForgot:(VPBaseUIButton *)sender;
-- (IBAction)btnRegister:(VPBaseUIButton *)sender;
-
+- (IBAction)btnLogin_Pressed:(VPBaseUIButton *)btnLogin;
+- (IBAction)btnRegister_Pressed:(VPBaseUIButton *)btnRegister;
+- (IBAction)btnForgot_Pressed:(VPBaseUIButton *)btnForgot;
 
 @end
 
 @implementation VPLoginVC
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self beautifyTextFields];
+    
+    self.btnRegister.layer.borderColor = [UIColor grayColor].CGColor;
+    self.btnForgot.layer.borderColor = [UIColor grayColor].CGColor;
+    
+    self.btnRegister.layer.borderWidth = 1.0;
+    self.btnForgot.layer.borderWidth = 1.0;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - Private Methods
 
@@ -54,36 +48,45 @@
     NSString *password = self.tfPassword.text;
     
     if (username.length == 0) {
-        //[self showError:@"Email cannot be empty."];
+        [self showError:@"Username is required."];
         return NO;
     }
     
-//    if (![TMUserModel validateEmail:email]) {
-//        //[self showError:@"Invalid email."];
-//        return NO;
-//    }
+    if (![self validateEmail:username]) {
+        [self showError:@"Invalid email."];
+        return NO;
+    }
     
     if (password.length == 0) {
-        //[self showError:@"Password cannot be empty."];
+        [self showError:@"Password is required."];
         return NO;
     }
+    
     return YES;
 }
 
-
-
-
 #pragma mark - IBActions
 
-- (IBAction)btnLogin:(VPBaseUIButton *)sender {
-    
-    [[NXOAuth2AccountStore sharedStore]requestAccessToAccountWithType:@"Magento"];
-    /*[self.tfUsername resignFirstResponder];
-    [self.tfPassword resignFirstResponder];
+- (IBAction)btnLogin_Pressed:(VPBaseUIButton *)btnLogin {
     
     if ([self validate]) {
         
-    }*/
-
+    }
 }
+
+- (IBAction)btnRegister_Pressed:(VPBaseUIButton *)btnRegister {
+    
+}
+
+- (IBAction)btnForgot_Pressed:(VPBaseUIButton *)btnForgot {
+    
+}
+
+#pragma mark - Memory Cleanup Methods 
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+
 @end

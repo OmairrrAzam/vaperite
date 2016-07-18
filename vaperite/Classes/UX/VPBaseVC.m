@@ -19,9 +19,11 @@
 @implementation VPBaseVC
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.basicConfiguration  = [KVNProgressConfiguration defaultConfiguration];
+    
+    self.basicConfiguration = [KVNProgressConfiguration defaultConfiguration];
+
     self.customConfiguration = [self customKVNProgressUIConfiguration];
     [KVNProgress setConfiguration:self.customConfiguration];
     self.navigationItem.rightBarButtonItem =[self cartButton];
@@ -32,22 +34,6 @@
     [super viewDidAppear:animated];
     [self startAnimating];
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - Helpers
 
@@ -112,27 +98,40 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
     return configuration;
 }
 
--(void)startAnimating{
+- (void)startAnimating {
       [KVNProgress showWithStatus:@"Loading..."];
-    //[KVNProgress showProgress:0.0f
-                   //status:@"You can custom several things like colors, fonts, circle size, and more!"];
-
-    //[self updateProgress];
-
-//    dispatch_main_after(5.5f, ^{
-//        [KVNProgress showSuccessWithStatus:@"Success"];
-//        [KVNProgress setConfiguration:self.basicConfiguration];
-//    });
 }
 
--(void)stopAnimating{
+- (void)stopAnimating{
     
     [KVNProgress dismiss];
 }
 
--(void)showError:(NSString*)errorMsg{
+- (void)showError:(NSString*)errorMsg{
     [KVNProgress showErrorWithStatus:errorMsg];
 }
+
+- (BOOL)validateEmail:(NSString *)emailAddress {
+    
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:emailAddress];
+}
+
+- (void)beautifyTextFields {
+    
+    for (UITextField *textField in self.textFields) {
+        CALayer *bottomBorder = [CALayer layer];
+        bottomBorder.frame = CGRectMake(0.0, textField.frame.size.height - 1, textField.bounds.size.width, 0.5);
+        bottomBorder.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0].CGColor;
+        [textField.layer addSublayer:bottomBorder];
+    }
+}
+
+- (BOOL)isStaging {
+    return [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"STAGING"] boolValue];
+}
+
 - (IBAction)menuButtonTapped:(id)sender {
     
     [self.slidingViewController anchorTopViewToRightAnimated:YES];
@@ -170,5 +169,10 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
     return item;
 }
 
+#pragma mark - Memory Cleanup Methods 
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
 
 @end
