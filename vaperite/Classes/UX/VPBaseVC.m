@@ -32,7 +32,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self startAnimating];
+   // [self startAnimating];
 }
 
 #pragma mark - Helpers

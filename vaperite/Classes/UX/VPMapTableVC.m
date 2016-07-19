@@ -120,10 +120,8 @@ NSArray *timess;
 #pragma mark - VPLocationManagerDelegate Methods
 
 - (void)locationManager:(VPLocationManager *)manager didFetchDistance:(NSMutableArray *)markerArray {
-    
     [super locationManager:manager didFetchDistance:markerArray];
     [self.tableView reloadData];
-    
 }
 
 @end

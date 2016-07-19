@@ -11,6 +11,8 @@
 #import "VPBaseTextField.h"
 #import "AFNetworkReachabilityManager.h"
 #import "NXOAuth2.h"
+#import "VPRegisterVC.h"
+#import "UIViewController+ECSlidingViewController.h"
 
 @interface VPLoginVC ()
 
@@ -22,6 +24,7 @@
 - (IBAction)btnLogin_Pressed:(VPBaseUIButton *)btnLogin;
 - (IBAction)btnRegister_Pressed:(VPBaseUIButton *)btnRegister;
 - (IBAction)btnForgot_Pressed:(VPBaseUIButton *)btnForgot;
+- (IBAction)btnCancel:(id)sender;
 
 @end
 
@@ -75,11 +78,30 @@
 }
 
 - (IBAction)btnRegister_Pressed:(VPBaseUIButton *)btnRegister {
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main"
+                                                         bundle:nil];
+    VPRegisterVC *registerVC =
+    [storyboard instantiateViewControllerWithIdentifier:@"REGISTER"];
     
+    [self presentViewController:registerVC
+                       animated:YES
+                     completion:nil];
+
 }
 
 - (IBAction)btnForgot_Pressed:(VPBaseUIButton *)btnForgot {
     
+}
+
+- (IBAction)btnCancel:(id)sender {
+//    for (UIViewController *controller in [self.navigationController viewControllers])
+//    {
+//            [self.navigationController popToViewController:controller animated:YES];
+//    }
+    
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    //[self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Memory Cleanup Methods 

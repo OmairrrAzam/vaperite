@@ -10,6 +10,7 @@
 
 @interface VPFogotPasswordVC ()
 @property (weak, nonatomic) IBOutlet UITextField *tfEmail;
+- (IBAction)btnCancel:(id)sender;
 
 @end
 
@@ -38,5 +39,8 @@
 #pragma mark - IBActions
 
 - (IBAction)btnForgot:(UIButton *)sender {
+}
+- (IBAction)btnCancel:(id)sender {
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 @end

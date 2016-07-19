@@ -8,35 +8,36 @@
 
 #import "VPDashboardVc.h"
 #import "QuartzCore/QuartzCore.h"
-#import "VPProductCollectionViewCell.h"
+
 #import "MEDynamicTransition.h"
 #import "METransitions.h"
 #import "VPTabsUISegmentedControl.h"
 #import "VPUserManager.h"
 #import "VPUsersModel.h"
-#import "VPProductManager.h"
-#import "UIImageView+AFNetworking.h"
+
+
 #import "VPBaseUIButton.h"
 
 #define ORANGE_COLOR        [UIColor colorWithRed:0.921 green:0.411 blue:0.145 alpha:1.0]
 
-@interface VPDashboardVc ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, VPUserManagerDelegate, VPProductManagerDelegate>
+@interface VPDashboardVc ()< VPUserManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet VPBaseUIButton *btnFeatured;
 @property (weak, nonatomic) IBOutlet VPBaseUIButton *btnRecommended;
 @property (weak, nonatomic) IBOutlet VPBaseUIButton *btnAward;
-
 @property (nonatomic, strong) IBOutlet UICollectionViewFlowLayout *flowLayout;
 @property (strong, nonatomic) VPUserManager *userManager;
-@property (strong, nonatomic) VPProductManager *productManager;
-@property (strong, nonatomic) NSArray *products;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) UIViewController *currentViewController;
+
 
 - (IBAction)btnLogin_Pressed:(VPBaseUIButton *)btnLogin;
 - (IBAction)btnRegister_Pressed:(VPBaseUIButton *)btnRegister;
 - (IBAction)btnFeatured_Pressed:(VPBaseUIButton *)btnFeatured;
 - (IBAction)btnRecommended_Pressed:(VPBaseUIButton *)btnRecommended;
 - (IBAction)btnAward_Pressed:(VPBaseUIButton *)btnAward;
+
 
 @end
 
@@ -58,32 +59,38 @@
     self.btnRecommended.layer.borderWidth = 0.5;
     self.btnAward.layer.borderWidth = 0.5;
     
-    [self configureCollectionView];
-    [self fetchProducts];
+    //initializing first view in container view
+    self.currentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DASHBOARD_PRODUCTS"];
+    self.currentViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addChildViewController:self.currentViewController];
+    [self addSubview:self.currentViewController.view toView:self.containerView];
+    
 }
 
 #pragma mark - Private Methods 
 
-- (void)fetchProducts {
+- (void)cycleFromViewController:(UIViewController*) oldViewController
+               toViewController:(UIViewController*) newViewController {
+    [oldViewController willMoveToParentViewController:nil];
+    [self addChildViewController:newViewController];
+    [self addSubview:newViewController.view toView:self.containerView];
+    // TODO: Set the starting state of your constraints here
+    [newViewController.view layoutIfNeeded];
     
-    if (!self.productManager) {
-        self.productManager = [[VPProductManager alloc]init];
-        self.productManager.delegate = self;
-    }
-    [self.productManager fetchProducts];
+    // TODO: Set the ending state of your constraints here
+    
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         // only need to call layoutIfNeeded here
+                         [newViewController.view layoutIfNeeded];
+                     }
+                     completion:^(BOOL finished) {
+                         [oldViewController.view removeFromSuperview];
+                         [oldViewController removeFromParentViewController];
+                         [newViewController didMoveToParentViewController:self];
+                     }];
 }
 
-- (void)configureCollectionView {
-    
-    self.flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    [self.flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    [self.collectionView setCollectionViewLayout:self.flowLayout];
-    self.collectionView.bounces = YES;
-    [self.collectionView setShowsHorizontalScrollIndicator:NO];
-    [self.collectionView setShowsVerticalScrollIndicator:YES];
-    self.collectionView.layer.borderWidth = 1;
-    self.collectionView.layer.borderColor = [UIColor colorWithRed:203 green:226 blue:221 alpha:1].CGColor;
-}
 
 - (void)highlightButton:(VPBaseUIButton *)button {
 
@@ -95,6 +102,22 @@
     
     button.backgroundColor = [UIColor whiteColor];
     [button setTitleColor:ORANGE_COLOR forState:UIControlStateNormal];
+}
+
+- (void)addSubview:(UIView *)subView toView:(UIView*)parentView {
+    [parentView addSubview:subView];
+    
+    NSDictionary * views = @{@"subView" : subView,};
+    NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[subView]|"
+                                                                   options:0
+                                                                   metrics:0
+                                                                     views:views];
+    [parentView addConstraints:constraints];
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[subView]|"
+                                                          options:0
+                                                          metrics:0
+                                                            views:views];
+    [parentView addConstraints:constraints];
 }
 
 #pragma mark - IBActions
@@ -118,6 +141,11 @@
     [self highlightButton:btnFeatured];
     [self unhighlithButton:self.btnRecommended];
     [self unhighlithButton:self.btnAward];
+    
+    UIViewController *newViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DASHBOARD_PRODUCTS"];
+    newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self cycleFromViewController:self.currentViewController toViewController:newViewController];
+    self.currentViewController = newViewController;
 }
 
 - (IBAction)btnRecommended_Pressed:(VPBaseUIButton *)btnRecommended {
@@ -125,6 +153,11 @@
     [self highlightButton:btnRecommended];
     [self unhighlithButton:self.btnFeatured];
     [self unhighlithButton:self.btnAward];
+    
+    UIViewController *newViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DASHBOARD_PRODUCTS"];
+    newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self cycleFromViewController:self.currentViewController toViewController:newViewController];
+    self.currentViewController = newViewController;
 }
 
 - (IBAction)btnAward_Pressed:(VPBaseUIButton *)btnAward {
@@ -133,110 +166,22 @@
     [self unhighlithButton:self.btnFeatured];
     [self unhighlithButton:self.btnRecommended];
     
+    UIViewController *newViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DASHBOARD_AWARDS"];
+    newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self cycleFromViewController:self.currentViewController toViewController:newViewController];
+    self.currentViewController = newViewController;
+    
 }
-
-#pragma mark - UICollectionViewDataSource Methods
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.products.count;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *identifier = @"Cell";
-    
-    VPProductModel *currentProduct = [self.products objectAtIndex:indexPath.row];
-    
-    VPProductCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    [cell.contentView.superview setClipsToBounds:NO];
-    
-    cell.name.text  = currentProduct.name;
-    cell.price.text = [NSString stringWithFormat:@"$%@", currentProduct.price];
-    
-    NSString *urlString = currentProduct.imgUrl;
-    if (!self.isStaging) {
-     urlString = [urlString stringByReplacingOccurrencesOfString:@"https://"
-                                         withString:@"http://"];
-    }
-    NSURL *url = [NSURL URLWithString: urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    UIImage *placeholderImage = [UIImage imageNamed:@"placeholder"];
-    
-    __weak VPProductCollectionViewCell *weakCell = cell;
-    [cell.productImage setImageWithURLRequest:request
-                          placeholderImage:placeholderImage
-                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                       
-                                       weakCell.productImage.image = image;
-                                       [weakCell setNeedsLayout];
-                                       
-                                   } failure:nil];
-    
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"photo-frame.png"]];
-    cell.contentView.layer.backgroundColor = [UIColor whiteColor].CGColor;
-    cell.contentView.layer.cornerRadius = 8.0f;
-    cell.productImage.layer.cornerRadius = 8.0f;
-    cell.productImage.clipsToBounds = YES;
-    
-    return cell;
-}
-
-#pragma mark UICollectionViewDelegateFlowLayout Methods
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    CGSize mElementSize = CGSizeMake(125, 180);
-    return mElementSize;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 0.0;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 20.0;
-}
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(-45.0,30.0,60.0,30.0);  // top, left, bottom, right
-}
-
 #pragma mark - VPUserManagerDelegate Methods
 
 - (void)userManager:(VPUserManager *)userManager didAuthenticate:(NSDictionary *)response {
     [VPUsersModel saveToSession:response];
-    if (!self.productManager) {
-        self.productManager = [[VPProductManager alloc]init];
-        self.productManager.delegate = self;
-    }
-    [self.productManager fetchProducts];
-    
 }
 
 - (void)userManager:(VPUserManager *)userManager didFailToAuthenticate:(NSString *)message{
     
 }
 
-#pragma mark - VPProductManagerDelegate Methods
-
-- (void)productManager:(VPProductManager *)manager didFetchProducts:(NSArray *)products {
-    
-    [self stopAnimating];
-    self.products = products;
-    [self.collectionView reloadData];
-
-    [self stopAnimating];
-
-}
-
-- (void)productManager:(VPProductManager *)manager didFailToFetchProducts:(NSString *)message{
-    [self showError:message];
-}
 
 #pragma mark - Memory Cleanup Methods
 

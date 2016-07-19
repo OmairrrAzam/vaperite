@@ -7,7 +7,9 @@
 //
 
 #import "TestViewController.h"
-#define kUserOver18         @"vaperite.user.over18"
+#import "VPAgeVC.h"
+
+#define kUserOver18  @"vaperite.user.over18"
 
 @interface TestViewController ()
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -50,16 +52,21 @@ BOOL over18;
      NSDictionary *highlightedAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     [self.segmentBtns setTitleTextAttributes:highlightedAttributes forState:UIControlStateSelected];
     
-    
-    
-   
     over18 = [[NSUserDefaults standardUserDefaults] boolForKey:kUserOver18];
     
     if(over18) {
         self.eighteenPlusView.hidden = YES;
         
-        [self loadMapTableContainer];
     } else {
+        //self.view.backgroundColor = [UIColor clearColor];
+        //self.modalPresentationStyle = UIModalPresentationCurrentContext;
+        
+        
+        VPAgeVC *ageVC = (VPAgeVC *)[self.storyboard instantiateViewControllerWithIdentifier:@"AGEVC"];
+        ageVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        //ageVC.view.backgroundColor = [UIColor clearColor];
+        self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        [self presentViewController:ageVC animated:YES completion:nil];
         self.navigationController.navigationBar.layer.zPosition = -1;
     }
 
@@ -72,9 +79,8 @@ BOOL over18;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    
     [super viewDidAppear:animated];
-    
+    [self loadMapTableContainer];
     [self stopAnimating];
 }
 /*
@@ -139,23 +145,7 @@ BOOL over18;
                      }];
 }
 
-#pragma mark - IBAction methods
 
-- (IBAction)btnOver18:(id)sender {
-    [self.eighteenPlusView removeFromSuperview];
-    
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:YES forKey:kUserOver18];
-    [defaults synchronize];
-    
-    self.navigationController.navigationBar.layer.zPosition = 1;
-    [self loadMapTableContainer];
-    
-}
-- (IBAction)btnUnder18:(id)sender {
-    exit(0);
-}
 #pragma mark - private methods
 
 - (void)loadMapTableContainer{

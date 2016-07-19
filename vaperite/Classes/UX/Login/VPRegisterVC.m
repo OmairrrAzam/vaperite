@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *tfPassword;
 @property (weak, nonatomic) IBOutlet UITextField *tfConfirmPassword;
 @property (weak, nonatomic) IBOutlet UIButton *btnRegister;
+- (IBAction)btnCancel:(id)sender;
 
 - (IBAction)btnRegister_Pressed:(UIButton *)btnRegister;
 
@@ -83,11 +84,13 @@
 
 #pragma mark - IBActions
 
+- (IBAction)btnCancel:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)btnRegister_Pressed:(UIButton *)btnRegister {
-    
     VPUsersModel *user = [self validate];
     if (user) {
-        
     }
 }
 

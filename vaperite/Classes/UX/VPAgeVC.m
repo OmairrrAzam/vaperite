@@ -9,6 +9,8 @@
 #import "VPAgeVC.h"
 #import "VPBaseUIButton.h"
 
+#define kUserOver18  @"vaperite.user.over18"
+
 @interface VPAgeVC ()
 
 @property (weak, nonatomic) IBOutlet UIView *whiteFrame;
@@ -30,11 +32,15 @@
 #pragma mark - IBActions
 
 - (IBAction)btnOver18_Pressed:(VPBaseUIButton *)btnOver18 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:YES forKey:kUserOver18];
+    [defaults synchronize];
     
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)btnUnder18_Pressed:(VPBaseUIButton *)btnUnder18 {
-    
+    exit(0);
 }
 
 #pragma mark - Memory Cleanup Methods

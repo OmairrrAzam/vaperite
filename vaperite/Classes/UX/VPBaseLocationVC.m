@@ -106,6 +106,7 @@
 #pragma mark - VPLocationManagerDelegate Methods
 
 - (void)locationManager:(VPLocationManager *)manager didFetchDistance:(NSMutableArray *)markerArray {
+    
     self.markers = markerArray;
     [self stopAnimating];
 }
