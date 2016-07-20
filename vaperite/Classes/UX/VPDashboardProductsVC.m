@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSArray *products;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) IBOutlet UICollectionViewFlowLayout *flowLayout;
+- (IBAction)btnProductDetail:(id)sender;
 
 @end
 
@@ -185,4 +186,8 @@
 }
 */
 
+- (IBAction)btnProductDetail:(id)sender {
+    [self performSegueWithIdentifier:@"product_detail_segue" sender:self];
+   // [self changeViewThroughSlider:@"PRODUCT_DETAIL_NAV_VC"];
+}
 @end

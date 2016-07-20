@@ -19,7 +19,7 @@
 @implementation VPSliderMenuVC
 
 
-- (IBAction)unwindToMenuViewController:(UIStoryboardSegue *)segue {}
+//- (IBAction)unwindToMenuViewController:(UIStoryboardSegue *)segue {}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

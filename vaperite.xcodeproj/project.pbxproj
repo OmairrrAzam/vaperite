@@ -26,6 +26,10 @@
 		182DC7D51D29221900B049D6 /* leftMenu.plist in Resources */ = {isa = PBXBuildFile; fileRef = 182DC7D41D29221900B049D6 /* leftMenu.plist */; };
 		183CD5D01D38C1CF0067B0DC /* stores.plist in Resources */ = {isa = PBXBuildFile; fileRef = 183CD5CF1D38C1CE0067B0DC /* stores.plist */; };
 		183CD5D31D3E05E60067B0DC /* VPDashboardProductsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5D21D3E05E60067B0DC /* VPDashboardProductsVC.m */; };
+		183CD5D61D3E86650067B0DC /* VPProductDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5D51D3E86640067B0DC /* VPProductDetailsVC.m */; };
+		183CD5D91D3ECEA30067B0DC /* VPRightMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5D81D3ECEA30067B0DC /* VPRightMenuVC.m */; };
+		183CD5DC1D3F995E0067B0DC /* VPProductDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5DB1D3F995E0067B0DC /* VPProductDetailTableViewCell.m */; };
+		183CD5DF1D3FD27A0067B0DC /* VPProductDetailCounterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5DE1D3FD27A0067B0DC /* VPProductDetailCounterTableViewCell.m */; };
 		18C73AC81D338AE100BEF533 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C73AC71D338AE000BEF533 /* CoreLocation.framework */; };
 		18C73ACB1D339E8500BEF533 /* VPBaseLocationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C73ACA1D339E8500BEF533 /* VPBaseLocationVC.m */; };
 		18C73ACE1D33D5E400BEF533 /* VPMarkerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C73ACD1D33D5E400BEF533 /* VPMarkerModel.m */; };
@@ -91,6 +95,14 @@
 		183CD5CF1D38C1CE0067B0DC /* stores.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stores.plist; sourceTree = "<group>"; };
 		183CD5D11D3E05E60067B0DC /* VPDashboardProductsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPDashboardProductsVC.h; path = Classes/UX/VPDashboardProductsVC.h; sourceTree = "<group>"; };
 		183CD5D21D3E05E60067B0DC /* VPDashboardProductsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPDashboardProductsVC.m; path = Classes/UX/VPDashboardProductsVC.m; sourceTree = "<group>"; };
+		183CD5D41D3E86640067B0DC /* VPProductDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPProductDetailsVC.h; path = Classes/UX/VPProductDetailsVC.h; sourceTree = "<group>"; };
+		183CD5D51D3E86640067B0DC /* VPProductDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPProductDetailsVC.m; path = Classes/UX/VPProductDetailsVC.m; sourceTree = "<group>"; };
+		183CD5D71D3ECEA30067B0DC /* VPRightMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPRightMenuVC.h; path = Classes/VPRightMenuVC.h; sourceTree = "<group>"; };
+		183CD5D81D3ECEA30067B0DC /* VPRightMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPRightMenuVC.m; path = Classes/VPRightMenuVC.m; sourceTree = "<group>"; };
+		183CD5DA1D3F995E0067B0DC /* VPProductDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPProductDetailTableViewCell.h; path = Classes/UX/VPProductDetailTableViewCell.h; sourceTree = "<group>"; };
+		183CD5DB1D3F995E0067B0DC /* VPProductDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPProductDetailTableViewCell.m; path = Classes/UX/VPProductDetailTableViewCell.m; sourceTree = "<group>"; };
+		183CD5DD1D3FD27A0067B0DC /* VPProductDetailCounterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPProductDetailCounterTableViewCell.h; path = Classes/UX/VPProductDetailCounterTableViewCell.h; sourceTree = "<group>"; };
+		183CD5DE1D3FD27A0067B0DC /* VPProductDetailCounterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPProductDetailCounterTableViewCell.m; path = Classes/UX/VPProductDetailCounterTableViewCell.m; sourceTree = "<group>"; };
 		18C73AC71D338AE000BEF533 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		18C73AC91D339E8500BEF533 /* VPBaseLocationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPBaseLocationVC.h; path = Classes/UX/VPBaseLocationVC.h; sourceTree = "<group>"; };
 		18C73ACA1D339E8500BEF533 /* VPBaseLocationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPBaseLocationVC.m; path = Classes/UX/VPBaseLocationVC.m; sourceTree = "<group>"; };
@@ -181,7 +193,6 @@
 			isa = PBXGroup;
 			children = (
 				183CD5CE1D38C1800067B0DC /* Plists */,
-				1805FFB11D1B1F600005E8AD /* AppDelegate */,
 				1805FFB71D1B1FAD0005E8AD /* Resources */,
 				1805FFB61D1B1F9D0005E8AD /* Classes */,
 				1805FFAA1D1B11450005E8AD /* Info.plist */,
@@ -267,6 +278,12 @@
 				CE18E1451D39496600ABC710 /* VPAgeVC.m */,
 				183CD5D11D3E05E60067B0DC /* VPDashboardProductsVC.h */,
 				183CD5D21D3E05E60067B0DC /* VPDashboardProductsVC.m */,
+				183CD5D41D3E86640067B0DC /* VPProductDetailsVC.h */,
+				183CD5D51D3E86640067B0DC /* VPProductDetailsVC.m */,
+				183CD5DA1D3F995E0067B0DC /* VPProductDetailTableViewCell.h */,
+				183CD5DB1D3F995E0067B0DC /* VPProductDetailTableViewCell.m */,
+				183CD5DD1D3FD27A0067B0DC /* VPProductDetailCounterTableViewCell.h */,
+				183CD5DE1D3FD27A0067B0DC /* VPProductDetailCounterTableViewCell.m */,
 			);
 			name = UX;
 			sourceTree = "<group>";
@@ -274,6 +291,7 @@
 		1805FFB61D1B1F9D0005E8AD /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1805FFB11D1B1F600005E8AD /* AppDelegate */,
 				1805FFB51D1B1F820005E8AD /* UX */,
 				1805FFB41D1B1F7B0005E8AD /* Models */,
 				18F3D7B41D1CFDB8009D8EE3 /* Managers */,
@@ -337,6 +355,8 @@
 				1805FFBF1D1B37780005E8AD /* VPSliderMenuVC.m */,
 				1805FFC11D1B37A40005E8AD /* VPECSliderVC.h */,
 				1805FFC21D1B37A40005E8AD /* VPECSliderVC.m */,
+				183CD5D71D3ECEA30067B0DC /* VPRightMenuVC.h */,
+				183CD5D81D3ECEA30067B0DC /* VPRightMenuVC.m */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -528,12 +548,14 @@
 				1805FF9E1D1B11440005E8AD /* AppDelegate.m in Sources */,
 				18F3D7AD1D1CB6E6009D8EE3 /* VPLoginVC.m in Sources */,
 				18F887421D3665310086255A /* VPTabsUISegmentedControl.m in Sources */,
+				183CD5D61D3E86650067B0DC /* VPProductDetailsVC.m in Sources */,
 				18E3EE6F1D2BBD7F000729E3 /* VPMenuTableViewCell.m in Sources */,
 				18F3D8011D23EC45009D8EE3 /* VPBaseNavigationController.m in Sources */,
 				180DDB3A1D1C093E00083967 /* MEZoomAnimationController.m in Sources */,
 				18F3D7C31D20E3EE009D8EE3 /* VPProductModel.m in Sources */,
 				18F3D7BD1D1CFFFB009D8EE3 /* NSDictionary+Helper.m in Sources */,
 				180DDB381D1C093E00083967 /* MEFoldAnimationController.m in Sources */,
+				183CD5DC1D3F995E0067B0DC /* VPProductDetailTableViewCell.m in Sources */,
 				180DDB391D1C093E00083967 /* METransitions.m in Sources */,
 				182DC7CE1D27B9CA00B049D6 /* VPMapTableViewCell.m in Sources */,
 				18F3D7FB1D239F48009D8EE3 /* VPBaseCollectionViewCell.m in Sources */,
@@ -544,6 +566,7 @@
 				18F887481D3695EF0086255A /* NSString+URLEncoding.m in Sources */,
 				18C73ACE1D33D5E400BEF533 /* VPMarkerModel.m in Sources */,
 				182DC7C21D263FA400B049D6 /* TestViewController.m in Sources */,
+				183CD5D91D3ECEA30067B0DC /* VPRightMenuVC.m in Sources */,
 				182DC7C51D26962200B049D6 /* VPGMapVC.m in Sources */,
 				CE18E1461D39496600ABC710 /* VPAgeVC.m in Sources */,
 				18F3D7B31D1CB8C6009D8EE3 /* VPBaseTextField.m in Sources */,
@@ -554,6 +577,7 @@
 				18F3D7B91D1CFDB8009D8EE3 /* VPBaseManager.m in Sources */,
 				182DC7C81D27AD3200B049D6 /* VPMapTableVC.m in Sources */,
 				180DDB431D1C242200083967 /* VPBaseUIButton.m in Sources */,
+				183CD5DF1D3FD27A0067B0DC /* VPProductDetailCounterTableViewCell.m in Sources */,
 				18F3D7D61D214F21009D8EE3 /* VPDashboardVc.m in Sources */,
 				182DC7CB1D27B8D200B049D6 /* VPBaseTableViewCell.m in Sources */,
 				180DDB371D1C093E00083967 /* MEDynamicTransition.m in Sources */,

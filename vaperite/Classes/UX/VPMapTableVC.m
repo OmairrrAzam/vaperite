@@ -48,7 +48,6 @@ NSArray *timess;
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
    return [self.markers count];
 }
 
@@ -116,6 +115,8 @@ NSArray *timess;
     self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Dashboard"];
     [self.slidingViewController resetTopViewAnimated:YES];//    NSString * storyboardName = @"Main";
 }
+
+
 
 #pragma mark - VPLocationManagerDelegate Methods
 
