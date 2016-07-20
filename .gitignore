@@ -2,6 +2,7 @@
 build/*
 vaperite/DerivedData/*
 vaperite/Pods/*
+DerivedData/*
 *.xcworkspace
 pods/*
 *.pbxuser
