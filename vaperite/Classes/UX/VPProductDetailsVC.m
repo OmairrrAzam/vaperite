@@ -13,7 +13,6 @@
 @interface VPProductDetailsVC ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
 @property (nonatomic) int qty;
 
 - (IBAction)btnBack:(id)sender;
@@ -31,8 +30,6 @@
     self.qty = 1;
     [self.tableView setBackgroundColor : [UIColor colorWithRed:203/255.0 green:227/255.0 blue:222/255.0 alpha:1]];
     //self.tfCounter.text = @"1";
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,12 +85,6 @@
     return 100;
 }
 
-//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    UIView *v = [UIView new];
-//    [v setBackgroundColor:[UIColor clearColor]];
-//    return v;
-//}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *cellIdentifier;
@@ -146,7 +137,7 @@
     UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(15,0,300,44)];
     tempLabel.backgroundColor = [UIColor clearColor];
     //tempLabel.shadowColor = [UIColor darkGrayColor];
-//    tempLabel.shadowOffset = CGSizeMake(0,2);
+    //tempLabel.shadowOffset = CGSizeMake(0,2);
     tempLabel.textColor = [UIColor darkGrayColor]; //here you can change the text color of header.
     //tempLabel.font = [UIFont fontWithName:@"Helvetica" size:fontSizeForHeaders];
     //tempLabel.font = [UIFont boldSystemFontOfSize:fontSizeForHeaders];
@@ -165,9 +156,7 @@
         tempView = [[UIView alloc]initWithFrame:CGRectMake(0,200,300,244)];
         tempView.backgroundColor=[UIColor colorWithRed:203/255.0 green:227/255.0 blue:222/255.0 alpha:1];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        //[button addTarget:self
-          //         action:@selector(aMethod:)
-         //forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(addReview:) forControlEvents:UIControlEventTouchUpInside];
         [button setTitle:@"Add Review" forState:UIControlStateNormal];
         
         UIImage *newImage = [UIImage imageNamed:@"plus18-button.png"];
@@ -179,6 +168,7 @@
     return tempView;
 }
 
+#pragma  mark - IBActions
 - (IBAction)btnOptions:(id)sender {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Categories" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     
@@ -222,6 +212,14 @@
     self.qty += 1;
     [self.tableView reloadData];
     
+}
+
+- (IBAction)addReview:(id)sender{
+     [self performSegueWithIdentifier:@"add_review_segue" sender:self];
+    //UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"AddReviewID"];
+    //loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    //[self presentViewController:loginNavigator animated:YES completion:nil];
+
 }
 
 - (IBAction)btnBack:(id)sender {

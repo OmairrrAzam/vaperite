@@ -20,5 +20,6 @@
 - (BOOL)isStaging;
 
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFields;
--(void) changeViewThroughSlider:(NSString*)viewController;
+- (void) changeViewThroughSlider:(NSString*)viewController;
+- (void) dismissMe;
 @end

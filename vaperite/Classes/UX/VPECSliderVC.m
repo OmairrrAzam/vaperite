@@ -19,8 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.anchorLeftRevealAmount = 100.0;
-    self.anchorRightRevealAmount = 100.0;
+    //self.anchorLeftRevealAmount = 100.0;
+    //self.anchorRightRevealAmount = 100.0;
     self.transitions.dynamicTransition.slidingViewController = self;
     
 }

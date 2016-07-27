@@ -26,7 +26,7 @@
 
     self.customConfiguration = [self customKVNProgressUIConfiguration];
     [KVNProgress setConfiguration:self.customConfiguration];
-    //self.navigationItem.rightBarButtonItem =[self cartButton];
+    self.navigationItem.rightBarButtonItem =[self cartButton];
     self.navigationItem.leftBarButtonItem  =[self menuButton];
 }
 
@@ -74,9 +74,17 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 -(void)changeViewThroughSlider:(NSString*)viewController{
     //ask ECSlider to Change view
     //so that we could access menu from this new view as well.
-    self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
-    self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:viewController];
-    [self.slidingViewController resetTopViewAnimated:YES];
+    UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:viewController];
+    loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:loginNavigator animated:YES completion:nil];
+    
+//    self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
+//    self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:viewController];
+//    [self.slidingViewController resetTopViewAnimated:YES];
+}
+
+- (void)dismissMe {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (KVNProgressConfiguration *)customKVNProgressUIConfiguration
@@ -141,27 +149,35 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 }
 
 - (IBAction)menuButtonTapped:(id)sender {
-    [self.slidingViewController anchorTopViewToLeftAnimated:YES];
+    [self.slidingViewController anchorTopViewToRightAnimated:YES];
+    if ([self.slidingViewController currentTopViewPosition] == ECSlidingViewControllerTopViewPositionAnchoredRight) {
+        [self.slidingViewController resetTopViewAnimated:YES];
+    }
+}
+
+- (IBAction)cartButtonTapped:(id)sender {
+     [self changeViewThroughSlider:@"RightMenu"];
+//    [self.slidingViewController anchorTopViewToRightAnimated:YES];
 //    if ([self.slidingViewController currentTopViewPosition] == ECSlidingViewControllerTopViewPositionAnchoredRight) {
 //        [self.slidingViewController resetTopViewAnimated:YES];
 //    }
 }
 
 
-//- (UIBarButtonItem *)cartButton
-//{
-//    UIImage *image = [UIImage imageNamed:@"add-to-cart-icon.png"];
-//    CGRect buttonFrame = CGRectMake(0, 0, image.size.width, image.size.height);
-//    
-//    UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
-//    [button addTarget:self action:@selector(menuButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-//    [button setImage:image forState:UIControlStateNormal];
-//    
-//    UIBarButtonItem *item= [[UIBarButtonItem alloc] initWithCustomView:button];
-//    
-//    
-//    return item;
-//}
+- (UIBarButtonItem *)cartButton
+{
+    UIImage *image = [UIImage imageNamed:@"add-to-cart-icon.png"];
+    CGRect buttonFrame = CGRectMake(0, 0, image.size.width, image.size.height);
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
+    [button addTarget:self action:@selector(cartButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [button setImage:image forState:UIControlStateNormal];
+    
+    UIBarButtonItem *item= [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    
+    return item;
+}
 
 - (UIBarButtonItem *)menuButton
 {

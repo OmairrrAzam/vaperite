@@ -18,23 +18,34 @@
 		180DDB391D1C093E00083967 /* METransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB341D1C093E00083967 /* METransitions.m */; };
 		180DDB3A1D1C093E00083967 /* MEZoomAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB361D1C093E00083967 /* MEZoomAnimationController.m */; };
 		180DDB431D1C242200083967 /* VPBaseUIButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB421D1C242200083967 /* VPBaseUIButton.m */; };
-		182DC7C21D263FA400B049D6 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7C11D263FA400B049D6 /* TestViewController.m */; };
 		182DC7C51D26962200B049D6 /* VPGMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7C41D26962200B049D6 /* VPGMapVC.m */; };
 		182DC7C81D27AD3200B049D6 /* VPMapTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7C71D27AD3200B049D6 /* VPMapTableVC.m */; };
 		182DC7CB1D27B8D200B049D6 /* VPBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7CA1D27B8D200B049D6 /* VPBaseTableViewCell.m */; };
 		182DC7CE1D27B9CA00B049D6 /* VPMapTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7CD1D27B9CA00B049D6 /* VPMapTableViewCell.m */; };
-		182DC7D51D29221900B049D6 /* leftMenu.plist in Resources */ = {isa = PBXBuildFile; fileRef = 182DC7D41D29221900B049D6 /* leftMenu.plist */; };
-		183CD5D01D38C1CF0067B0DC /* stores.plist in Resources */ = {isa = PBXBuildFile; fileRef = 183CD5CF1D38C1CE0067B0DC /* stores.plist */; };
 		183CD5D31D3E05E60067B0DC /* VPDashboardProductsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5D21D3E05E60067B0DC /* VPDashboardProductsVC.m */; };
 		183CD5D61D3E86650067B0DC /* VPProductDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5D51D3E86640067B0DC /* VPProductDetailsVC.m */; };
 		183CD5D91D3ECEA30067B0DC /* VPRightMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5D81D3ECEA30067B0DC /* VPRightMenuVC.m */; };
 		183CD5DC1D3F995E0067B0DC /* VPProductDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5DB1D3F995E0067B0DC /* VPProductDetailTableViewCell.m */; };
 		183CD5DF1D3FD27A0067B0DC /* VPProductDetailCounterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5DE1D3FD27A0067B0DC /* VPProductDetailCounterTableViewCell.m */; };
+		183CD5E21D40BEFA0067B0DC /* VPAddReviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5E11D40BEFA0067B0DC /* VPAddReviewVC.m */; };
+		183CD5EC1D40E2190067B0DC /* TPKeyboardAvoidingCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5E51D40E2190067B0DC /* TPKeyboardAvoidingCollectionView.m */; };
+		183CD5ED1D40E2190067B0DC /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5E71D40E2190067B0DC /* TPKeyboardAvoidingScrollView.m */; };
+		183CD5EE1D40E2190067B0DC /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5E91D40E2190067B0DC /* TPKeyboardAvoidingTableView.m */; };
+		183CD5EF1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5EB1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
+		183CD5F51D4647860067B0DC /* VPProductsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5F41D4647860067B0DC /* VPProductsVC.m */; };
 		18C73AC81D338AE100BEF533 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C73AC71D338AE000BEF533 /* CoreLocation.framework */; };
 		18C73ACB1D339E8500BEF533 /* VPBaseLocationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C73ACA1D339E8500BEF533 /* VPBaseLocationVC.m */; };
 		18C73ACE1D33D5E400BEF533 /* VPMarkerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C73ACD1D33D5E400BEF533 /* VPMarkerModel.m */; };
 		18C73AD11D341BFD00BEF533 /* VPLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C73AD01D341BFD00BEF533 /* VPLocationManager.m */; };
-		18E3EE6F1D2BBD7F000729E3 /* VPMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E3EE6E1D2BBD7F000729E3 /* VPMenuTableViewCell.m */; };
+		18EB697E1D471DF60047BA7A /* VPProfileVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB697D1D471DF60047BA7A /* VPProfileVc.m */; };
+		18EB698B1D4730AB0047BA7A /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB69801D4730AB0047BA7A /* TestViewController.m */; };
+		18EB698D1D4730AB0047BA7A /* VPCategoriesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB69841D4730AB0047BA7A /* VPCategoriesVC.m */; };
+		18EB698E1D4730AB0047BA7A /* VPMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB69861D4730AB0047BA7A /* VPMenuTableViewCell.m */; };
+		18EB698F1D4730AB0047BA7A /* VPProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB69881D4730AB0047BA7A /* VPProductCollectionViewCell.m */; };
+		18EB699F1D47338D0047BA7A /* leftMenu.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18EB699D1D47338D0047BA7A /* leftMenu.plist */; };
+		18EB69A01D47338D0047BA7A /* stores.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18EB699E1D47338D0047BA7A /* stores.plist */; };
+		18EB69A31D47381C0047BA7A /* VPUpdateProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB69A21D47381C0047BA7A /* VPUpdateProfileVC.m */; };
+		18EB69A71D4739510047BA7A /* VPUpdateBillingAddressVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB69A61D4739510047BA7A /* VPUpdateBillingAddressVC.m */; };
 		18F3D7AD1D1CB6E6009D8EE3 /* VPLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7AC1D1CB6E6009D8EE3 /* VPLoginVC.m */; };
 		18F3D7B31D1CB8C6009D8EE3 /* VPBaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7B21D1CB8C6009D8EE3 /* VPBaseTextField.m */; };
 		18F3D7B91D1CFDB8009D8EE3 /* VPBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7B61D1CFDB8009D8EE3 /* VPBaseManager.m */; };
@@ -49,7 +60,6 @@
 		18F3D7D61D214F21009D8EE3 /* VPDashboardVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7D51D214F21009D8EE3 /* VPDashboardVc.m */; };
 		18F3D7F81D21866B009D8EE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18F3D7F71D21866B009D8EE3 /* Assets.xcassets */; };
 		18F3D7FB1D239F48009D8EE3 /* VPBaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7FA1D239F47009D8EE3 /* VPBaseCollectionViewCell.m */; };
-		18F3D7FE1D23A68E009D8EE3 /* VPProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7FD1D23A68E009D8EE3 /* VPProductCollectionViewCell.m */; };
 		18F3D8011D23EC45009D8EE3 /* VPBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D8001D23EC45009D8EE3 /* VPBaseNavigationController.m */; };
 		18F887421D3665310086255A /* VPTabsUISegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F887411D3665310086255A /* VPTabsUISegmentedControl.m */; };
 		18F887451D3692980086255A /* VPUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F887441D3692980086255A /* VPUserManager.m */; };
@@ -66,7 +76,6 @@
 		1805FF9D1D1B11440005E8AD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1805FFA31D1B11450005E8AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1805FFA81D1B11450005E8AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		1805FFAA1D1B11450005E8AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1805FFBE1D1B37780005E8AD /* VPSliderMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPSliderMenuVC.h; path = Classes/UX/VPSliderMenuVC.h; sourceTree = "<group>"; };
 		1805FFBF1D1B37780005E8AD /* VPSliderMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPSliderMenuVC.m; path = Classes/UX/VPSliderMenuVC.m; sourceTree = "<group>"; };
 		1805FFC11D1B37A40005E8AD /* VPECSliderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPECSliderVC.h; path = Classes/UX/VPECSliderVC.h; sourceTree = "<group>"; };
@@ -81,8 +90,6 @@
 		180DDB361D1C093E00083967 /* MEZoomAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEZoomAnimationController.m; sourceTree = "<group>"; };
 		180DDB411D1C242200083967 /* VPBaseUIButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPBaseUIButton.h; path = Classes/UX/VPBaseUIButton.h; sourceTree = "<group>"; };
 		180DDB421D1C242200083967 /* VPBaseUIButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPBaseUIButton.m; path = Classes/UX/VPBaseUIButton.m; sourceTree = "<group>"; };
-		182DC7C01D263FA400B049D6 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		182DC7C11D263FA400B049D6 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		182DC7C31D26962200B049D6 /* VPGMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPGMapVC.h; path = Classes/UX/VPGMapVC.h; sourceTree = "<group>"; };
 		182DC7C41D26962200B049D6 /* VPGMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPGMapVC.m; path = Classes/UX/VPGMapVC.m; sourceTree = "<group>"; };
 		182DC7C61D27AD3200B049D6 /* VPMapTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPMapTableVC.h; path = Classes/UX/VPMapTableVC.h; sourceTree = "<group>"; };
@@ -91,8 +98,6 @@
 		182DC7CA1D27B8D200B049D6 /* VPBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPBaseTableViewCell.m; path = Classes/UX/VPBaseTableViewCell.m; sourceTree = "<group>"; };
 		182DC7CC1D27B9CA00B049D6 /* VPMapTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPMapTableViewCell.h; path = Classes/UX/VPMapTableViewCell.h; sourceTree = "<group>"; };
 		182DC7CD1D27B9CA00B049D6 /* VPMapTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPMapTableViewCell.m; path = Classes/UX/VPMapTableViewCell.m; sourceTree = "<group>"; };
-		182DC7D41D29221900B049D6 /* leftMenu.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = leftMenu.plist; sourceTree = "<group>"; };
-		183CD5CF1D38C1CE0067B0DC /* stores.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stores.plist; sourceTree = "<group>"; };
 		183CD5D11D3E05E60067B0DC /* VPDashboardProductsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPDashboardProductsVC.h; path = Classes/UX/VPDashboardProductsVC.h; sourceTree = "<group>"; };
 		183CD5D21D3E05E60067B0DC /* VPDashboardProductsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPDashboardProductsVC.m; path = Classes/UX/VPDashboardProductsVC.m; sourceTree = "<group>"; };
 		183CD5D41D3E86640067B0DC /* VPProductDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPProductDetailsVC.h; path = Classes/UX/VPProductDetailsVC.h; sourceTree = "<group>"; };
@@ -103,6 +108,18 @@
 		183CD5DB1D3F995E0067B0DC /* VPProductDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPProductDetailTableViewCell.m; path = Classes/UX/VPProductDetailTableViewCell.m; sourceTree = "<group>"; };
 		183CD5DD1D3FD27A0067B0DC /* VPProductDetailCounterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPProductDetailCounterTableViewCell.h; path = Classes/UX/VPProductDetailCounterTableViewCell.h; sourceTree = "<group>"; };
 		183CD5DE1D3FD27A0067B0DC /* VPProductDetailCounterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPProductDetailCounterTableViewCell.m; path = Classes/UX/VPProductDetailCounterTableViewCell.m; sourceTree = "<group>"; };
+		183CD5E01D40BEF90067B0DC /* VPAddReviewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPAddReviewVC.h; path = Classes/UX/VPAddReviewVC.h; sourceTree = "<group>"; };
+		183CD5E11D40BEFA0067B0DC /* VPAddReviewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPAddReviewVC.m; path = Classes/UX/VPAddReviewVC.m; sourceTree = "<group>"; };
+		183CD5E41D40E2190067B0DC /* TPKeyboardAvoidingCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingCollectionView.h; sourceTree = "<group>"; };
+		183CD5E51D40E2190067B0DC /* TPKeyboardAvoidingCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingCollectionView.m; sourceTree = "<group>"; };
+		183CD5E61D40E2190067B0DC /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		183CD5E71D40E2190067B0DC /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		183CD5E81D40E2190067B0DC /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
+		183CD5E91D40E2190067B0DC /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
+		183CD5EA1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		183CD5EB1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
+		183CD5F31D4647860067B0DC /* VPProductsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPProductsVC.h; path = Classes/UX/VPProductsVC.h; sourceTree = "<group>"; };
+		183CD5F41D4647860067B0DC /* VPProductsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPProductsVC.m; path = Classes/UX/VPProductsVC.m; sourceTree = "<group>"; };
 		18C73AC71D338AE000BEF533 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		18C73AC91D339E8500BEF533 /* VPBaseLocationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPBaseLocationVC.h; path = Classes/UX/VPBaseLocationVC.h; sourceTree = "<group>"; };
 		18C73ACA1D339E8500BEF533 /* VPBaseLocationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPBaseLocationVC.m; path = Classes/UX/VPBaseLocationVC.m; sourceTree = "<group>"; };
@@ -110,8 +127,22 @@
 		18C73ACD1D33D5E400BEF533 /* VPMarkerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPMarkerModel.m; path = Classes/Models/VPMarkerModel.m; sourceTree = "<group>"; };
 		18C73ACF1D341BFD00BEF533 /* VPLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPLocationManager.h; sourceTree = "<group>"; };
 		18C73AD01D341BFD00BEF533 /* VPLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPLocationManager.m; sourceTree = "<group>"; };
-		18E3EE6D1D2BBD7F000729E3 /* VPMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPMenuTableViewCell.h; sourceTree = "<group>"; };
-		18E3EE6E1D2BBD7F000729E3 /* VPMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPMenuTableViewCell.m; sourceTree = "<group>"; };
+		18EB697C1D471DF60047BA7A /* VPProfileVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPProfileVc.h; path = Classes/UX/VPProfileVc.h; sourceTree = "<group>"; };
+		18EB697D1D471DF60047BA7A /* VPProfileVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPProfileVc.m; path = Classes/UX/VPProfileVc.m; sourceTree = "<group>"; };
+		18EB697F1D4730AB0047BA7A /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestViewController.h; path = Classes/UX/TestViewController.h; sourceTree = "<group>"; };
+		18EB69801D4730AB0047BA7A /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestViewController.m; path = Classes/UX/TestViewController.m; sourceTree = "<group>"; };
+		18EB69831D4730AB0047BA7A /* VPCategoriesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPCategoriesVC.h; path = Classes/UX/VPCategoriesVC.h; sourceTree = "<group>"; };
+		18EB69841D4730AB0047BA7A /* VPCategoriesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPCategoriesVC.m; path = Classes/UX/VPCategoriesVC.m; sourceTree = "<group>"; };
+		18EB69851D4730AB0047BA7A /* VPMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPMenuTableViewCell.h; path = Classes/UX/VPMenuTableViewCell.h; sourceTree = "<group>"; };
+		18EB69861D4730AB0047BA7A /* VPMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPMenuTableViewCell.m; path = Classes/UX/VPMenuTableViewCell.m; sourceTree = "<group>"; };
+		18EB69871D4730AB0047BA7A /* VPProductCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPProductCollectionViewCell.h; path = Classes/UX/VPProductCollectionViewCell.h; sourceTree = "<group>"; };
+		18EB69881D4730AB0047BA7A /* VPProductCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPProductCollectionViewCell.m; path = Classes/UX/VPProductCollectionViewCell.m; sourceTree = "<group>"; };
+		18EB699D1D47338D0047BA7A /* leftMenu.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = leftMenu.plist; path = Classes/leftMenu.plist; sourceTree = "<group>"; };
+		18EB699E1D47338D0047BA7A /* stores.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = stores.plist; path = Classes/stores.plist; sourceTree = "<group>"; };
+		18EB69A11D47381C0047BA7A /* VPUpdateProfileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPUpdateProfileVC.h; path = Classes/UX/VPUpdateProfileVC.h; sourceTree = "<group>"; };
+		18EB69A21D47381C0047BA7A /* VPUpdateProfileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPUpdateProfileVC.m; path = Classes/UX/VPUpdateProfileVC.m; sourceTree = "<group>"; };
+		18EB69A51D4739510047BA7A /* VPUpdateBillingAddressVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPUpdateBillingAddressVC.h; path = Classes/UX/VPUpdateBillingAddressVC.h; sourceTree = "<group>"; };
+		18EB69A61D4739510047BA7A /* VPUpdateBillingAddressVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPUpdateBillingAddressVC.m; path = Classes/UX/VPUpdateBillingAddressVC.m; sourceTree = "<group>"; };
 		18F3D7AB1D1CB6E6009D8EE3 /* VPLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPLoginVC.h; path = Classes/UX/VPLoginVC.h; sourceTree = "<group>"; };
 		18F3D7AC1D1CB6E6009D8EE3 /* VPLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPLoginVC.m; path = Classes/UX/VPLoginVC.m; sourceTree = "<group>"; };
 		18F3D7B11D1CB8C6009D8EE3 /* VPBaseTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPBaseTextField.h; sourceTree = "<group>"; };
@@ -139,8 +170,6 @@
 		18F3D7F71D21866B009D8EE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18F3D7F91D239F47009D8EE3 /* VPBaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPBaseCollectionViewCell.h; path = Classes/UX/VPBaseCollectionViewCell.h; sourceTree = "<group>"; };
 		18F3D7FA1D239F47009D8EE3 /* VPBaseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPBaseCollectionViewCell.m; path = Classes/UX/VPBaseCollectionViewCell.m; sourceTree = "<group>"; };
-		18F3D7FC1D23A68E009D8EE3 /* VPProductCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPProductCollectionViewCell.h; sourceTree = "<group>"; };
-		18F3D7FD1D23A68E009D8EE3 /* VPProductCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPProductCollectionViewCell.m; sourceTree = "<group>"; };
 		18F3D7FF1D23EC45009D8EE3 /* VPBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPBaseNavigationController.h; sourceTree = "<group>"; };
 		18F3D8001D23EC45009D8EE3 /* VPBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPBaseNavigationController.m; sourceTree = "<group>"; };
 		18F887401D3665310086255A /* VPTabsUISegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPTabsUISegmentedControl.h; path = Classes/UX/VPTabsUISegmentedControl.h; sourceTree = "<group>"; };
@@ -192,10 +221,8 @@
 		1805FF981D1B11440005E8AD /* vaperite */ = {
 			isa = PBXGroup;
 			children = (
-				183CD5CE1D38C1800067B0DC /* Plists */,
 				1805FFB71D1B1FAD0005E8AD /* Resources */,
 				1805FFB61D1B1F9D0005E8AD /* Classes */,
-				1805FFAA1D1B11450005E8AD /* Info.plist */,
 				1805FF991D1B11440005E8AD /* Supporting Files */,
 			);
 			path = vaperite;
@@ -254,24 +281,28 @@
 		1805FFB51D1B1F820005E8AD /* UX */ = {
 			isa = PBXGroup;
 			children = (
+				18EB69A41D4739170047BA7A /* UpdateProfile */,
+				183CD5E31D40E2190067B0DC /* TPKeyboardAvoiding */,
 				18F3D7D01D20F19D009D8EE3 /* Login */,
 				180DDB4B1D1C291600083967 /* Menu */,
 				180DDB4A1D1C28E300083967 /* BaseControllers */,
 				180DDB2E1D1C093E00083967 /* Transitions */,
+				18EB697F1D4730AB0047BA7A /* TestViewController.h */,
+				18EB69801D4730AB0047BA7A /* TestViewController.m */,
+				18EB69831D4730AB0047BA7A /* VPCategoriesVC.h */,
+				18EB69841D4730AB0047BA7A /* VPCategoriesVC.m */,
+				18EB69851D4730AB0047BA7A /* VPMenuTableViewCell.h */,
+				18EB69861D4730AB0047BA7A /* VPMenuTableViewCell.m */,
+				18EB69871D4730AB0047BA7A /* VPProductCollectionViewCell.h */,
+				18EB69881D4730AB0047BA7A /* VPProductCollectionViewCell.m */,
 				18F3D7D41D214F21009D8EE3 /* VPDashboardVc.h */,
 				18F3D7D51D214F21009D8EE3 /* VPDashboardVc.m */,
-				18F3D7FC1D23A68E009D8EE3 /* VPProductCollectionViewCell.h */,
-				18F3D7FD1D23A68E009D8EE3 /* VPProductCollectionViewCell.m */,
-				182DC7C01D263FA400B049D6 /* TestViewController.h */,
-				182DC7C11D263FA400B049D6 /* TestViewController.m */,
 				182DC7C31D26962200B049D6 /* VPGMapVC.h */,
 				182DC7C41D26962200B049D6 /* VPGMapVC.m */,
 				182DC7C61D27AD3200B049D6 /* VPMapTableVC.h */,
 				182DC7C71D27AD3200B049D6 /* VPMapTableVC.m */,
 				182DC7CC1D27B9CA00B049D6 /* VPMapTableViewCell.h */,
 				182DC7CD1D27B9CA00B049D6 /* VPMapTableViewCell.m */,
-				18E3EE6D1D2BBD7F000729E3 /* VPMenuTableViewCell.h */,
-				18E3EE6E1D2BBD7F000729E3 /* VPMenuTableViewCell.m */,
 				18F887401D3665310086255A /* VPTabsUISegmentedControl.h */,
 				18F887411D3665310086255A /* VPTabsUISegmentedControl.m */,
 				CE18E1441D39496600ABC710 /* VPAgeVC.h */,
@@ -284,6 +315,10 @@
 				183CD5DB1D3F995E0067B0DC /* VPProductDetailTableViewCell.m */,
 				183CD5DD1D3FD27A0067B0DC /* VPProductDetailCounterTableViewCell.h */,
 				183CD5DE1D3FD27A0067B0DC /* VPProductDetailCounterTableViewCell.m */,
+				183CD5E01D40BEF90067B0DC /* VPAddReviewVC.h */,
+				183CD5E11D40BEFA0067B0DC /* VPAddReviewVC.m */,
+				183CD5F31D4647860067B0DC /* VPProductsVC.h */,
+				183CD5F41D4647860067B0DC /* VPProductsVC.m */,
 			);
 			name = UX;
 			sourceTree = "<group>";
@@ -304,6 +339,8 @@
 		1805FFB71D1B1FAD0005E8AD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				18EB699D1D47338D0047BA7A /* leftMenu.plist */,
+				18EB699E1D47338D0047BA7A /* stores.plist */,
 				18F3D7F71D21866B009D8EE3 /* Assets.xcassets */,
 				1805FFA21D1B11450005E8AD /* Main.storyboard */,
 				1805FFA71D1B11450005E8AD /* LaunchScreen.storyboard */,
@@ -361,13 +398,33 @@
 			name = Menu;
 			sourceTree = "<group>";
 		};
-		183CD5CE1D38C1800067B0DC /* Plists */ = {
+		183CD5E31D40E2190067B0DC /* TPKeyboardAvoiding */ = {
 			isa = PBXGroup;
 			children = (
-				183CD5CF1D38C1CE0067B0DC /* stores.plist */,
-				182DC7D41D29221900B049D6 /* leftMenu.plist */,
+				183CD5E41D40E2190067B0DC /* TPKeyboardAvoidingCollectionView.h */,
+				183CD5E51D40E2190067B0DC /* TPKeyboardAvoidingCollectionView.m */,
+				183CD5E61D40E2190067B0DC /* TPKeyboardAvoidingScrollView.h */,
+				183CD5E71D40E2190067B0DC /* TPKeyboardAvoidingScrollView.m */,
+				183CD5E81D40E2190067B0DC /* TPKeyboardAvoidingTableView.h */,
+				183CD5E91D40E2190067B0DC /* TPKeyboardAvoidingTableView.m */,
+				183CD5EA1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				183CD5EB1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
 			);
-			name = Plists;
+			name = TPKeyboardAvoiding;
+			path = Classes/UX/TPKeyboardAvoiding;
+			sourceTree = "<group>";
+		};
+		18EB69A41D4739170047BA7A /* UpdateProfile */ = {
+			isa = PBXGroup;
+			children = (
+				18EB69A11D47381C0047BA7A /* VPUpdateProfileVC.h */,
+				18EB69A21D47381C0047BA7A /* VPUpdateProfileVC.m */,
+				18EB697C1D471DF60047BA7A /* VPProfileVc.h */,
+				18EB697D1D471DF60047BA7A /* VPProfileVc.m */,
+				18EB69A51D4739510047BA7A /* VPUpdateBillingAddressVC.h */,
+				18EB69A61D4739510047BA7A /* VPUpdateBillingAddressVC.m */,
+			);
+			name = UpdateProfile;
 			sourceTree = "<group>";
 		};
 		18F3D7B41D1CFDB8009D8EE3 /* Managers */ = {
@@ -480,9 +537,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				182DC7D51D29221900B049D6 /* leftMenu.plist in Resources */,
+				18EB699F1D47338D0047BA7A /* leftMenu.plist in Resources */,
 				1805FFA91D1B11450005E8AD /* LaunchScreen.storyboard in Resources */,
-				183CD5D01D38C1CF0067B0DC /* stores.plist in Resources */,
+				18EB69A01D47338D0047BA7A /* stores.plist in Resources */,
 				18F3D7F81D21866B009D8EE3 /* Assets.xcassets in Resources */,
 				1805FFA41D1B11450005E8AD /* Main.storyboard in Resources */,
 			);
@@ -549,11 +606,17 @@
 				18F3D7AD1D1CB6E6009D8EE3 /* VPLoginVC.m in Sources */,
 				18F887421D3665310086255A /* VPTabsUISegmentedControl.m in Sources */,
 				183CD5D61D3E86650067B0DC /* VPProductDetailsVC.m in Sources */,
-				18E3EE6F1D2BBD7F000729E3 /* VPMenuTableViewCell.m in Sources */,
 				18F3D8011D23EC45009D8EE3 /* VPBaseNavigationController.m in Sources */,
+				183CD5EE1D40E2190067B0DC /* TPKeyboardAvoidingTableView.m in Sources */,
+				18EB698E1D4730AB0047BA7A /* VPMenuTableViewCell.m in Sources */,
+				183CD5E21D40BEFA0067B0DC /* VPAddReviewVC.m in Sources */,
 				180DDB3A1D1C093E00083967 /* MEZoomAnimationController.m in Sources */,
+				183CD5EC1D40E2190067B0DC /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				18F3D7C31D20E3EE009D8EE3 /* VPProductModel.m in Sources */,
+				183CD5EF1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				18EB698B1D4730AB0047BA7A /* TestViewController.m in Sources */,
 				18F3D7BD1D1CFFFB009D8EE3 /* NSDictionary+Helper.m in Sources */,
+				18EB697E1D471DF60047BA7A /* VPProfileVc.m in Sources */,
 				180DDB381D1C093E00083967 /* MEFoldAnimationController.m in Sources */,
 				183CD5DC1D3F995E0067B0DC /* VPProductDetailTableViewCell.m in Sources */,
 				180DDB391D1C093E00083967 /* METransitions.m in Sources */,
@@ -562,10 +625,13 @@
 				18C73AD11D341BFD00BEF533 /* VPLocationManager.m in Sources */,
 				18F3D7C61D20E52F009D8EE3 /* VPCategoriesModel.m in Sources */,
 				1805FFC01D1B37780005E8AD /* VPSliderMenuVC.m in Sources */,
-				18F3D7FE1D23A68E009D8EE3 /* VPProductCollectionViewCell.m in Sources */,
+				18EB69A31D47381C0047BA7A /* VPUpdateProfileVC.m in Sources */,
+				183CD5ED1D40E2190067B0DC /* TPKeyboardAvoidingScrollView.m in Sources */,
 				18F887481D3695EF0086255A /* NSString+URLEncoding.m in Sources */,
+				18EB69A71D4739510047BA7A /* VPUpdateBillingAddressVC.m in Sources */,
+				18EB698F1D4730AB0047BA7A /* VPProductCollectionViewCell.m in Sources */,
+				183CD5F51D4647860067B0DC /* VPProductsVC.m in Sources */,
 				18C73ACE1D33D5E400BEF533 /* VPMarkerModel.m in Sources */,
-				182DC7C21D263FA400B049D6 /* TestViewController.m in Sources */,
 				183CD5D91D3ECEA30067B0DC /* VPRightMenuVC.m in Sources */,
 				182DC7C51D26962200B049D6 /* VPGMapVC.m in Sources */,
 				CE18E1461D39496600ABC710 /* VPAgeVC.m in Sources */,
@@ -577,6 +643,7 @@
 				18F3D7B91D1CFDB8009D8EE3 /* VPBaseManager.m in Sources */,
 				182DC7C81D27AD3200B049D6 /* VPMapTableVC.m in Sources */,
 				180DDB431D1C242200083967 /* VPBaseUIButton.m in Sources */,
+				18EB698D1D4730AB0047BA7A /* VPCategoriesVC.m in Sources */,
 				183CD5DF1D3FD27A0067B0DC /* VPProductDetailCounterTableViewCell.m in Sources */,
 				18F3D7D61D214F21009D8EE3 /* VPDashboardVc.m in Sources */,
 				182DC7CB1D27B8D200B049D6 /* VPBaseTableViewCell.m in Sources */,

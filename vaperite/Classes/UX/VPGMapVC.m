@@ -74,11 +74,9 @@
     [self.mapView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:60.0f]];
 }
 
--(void)closeAlertview{
+- (void)closeAlertview{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-
 
 #pragma mark - CLLocationManagerDelegate Methods
 

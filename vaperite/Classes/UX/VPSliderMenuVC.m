@@ -120,14 +120,7 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    // This undoes the Zoom Transition's scale because it affects the other transitions.
-    // You normally wouldn't need to do anything like this, but we're changing transitions
-    // dynamically so everything needs to start in a consistent state.
-    
 
-    
-    //NSString *menuItem = self.menuItems[indexPath.row];
     NSMutableArray *selectedSection = [self.visibleRowsPerSection objectAtIndex:indexPath.section];
     NSNumber *selectedRow = [selectedSection objectAtIndex:indexPath.row];
     
@@ -160,23 +153,6 @@
         self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:[actualElement objectForKey:@"viewController"]];
         [self.slidingViewController resetTopViewAnimated:YES];
     }
-    
-   // NSMutableIndexSet *reloadSectionsContainer = [[NSMutableIndexSet alloc]init];
-    
-    //[reloadSectionsContainer addIndex:indexPath.section];
-   
-   
-//    if ([menuItem isEqualToString:@"Main"]) {
-//        self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Main"];
-//    } else if ([menuItem isEqualToString:@"Second"]) {
-//        self.slidingViewController.topViewController = [self.storyboard   instantiateViewControllerWithIdentifier:@"Second"];
-//    }
-    
-    
-    
 }
-
-
-
 
 @end
