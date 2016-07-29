@@ -10,10 +10,8 @@
 
 @optional
 
-- (void)userManager:(VPUserManager *)userManager didAuthenticate:(NSDictionary *)response ;
-- (void)userManager:(VPUserManager *)userManager didFailToAuthenticate:(NSString *)message;
-
-
+- (void)userManager:(VPUserManager *)userManager didAuthenticateWithUser:(VPUserManager *)user organizations:(NSArray *)organizations;
+- (void)userManager:(VPUserManager *)userManager didFailToAuthenticateWithMessage:(NSString *)message;
 
 @end
 
@@ -21,7 +19,7 @@
 
 @property (weak, nonatomic) id<VPUserManagerDelegate> delegate;
 
-- (void)authenticate;
+- (void)authenticateWithEmail:(NSString *)email password:(NSString *)password pushToken:(NSString *)pushToken;
 
 
 @end

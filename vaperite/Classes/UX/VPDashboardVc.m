@@ -65,6 +65,13 @@
     [self addChildViewController:self.currentViewController];
     [self addSubview:self.currentViewController.view toView:self.containerView];
     
+    
+    if (!self.userManager) {
+        self.userManager = [[VPUserManager alloc]init];
+        self.userManager.delegate = self;
+    }
+    [self.userManager authenticateWithEmail:@"qubaish@gems.techverx.com" password:@"helloworld81" pushToken:@""];
+    
 }
 
 #pragma mark - Private Methods 

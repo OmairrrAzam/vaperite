@@ -27,6 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureCollectionView];
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated{

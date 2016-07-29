@@ -78,7 +78,7 @@
     user.firstName = firstName;
     user.lastName = lastName;
     user.email = email;
-    user.password = password;
+    //user.password = password;
     return user;
 }
 
