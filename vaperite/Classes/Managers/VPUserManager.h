@@ -5,12 +5,12 @@
 #import "VPUsersModel.h"
 
 @class VPUserManager;
-
+@class VPUsersModel;
 @protocol VPUserManagerDelegate
 
 @optional
 
-- (void)userManager:(VPUserManager *)userManager didAuthenticateWithUser:(VPUserManager *)user organizations:(NSArray *)organizations;
+- (void)userManager:(VPUserManager *)userManager didAuthenticateWithUser:(VPUsersModel *)user;
 - (void)userManager:(VPUserManager *)userManager didFailToAuthenticateWithMessage:(NSString *)message;
 
 @end

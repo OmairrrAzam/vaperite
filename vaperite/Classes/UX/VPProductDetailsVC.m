@@ -9,9 +9,11 @@
 #import "VPProductDetailsVC.h"
 #import "VPProductDetailTableViewCell.h"
 #import "VPProductDetailCounterTableViewCell.h"
+#import  "VPProductModel.h"
+#import "VPProductManager.h"
 
-@interface VPProductDetailsVC ()<UITableViewDelegate, UITableViewDataSource>
-
+@interface VPProductDetailsVC ()<UITableViewDelegate, UITableViewDataSource, VPProductManagerDelegate>
+@property (strong, nonatomic) VPProductManager *productManager;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) int qty;
 
@@ -27,6 +29,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (!self.productManager) {
+        self.productManager = [[VPProductManager alloc]init];
+        self.productManager.delegate = self;
+    }
+    [self startAnimating];
+    
+    [self.productManager fetchProductDetailsWithProductId:self.product.productId andSessionId:self.sessionId];
     self.qty = 1;
     [self.tableView setBackgroundColor : [UIColor colorWithRed:203/255.0 green:227/255.0 blue:222/255.0 alpha:1]];
     //self.tfCounter.text = @"1";
@@ -103,15 +112,27 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
+    if (indexPath.section == 0){
+        
+        UILabel *lblName       = (UILabel *)[cell.contentView viewWithTag:2];
+        UILabel *lblPrice      = (UILabel *)[cell.contentView viewWithTag:3];
+        
+        lblName.text       = self.product.name;
+        lblPrice.text      = [NSString stringWithFormat:@"$%@", self.product.price];
+        //cell.productImage.layer.cornerRadius = 37;
+        //cell.productImage.layer.masksToBounds = YES;
+    }
+    
     if (indexPath.section == 1) {
         UITextField *tfCounter = (UITextField *)[cell.contentView viewWithTag:1];
         tfCounter.text = [NSString stringWithFormat:@"%d", self.qty];
     }
-
-    if (indexPath.section == 0){
-        //cell.productImage.layer.cornerRadius = 37;
-        //cell.productImage.layer.masksToBounds = YES;
+    
+    if (indexPath.section == 2){
+        UILabel *lblDescription      = (UILabel *)[cell.contentView viewWithTag:10];
+        lblDescription.text          = self.product.shortDescription;
     }
+    
     
     return cell;
 }
@@ -200,18 +221,15 @@
 
 - (IBAction)btnSubCount:(id)sender {
     self.qty -= 1;
-    
     if (self.qty <=0) {
         self.qty = 1;
     }
     [self.tableView reloadData];
-    
 }
 
 - (IBAction)btnAddCount:(id)sender {
     self.qty += 1;
     [self.tableView reloadData];
-    
 }
 
 - (IBAction)addReview:(id)sender{
@@ -219,11 +237,19 @@
     //UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"AddReviewID"];
     //loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     //[self presentViewController:loginNavigator animated:YES completion:nil];
-
 }
 
 - (IBAction)btnBack:(id)sender {
     //[self dismissViewControllerAnimated:YES completion:nil];
     [[self navigationController] popViewControllerAnimated:YES];
+}
+
+- (void)productManager:(VPProductManager *)manager didFetchProductDetails:(VPProductModel *)product{
+    self.product = product;
+    [self stopAnimating];
+    [self.tableView reloadData];
+}
+- (void)productManager:(VPProductManager *)manager didFailToFetchProductDetails:(NSString *)message{
+    
 }
 @end

@@ -5,72 +5,64 @@
 #import "VPProductModel.h"
 #import "VPMarkerModel.h"
 
+static NSString *kBaseUrl  = @"http://ec2-54-208-24-225.compute-1.amazonaws.com/";
+static NSString *kApiKey   = @"techverx";
+static NSString *kApiUser  = @"techverx";
+
 @implementation VPProductManager
 
-- (void)fetchProducts {
+- (void)fetchProductsWithSessionId:(NSString*)sessionId {
     
-    VPMarkerModel *currentStore = [VPMarkerModel currentStore];
-    NSString *storeId;
-    if (currentStore != nil){
-        storeId = currentStore.id;
-    }else{
-        storeId = @"1";
-    }
+    NSURLSession *session = [NSURLSession sharedSession];
     
-    VPSessionManager *manager = [VPSessionManager sharedManager];
-    [manager.requestSerializer setValue:@"application/xml" forHTTPHeaderField:@"Accept"];
-    NSString *path = nil;
-    path = [NSString stringWithFormat:@"api/rest/products/store/%@",storeId];
+    //NSString *path = @"customapi/index/getAwardedProducts/";
+    NSURL *url = [NSURL URLWithString:@"http://ec2-54-208-24-225.compute-1.amazonaws.com/customapi/index/getAwardedProducts/"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *params = [NSString stringWithFormat:@"session=%@",sessionId ];
+    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
     
-    manager.responseSerializer = [AFXMLParserResponseSerializer serializer];
     
-    //manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    // NSDictionary *parameters = @{@"format": @"xml"};
-    
-    [manager GET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSString *strResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", strResponse);
+        NSArray *array = [NSJSONSerialization JSONObjectWithData:[strResponse dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
         
-        if (self.delegate) {
-            
-                
-                self.xmlParser = (NSXMLParser *)responseObject;
-            
-                self.xmlParser.delegate = self;
-                
-                // Initialize the mutable string that we'll use during parsing.
-                self.foundValue = [[NSMutableString alloc] init];
-                
-                // Start parsing.
-                [self.xmlParser parse];
-            
-            
-//            NSDictionary *dictResponse = (NSDictionary *)responseObject;
-//            
-//            NSArray *arrAssets = (NSArray *)[dictResponse objectForKey:@"assets"];
-//            NSArray *assets = [TMAssetModel loadFromArray:arrAssets];
-//            
-//            NSDictionary *dictPagination = (NSDictionary *)[dictResponse objectForKey:@"pagination"];
-//            TMPaginationModel *pagination = [[TMPaginationModel alloc] initWithDictionary:dictPagination];
-//            
-//            [self.delegate assetManager:self didFetchAssets:assets pagination:pagination];
-            
-        }
+        NSArray *products = [VPProductModel loadFromArray:array];
+        [self.delegate productManager:self didFetchProducts:products];
+
+        //VPProductModel *products = [VPProductModel alloc]
         
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-       // NSString *message = [self extractMessageFromTask:task andError:error];
-        [self.delegate productManager:self didFailToFetchProducts:@"Failed To get products : manual message"];
-    }];
+        
+    }] resume];
+}
+
+- (void)fetchProductDetailsWithProductId:(NSString*)productId andSessionId:(NSString*)sessionId{
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSURL *url = [NSURL URLWithString:@"http://ec2-54-208-24-225.compute-1.amazonaws.com/customapi/index/getProductDetail"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *params = [NSString stringWithFormat:@"session=%@&productid=%@",sessionId, productId ];
+    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    
+    [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSString *strResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", strResponse);
+        
+       NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:[strResponse dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
+        
+        VPProductModel *product = [[VPProductModel alloc]initWithDictionary:dict];
+        
+       // NSArray *products = [VPProductModel loadFromArray:array];
+        [self.delegate productManager:self didFetchProductDetails:product];
+        
+        //VPProductModel *products = [VPProductModel alloc]
+    
+    }] resume];
 }
 
 
--(void)parserDidEndDocument:(NSXMLParser *)parser{
-    // When the parsing has been finished then simply reload the table view.
-//    for (id object in self.arrNeighboursData) {
-//        // do something with object
-//        
-//    }
-    
-   NSArray *products =  [VPProductModel loadFromArray:self.arrNeighboursData];
-    
-    [self.delegate productManager:self didFetchProducts:products];
-}
 @end

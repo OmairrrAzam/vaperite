@@ -9,6 +9,7 @@ static NSString *kBaseUrl = @"http://ec2-54-208-24-225.compute-1.amazonaws.com/"
 #define AUTH_URL             @"http://ec2-54-208-24-225.compute-1.amazonaws.com"
 #define OAUTH_CALLBACK       @"http%3A%2F%2Flocalhost%2Fmagento"
 #define CONSUMER_KEY         @"fcaeb82cb3645b69d2c5fbc0d2983991"
+#define kSessionid           @"vp_session_id"
 #define CONSUMER_SECRET      @"7c305911f666276126a10628ac3746d8"
 #define CONSUMER_SIGNATURE   @"7c305911f666276126a10628ac3746d8%26"
 #define REQUEST_TOKEN_URL    @"/oauth/initiate"
@@ -59,4 +60,29 @@ static NSString *kBaseUrl = @"http://ec2-54-208-24-225.compute-1.amazonaws.com/"
 
 }
 
+- (void)getSessionIdWithUserApi:(NSString*)apiuser apiKey:(NSString*)apikey{
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    //NSString *path = @"customapi/index/getAwardedProducts/";
+    NSURL *url = [NSURL URLWithString:@"http://ec2-54-208-24-225.compute-1.amazonaws.com/customapi/index/getSession"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *params = [NSString stringWithFormat:@"apiuser=techverx&apikey=techverx" ];
+    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    
+    [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSString *strResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", strResponse);
+      
+//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//        [defaults setObject:strResponse forKey:kSessionid];
+        
+        [self.delegate sessionManager:self didFetchSession:strResponse];
+        //VPProductModel *products = [VPProductModel alloc]
+        
+    }] resume];
+   
+}
 @end

@@ -13,25 +13,35 @@
 
 + (NSArray *)loadFromArray:(NSArray *)arrProducts {
     
-    NSMutableArray *assets = [[NSMutableArray alloc] init];
+    NSMutableArray *products = [[NSMutableArray alloc] init];
     
     
     for (NSDictionary *dictProduct in arrProducts) {
         VPProductModel *product = [[VPProductModel alloc] initWithDictionary:dictProduct];
-        [assets addObject:product];
+        [products addObject:product];
     }
-    return assets;
+    return products;
 }
+
 
 - (id)initWithDictionary:(NSDictionary *)dictProduct {
     self = [super init];
- 
-    self.imgUrl = [[dictProduct objectForKeyHandlingNull:@"image_url"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    self.name   = [[dictProduct objectForKeyHandlingNull:@"name"]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    self.price   = [[dictProduct objectForKeyHandlingNull:@"final_price_with_tax"]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    self.productId         = [dictProduct objectForKeyHandlingNull:@"product_id"];
+    self.sku               = [dictProduct objectForKeyHandlingNull:@"sku"];
+    self.set               = [dictProduct objectForKeyHandlingNull:@"set"];
+    self.type              = [dictProduct objectForKeyHandlingNull:@"type"];
+    self.categoryIds       = [dictProduct objectForKeyHandlingNull:@"categories"];
+    self.name              = [dictProduct objectForKeyHandlingNull:@"name"];
+    self.price             = [dictProduct objectForKeyHandlingNull:@"price"];
+    self.desc              = [dictProduct objectForKeyHandlingNull:@"description"];
+    self.shortDescription  = [dictProduct objectForKeyHandlingNull:@"short_description"];
+    
     
     return self;
 }
+
+
 
 
 @end

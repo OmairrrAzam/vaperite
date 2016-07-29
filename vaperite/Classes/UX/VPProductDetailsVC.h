@@ -7,7 +7,10 @@
 //
 
 #import "VPBaseVC.h"
+@class  VPProductModel;
 
 @interface VPProductDetailsVC : VPBaseVC
+
+@property (strong, nonatomic)VPProductModel *product;
 
 @end

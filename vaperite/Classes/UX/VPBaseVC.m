@@ -10,6 +10,7 @@
 #import <KVNProgress/KVNProgress.h>
 #import "UIViewController+ECSlidingViewController.h"
 
+#define kSessionid           @"vp_session_id"
 
 @interface VPBaseVC ()
 @property (nonatomic) KVNProgressConfiguration *basicConfiguration;
@@ -21,7 +22,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+    self.sessionId = [[NSUserDefaults standardUserDefaults] objectForKey:kSessionid];
     self.basicConfiguration = [KVNProgressConfiguration defaultConfiguration];
 
     self.customConfiguration = [self customKVNProgressUIConfiguration];
@@ -82,6 +83,7 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 //    self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:viewController];
 //    [self.slidingViewController resetTopViewAnimated:YES];
 }
+
 
 - (void)dismissMe {
     [self dismissViewControllerAnimated:YES completion:nil];

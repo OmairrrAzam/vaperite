@@ -11,14 +11,16 @@
 #import "VPProductModel.h"
 #import "VPProductCollectionViewCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "VPProductDetailsVC.h"
+
 
 
 @interface VPDashboardProductsVC ()<UIActionSheetDelegate,UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, VPProductManagerDelegate>
 @property (strong, nonatomic) VPProductManager *productManager;
+@property (strong, nonatomic) VPProductModel *selectedProduct;
 @property (strong, nonatomic) NSArray *products;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) IBOutlet UICollectionViewFlowLayout *flowLayout;
-- (IBAction)btnProductDetail:(id)sender;
 
 @end
 
@@ -27,8 +29,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureCollectionView];
-    
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -49,7 +49,9 @@
         self.productManager = [[VPProductManager alloc]init];
         self.productManager.delegate = self;
     }
-    [self.productManager fetchProducts];
+   
+    
+    [self.productManager fetchProductsWithSessionId:self.sessionId];
 }
 
 - (void)configureCollectionView {
@@ -81,7 +83,7 @@
     VPProductCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     [cell.contentView.superview setClipsToBounds:NO];
     
-    cell.name.text  = currentProduct.name;
+    cell.name.text  = currentProduct.sku;
     cell.price.text = [NSString stringWithFormat:@"$%@", currentProduct.price];
     
     NSString *urlString = currentProduct.imgUrl;
@@ -111,6 +113,16 @@
     cell.productImage.clipsToBounds = YES;
     
     return cell;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
+    
+    UICollectionViewCell *datasetCell =[collectionView cellForItemAtIndexPath:indexPath];
+    datasetCell.backgroundColor = [UIColor blueColor]; // highlight selection
+    self.selectedProduct = [self.products objectAtIndex:[indexPath row]];
+    
+    [self performSegueWithIdentifier:@"product_detail_segue" sender:self];
+
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout Methods
@@ -146,6 +158,18 @@
 - (void)productManager:(VPProductManager *)manager didFailToFetchProducts:(NSString *)message{
     [self showError:message];
 }
+
+#pragma mark - Segue Callbacks
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+   if ([[segue identifier] isEqualToString:@"product_detail_segue"]) {
+       VPProductDetailsVC *productDetailVC = [segue destinationViewController];
+       productDetailVC.product = self.selectedProduct;
+   }
+}
+
 
 #pragma mark - IBOutlet Actions
 
@@ -188,8 +212,5 @@
 }
 */
 
-- (IBAction)btnProductDetail:(id)sender {
-    [self performSegueWithIdentifier:@"product_detail_segue" sender:self];
-   // [self changeViewThroughSlider:@"PRODUCT_DETAIL_NAV_VC"];
-}
+
 @end

@@ -13,13 +13,17 @@
 #import "NXOAuth2.h"
 #import "VPRegisterVC.h"
 #import "UIViewController+ECSlidingViewController.h"
+#import "VPUserManager.h"
 
-@interface VPLoginVC ()
+@interface VPLoginVC ()<VPUserManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet VPBaseTextField *tfUsername;
 @property (weak, nonatomic) IBOutlet VPBaseTextField *tfPassword;
 @property (weak, nonatomic) IBOutlet VPBaseUIButton *btnRegister;
 @property (weak, nonatomic) IBOutlet VPBaseUIButton *btnForgot;
+@property (strong, nonatomic) VPUserManager *userManager;
+@property (strong, nonatomic) NSString *username;
+@property (strong, nonatomic) NSString *password;
 
 - (IBAction)btnLogin_Pressed:(VPBaseUIButton *)btnLogin;
 - (IBAction)btnRegister_Pressed:(VPBaseUIButton *)btnRegister;
@@ -47,20 +51,20 @@
 
 - (BOOL)validate {
     
-    NSString *username = [self.tfUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *password = self.tfPassword.text;
+    self.username = [self.tfUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    self.password = self.tfPassword.text;
     
-    if (username.length == 0) {
+    if (self.username.length == 0) {
         [self showError:@"Username is required."];
         return NO;
     }
     
-    if (![self validateEmail:username]) {
+    if (![self validateEmail:self.username]) {
         [self showError:@"Invalid email."];
         return NO;
     }
     
-    if (password.length == 0) {
+    if (self.password.length == 0) {
         [self showError:@"Password is required."];
         return NO;
     }
@@ -73,7 +77,11 @@
 - (IBAction)btnLogin_Pressed:(VPBaseUIButton *)btnLogin {
     
     if ([self validate]) {
-        
+        if (!self.userManager) {
+            self.userManager = [[VPUserManager alloc]init];
+            self.userManager.delegate = self;
+        }
+        [self.userManager authenticateWithEmail:self.username password:self.password pushToken:@""];
     }
 }
 
@@ -102,6 +110,16 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
     //[self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - UserManagerDelegate Method
+
+- (void)userManager:(VPUserManager *)userManager didAuthenticateWithUser:(VPUsersModel *)user{
+    
+    
+}
+- (void)userManager:(VPUserManager *)userManager didFailToAuthenticateWithMessage:(NSString *)message{
+    
 }
 
 #pragma mark - Memory Cleanup Methods 

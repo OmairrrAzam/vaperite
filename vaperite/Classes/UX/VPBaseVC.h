@@ -20,6 +20,7 @@
 - (BOOL)isStaging;
 
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFields;
+@property (strong, nonatomic)  NSString *sessionId;
 - (void) changeViewThroughSlider:(NSString*)viewController;
 - (void) dismissMe;
 @end

@@ -33,6 +33,7 @@
 		183CD5EE1D40E2190067B0DC /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5E91D40E2190067B0DC /* TPKeyboardAvoidingTableView.m */; };
 		183CD5EF1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5EB1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		183CD5F51D4647860067B0DC /* VPProductsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5F41D4647860067B0DC /* VPProductsVC.m */; };
+		184D28971D4BAFCD00A83BF9 /* constants.plist in Resources */ = {isa = PBXBuildFile; fileRef = 184D28961D4BAFCD00A83BF9 /* constants.plist */; };
 		18C73AC81D338AE100BEF533 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C73AC71D338AE000BEF533 /* CoreLocation.framework */; };
 		18C73ACB1D339E8500BEF533 /* VPBaseLocationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C73ACA1D339E8500BEF533 /* VPBaseLocationVC.m */; };
 		18C73ACE1D33D5E400BEF533 /* VPMarkerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C73ACD1D33D5E400BEF533 /* VPMarkerModel.m */; };
@@ -120,6 +121,7 @@
 		183CD5EB1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		183CD5F31D4647860067B0DC /* VPProductsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPProductsVC.h; path = Classes/UX/VPProductsVC.h; sourceTree = "<group>"; };
 		183CD5F41D4647860067B0DC /* VPProductsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPProductsVC.m; path = Classes/UX/VPProductsVC.m; sourceTree = "<group>"; };
+		184D28961D4BAFCD00A83BF9 /* constants.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = constants.plist; path = Classes/constants.plist; sourceTree = "<group>"; };
 		18C73AC71D338AE000BEF533 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		18C73AC91D339E8500BEF533 /* VPBaseLocationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPBaseLocationVC.h; path = Classes/UX/VPBaseLocationVC.h; sourceTree = "<group>"; };
 		18C73ACA1D339E8500BEF533 /* VPBaseLocationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPBaseLocationVC.m; path = Classes/UX/VPBaseLocationVC.m; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				18F3D7F71D21866B009D8EE3 /* Assets.xcassets */,
 				1805FFA21D1B11450005E8AD /* Main.storyboard */,
 				1805FFA71D1B11450005E8AD /* LaunchScreen.storyboard */,
+				184D28961D4BAFCD00A83BF9 /* constants.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				184D28971D4BAFCD00A83BF9 /* constants.plist in Resources */,
 				18EB699F1D47338D0047BA7A /* leftMenu.plist in Resources */,
 				1805FFA91D1B11450005E8AD /* LaunchScreen.storyboard in Resources */,
 				18EB69A01D47338D0047BA7A /* stores.plist in Resources */,

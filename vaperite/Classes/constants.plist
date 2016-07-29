@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>authentication</key>
+	<dict>
+		<key>apiuser</key>
+		<string>techverx</string>
+		<key>apikey</key>
+		<string>techverx</string>
+		<key>baseurl</key>
+		<string>http://ec2-54-208-24-225.compute-1.amazonaws.com/</string>
+	</dict>
+</dict>
+</plist>

@@ -11,9 +11,12 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "NXOAuth2.h"
 #import "AFNetworkActivityLogger.h"
+#import "VPSessionManager.h"
 
-@interface AppDelegate ()
+#define kSessionid           @"vp_session_id"
 
+@interface AppDelegate () <VPSessionManagerDelegate>
+@property (strong, nonatomic) VPSessionManager *sessionManager;
 @end
 
 @implementation AppDelegate
@@ -49,6 +52,12 @@
     [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];
     [[AFNetworkActivityLogger sharedLogger] startLogging];
     
+    if (!self.sessionManager) {
+        self.sessionManager = [[VPSessionManager alloc]init];
+        self.sessionManager.delegate = self;
+    }
+    [self.sessionManager getSessionIdWithUserApi:@"" apiKey:@""];
+    
     return YES;
 }
 
@@ -78,6 +87,18 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - SessionManagerDelegate Methods
+
+- (void)sessionManager:(VPSessionManager *)sessionManager didFetchSession:(NSString*)sessionId{
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:sessionId forKey:kSessionid];
+
+}
+- (void)sessionManager:(VPSessionManager *)sessionManager failToFetchSessionWithMessage:(NSString*)message{
+    
 }
 
 @end
