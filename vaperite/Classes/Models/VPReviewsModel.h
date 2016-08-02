@@ -14,4 +14,5 @@
 @property (strong, nonatomic) NSString *desc;
 
 + (NSArray *)loadFromArray:(NSArray *)arrReviews;
+- (id)initWithDictionary:(NSDictionary *)dictReview;
 @end

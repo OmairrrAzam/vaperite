@@ -10,6 +10,9 @@
 
 @optional
 
+- (void)productManager:(VPProductManager *)manager didFetchALLProducts:(NSArray *)products;
+- (void)productManager:(VPProductManager *)manager didFailToFetchALLProducts:(NSString *)message;
+
 - (void)productManager:(VPProductManager *)manager didFetchFeaturedProducts:(NSArray *)products;
 - (void)productManager:(VPProductManager *)manager didFailToFetchFeaturedProducts:(NSString *)message;
 
@@ -25,6 +28,13 @@
 - (void)productManager:(VPProductManager *)manager didFetchProductImage:(NSString *)imgDetails;
 - (void)productManager:(VPProductManager *)manager didFailToFetchProductImage:(NSString *)message;
 
+- (void)productManager:(VPProductManager *)manager didFetchProductRating:(NSString *)rating;
+- (void)productManager:(VPProductManager *)manager didFailToFetchProductRating:(NSString *)message;
+
+- (void)productManager:(VPProductManager *)manager didAddRating:(NSString *)rating;
+- (void)productManager:(VPProductManager *)manager didFailToAddRating:(NSString *)message;
+
+
 @end
 
 @interface VPProductManager : VPBaseManager
@@ -36,4 +46,5 @@
 - (void)fetchProductDetailsWithProductId:(NSString*)productId andSessionId:(NSString*)sessionId;
 - (void)fetchProductReviewswithProductId:(NSString*)productId andStoreId:(NSString*)storeId;
 - (void)fetchProductImageWithProductId:(NSString*)productId andSessionId:(NSString*)sessionId;
+- (void) addProductRatingFromSession:(NSString*)sessionId rating:(NSString*)rating reviewId:(NSString*)reviewId productId:(NSString*)productId;
 @end

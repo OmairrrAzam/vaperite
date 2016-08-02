@@ -75,11 +75,13 @@ static NSString *kBaseUrl = @"http://ec2-54-208-24-225.compute-1.amazonaws.com/"
     [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSString *strResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSLog(@"%@", strResponse);
+        
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:[strResponse dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
       
 //        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 //        [defaults setObject:strResponse forKey:kSessionid];
         
-        [self.delegate sessionManager:self didFetchSession:strResponse];
+        [self.delegate sessionManager:self didFetchSession:[dict objectForKey:@"data"]];
         //VPProductModel *products = [VPProductModel alloc]
         
     }] resume];

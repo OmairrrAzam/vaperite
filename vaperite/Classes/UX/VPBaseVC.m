@@ -10,12 +10,14 @@
 #import <KVNProgress/KVNProgress.h>
 #import "UIViewController+ECSlidingViewController.h"
 
+
 #define kSessionid   @"vaperite.session_id"
 #define kStoreid     @"vaperite.store_id"
 
-@interface VPBaseVC ()
+@interface VPBaseVC () 
 @property (nonatomic) KVNProgressConfiguration *basicConfiguration;
 @property (nonatomic) KVNProgressConfiguration *customConfiguration;
+@property (strong, nonatomic) VPSessionManager *sessionManager;
 @end
 
 @implementation VPBaseVC
@@ -33,6 +35,13 @@
     [KVNProgress setConfiguration:self.customConfiguration];
     self.navigationItem.rightBarButtonItem =[self cartButton];
     self.navigationItem.leftBarButtonItem  =[self menuButton];
+    
+    if (!self.sessionManager) {
+        self.sessionManager = [[VPSessionManager alloc]init];
+        self.sessionManager.delegate = self;
+    }
+    [self.sessionManager getSessionIdWithUserApi:@"" apiKey:@""];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -198,6 +207,19 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
     
     return item;
 }
+
+#pragma mark - SessionManagerDelegate Methods
+
+- (void)sessionManager:(VPSessionManager *)sessionManager didFetchSession:(NSString*)sessionId{
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:sessionId forKey:kSessionid];
+    
+}
+- (void)sessionManager:(VPSessionManager *)sessionManager failToFetchSessionWithMessage:(NSString*)message{
+    
+}
+
 
 #pragma mark - Memory Cleanup Methods 
 

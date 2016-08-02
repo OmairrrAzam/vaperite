@@ -34,6 +34,8 @@
 		183CD5EF1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5EB1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		183CD5F51D4647860067B0DC /* VPProductsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5F41D4647860067B0DC /* VPProductsVC.m */; };
 		184D28971D4BAFCD00A83BF9 /* constants.plist in Resources */ = {isa = PBXBuildFile; fileRef = 184D28961D4BAFCD00A83BF9 /* constants.plist */; };
+		18816A651D50BB32006E7522 /* VPCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18816A641D50BB32006E7522 /* VPCategoryModel.m */; };
+		18816A681D50C2FE006E7522 /* VPCategoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18816A671D50C2FE006E7522 /* VPCategoryManager.m */; };
 		1896B3D81D4F4B5B00CBEB9B /* VPReviewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896B3D71D4F4B5B00CBEB9B /* VPReviewsModel.m */; };
 		18C73AC81D338AE100BEF533 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C73AC71D338AE000BEF533 /* CoreLocation.framework */; };
 		18C73ACB1D339E8500BEF533 /* VPBaseLocationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C73ACA1D339E8500BEF533 /* VPBaseLocationVC.m */; };
@@ -55,7 +57,6 @@
 		18F3D7BD1D1CFFFB009D8EE3 /* NSDictionary+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7BC1D1CFFFB009D8EE3 /* NSDictionary+Helper.m */; };
 		18F3D7C01D1D00E8009D8EE3 /* VPBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7BF1D1D00E8009D8EE3 /* VPBaseVC.m */; };
 		18F3D7C31D20E3EE009D8EE3 /* VPProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7C21D20E3EE009D8EE3 /* VPProductModel.m */; };
-		18F3D7C61D20E52F009D8EE3 /* VPCategoriesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7C51D20E52F009D8EE3 /* VPCategoriesModel.m */; };
 		18F3D7C91D20E550009D8EE3 /* VPUsersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7C81D20E550009D8EE3 /* VPUsersModel.m */; };
 		18F3D7CC1D20F16C009D8EE3 /* VPFogotPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7CB1D20F16C009D8EE3 /* VPFogotPasswordVC.m */; };
 		18F3D7CF1D20F18E009D8EE3 /* VPRegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F3D7CE1D20F18E009D8EE3 /* VPRegisterVC.m */; };
@@ -123,6 +124,10 @@
 		183CD5F31D4647860067B0DC /* VPProductsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPProductsVC.h; path = Classes/UX/VPProductsVC.h; sourceTree = "<group>"; };
 		183CD5F41D4647860067B0DC /* VPProductsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPProductsVC.m; path = Classes/UX/VPProductsVC.m; sourceTree = "<group>"; };
 		184D28961D4BAFCD00A83BF9 /* constants.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = constants.plist; path = Classes/constants.plist; sourceTree = "<group>"; };
+		18816A631D50BB32006E7522 /* VPCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPCategoryModel.h; path = Classes/VPCategoryModel.h; sourceTree = "<group>"; };
+		18816A641D50BB32006E7522 /* VPCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPCategoryModel.m; path = Classes/VPCategoryModel.m; sourceTree = "<group>"; };
+		18816A661D50C2FE006E7522 /* VPCategoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPCategoryManager.h; sourceTree = "<group>"; };
+		18816A671D50C2FE006E7522 /* VPCategoryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPCategoryManager.m; sourceTree = "<group>"; };
 		1896B3D61D4F4B5B00CBEB9B /* VPReviewsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPReviewsModel.h; path = Classes/Models/VPReviewsModel.h; sourceTree = "<group>"; };
 		1896B3D71D4F4B5B00CBEB9B /* VPReviewsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPReviewsModel.m; path = Classes/Models/VPReviewsModel.m; sourceTree = "<group>"; };
 		18C73AC71D338AE000BEF533 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -162,8 +167,6 @@
 		18F3D7BF1D1D00E8009D8EE3 /* VPBaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPBaseVC.m; path = Classes/UX/VPBaseVC.m; sourceTree = "<group>"; };
 		18F3D7C11D20E3EE009D8EE3 /* VPProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPProductModel.h; path = Classes/Models/VPProductModel.h; sourceTree = "<group>"; };
 		18F3D7C21D20E3EE009D8EE3 /* VPProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPProductModel.m; path = Classes/Models/VPProductModel.m; sourceTree = "<group>"; };
-		18F3D7C41D20E52F009D8EE3 /* VPCategoriesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPCategoriesModel.h; path = Classes/Models/VPCategoriesModel.h; sourceTree = "<group>"; };
-		18F3D7C51D20E52F009D8EE3 /* VPCategoriesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPCategoriesModel.m; path = Classes/Models/VPCategoriesModel.m; sourceTree = "<group>"; };
 		18F3D7C71D20E550009D8EE3 /* VPUsersModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPUsersModel.h; path = Classes/Models/VPUsersModel.h; sourceTree = "<group>"; };
 		18F3D7C81D20E550009D8EE3 /* VPUsersModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPUsersModel.m; path = Classes/Models/VPUsersModel.m; sourceTree = "<group>"; };
 		18F3D7CA1D20F16C009D8EE3 /* VPFogotPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPFogotPasswordVC.h; path = Classes/UX/Login/VPFogotPasswordVC.h; sourceTree = "<group>"; };
@@ -273,14 +276,14 @@
 			children = (
 				18F3D7C11D20E3EE009D8EE3 /* VPProductModel.h */,
 				18F3D7C21D20E3EE009D8EE3 /* VPProductModel.m */,
-				18F3D7C41D20E52F009D8EE3 /* VPCategoriesModel.h */,
-				18F3D7C51D20E52F009D8EE3 /* VPCategoriesModel.m */,
 				18F3D7C71D20E550009D8EE3 /* VPUsersModel.h */,
 				18F3D7C81D20E550009D8EE3 /* VPUsersModel.m */,
 				18C73ACC1D33D5E400BEF533 /* VPMarkerModel.h */,
 				18C73ACD1D33D5E400BEF533 /* VPMarkerModel.m */,
 				1896B3D61D4F4B5B00CBEB9B /* VPReviewsModel.h */,
 				1896B3D71D4F4B5B00CBEB9B /* VPReviewsModel.m */,
+				18816A631D50BB32006E7522 /* VPCategoryModel.h */,
+				18816A641D50BB32006E7522 /* VPCategoryModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -448,6 +451,8 @@
 				18F3D7B61D1CFDB8009D8EE3 /* VPBaseManager.m */,
 				18F3D7B71D1CFDB8009D8EE3 /* VPSessionManager.h */,
 				18F3D7B81D1CFDB8009D8EE3 /* VPSessionManager.m */,
+				18816A661D50C2FE006E7522 /* VPCategoryManager.h */,
+				18816A671D50C2FE006E7522 /* VPCategoryManager.m */,
 			);
 			name = Managers;
 			path = Classes/Managers;
@@ -609,6 +614,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18816A651D50BB32006E7522 /* VPCategoryModel.m in Sources */,
 				18F3D7CC1D20F16C009D8EE3 /* VPFogotPasswordVC.m in Sources */,
 				18F3D7CF1D20F18E009D8EE3 /* VPRegisterVC.m in Sources */,
 				1805FF9E1D1B11440005E8AD /* AppDelegate.m in Sources */,
@@ -633,7 +639,6 @@
 				182DC7CE1D27B9CA00B049D6 /* VPMapTableViewCell.m in Sources */,
 				18F3D7FB1D239F48009D8EE3 /* VPBaseCollectionViewCell.m in Sources */,
 				18C73AD11D341BFD00BEF533 /* VPLocationManager.m in Sources */,
-				18F3D7C61D20E52F009D8EE3 /* VPCategoriesModel.m in Sources */,
 				1805FFC01D1B37780005E8AD /* VPSliderMenuVC.m in Sources */,
 				18EB69A31D47381C0047BA7A /* VPUpdateProfileVC.m in Sources */,
 				183CD5ED1D40E2190067B0DC /* TPKeyboardAvoidingScrollView.m in Sources */,
@@ -663,6 +668,7 @@
 				183CD5D31D3E05E60067B0DC /* VPDashboardProductsVC.m in Sources */,
 				1805FFC31D1B37A40005E8AD /* VPECSliderVC.m in Sources */,
 				18C73ACB1D339E8500BEF533 /* VPBaseLocationVC.m in Sources */,
+				18816A681D50C2FE006E7522 /* VPCategoryManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

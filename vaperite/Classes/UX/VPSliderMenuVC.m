@@ -9,11 +9,13 @@
 #import "VPSliderMenuVC.h"
 #import "UIViewController+ECSlidingViewController.h"
 #import "VPMenuTableViewCell.h"
+#import "VPCategoryManager.h"
 
-@interface VPSliderMenuVC () <UITableViewDataSource, UITableViewDelegate>
+@interface VPSliderMenuVC () <UITableViewDataSource, UITableViewDelegate, VPCategoryManagerDelegate>
 @property (strong,nonatomic) NSArray *menuItems;
 @property (nonatomic, strong) NSMutableArray *cellDescriptors;
 @property (nonatomic, strong) NSMutableArray *visibleRowsPerSection;
+@property (nonatomic, strong) VPCategoryManager *categoryManager;
 @end
 
 @implementation VPSliderMenuVC
@@ -25,7 +27,8 @@
     [super viewDidLoad];
     
     [self loadCellDescriptors];
-   
+    
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -155,4 +158,15 @@
     }
 }
 
+#pragma mark - SessionManager Delegate Methods
+- (void)sessionManager:(VPSessionManager *)sessionManager didFetchSession:(NSString*)sessionId{
+    [super sessionManager:sessionManager didFetchSession:sessionId];
+    
+    if (!self.categoryManager) {
+        self.categoryManager = [[VPCategoryManager alloc]init];
+        self.categoryManager.delegate = self;
+    }
+    
+    [self.categoryManager loadCategoriesWithSessionId:self.sessionId];
+}
 @end

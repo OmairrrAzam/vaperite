@@ -35,10 +35,10 @@
     return reviews;
 }
 
-- (id)initWithDictionary:(NSDictionary *)dictRole {
+- (id)initWithDictionary:(NSDictionary *)dictReview {
     self = [super init];
-    self.titl =  [dictRole objectForKey:@"title"] ;
-    self.desc = [dictRole objectForKey:@"detail"];
+    self.titl =  [dictReview objectForKey:@"title"] ;
+    self.desc = [dictReview objectForKey:@"detail"];
     return self;
 }
 

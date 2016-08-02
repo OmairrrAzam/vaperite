@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ECSlidingViewController.h"
+#import "VPSessionManager.h"
 
-@interface VPBaseVC : UIViewController <ECSlidingViewControllerDelegate>
+
+@interface VPBaseVC : UIViewController <ECSlidingViewControllerDelegate,VPSessionManagerDelegate>
 
 - (void)startAnimating;
 - (void)stopAnimating;
@@ -22,6 +24,9 @@
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFields;
 @property (strong, nonatomic)  NSString *sessionId;
 @property (strong, nonatomic)  NSString *storeId;
+
 - (void) changeViewThroughSlider:(NSString*)viewController;
 - (void) dismissMe;
+
+- (void)sessionManager:(VPSessionManager *)sessionManager didFetchSession:(NSString*)sessionId;
 @end
