@@ -33,7 +33,14 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self fetchProducts];
+    
+    if ([self.productType isEqualToString:@"featured"]){
+        [self fetchFeaturedProducts];
+    }
+    else if([self.productType isEqualToString:@"recommended"]){
+        [self fetchRecommendedProducts];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,15 +50,22 @@
 
 #pragma mark - Private Methods
 
-- (void)fetchProducts {
+- (void)fetchFeaturedProducts {
     [self startAnimating];
     if (!self.productManager) {
         self.productManager = [[VPProductManager alloc]init];
         self.productManager.delegate = self;
     }
-   
-    
-    [self.productManager fetchProductsWithSessionId:self.sessionId];
+    [self.productManager fetchFeaturedProductsWithSessionId:self.sessionId];
+}
+
+- (void)fetchRecommendedProducts {
+    [self startAnimating];
+    if (!self.productManager) {
+        self.productManager = [[VPProductManager alloc]init];
+        self.productManager.delegate = self;
+    }
+    [self.productManager fetchFeaturedProductsWithSessionId:self.sessionId];
 }
 
 - (void)configureCollectionView {
@@ -116,7 +130,6 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
-    
     UICollectionViewCell *datasetCell =[collectionView cellForItemAtIndexPath:indexPath];
     datasetCell.backgroundColor = [UIColor blueColor]; // highlight selection
     self.selectedProduct = [self.products objectAtIndex:[indexPath row]];
@@ -147,17 +160,26 @@
 
 #pragma mark - VPProductManagerDelegate Methods
 
-- (void)productManager:(VPProductManager *)manager didFetchProducts:(NSArray *)products {
-    
+- (void)productManager:(VPProductManager *)manager didFetchFeaturedProducts:(NSArray *)products {
     [self stopAnimating];
     self.products = products;
     [self.collectionView reloadData];
+}
+
+- (void)productManager:(VPProductManager *)manager didFailToFetchFeaturedProducts:(NSString *)message{
+    [self showError:message];
+}
+
+- (void)productManager:(VPProductManager *)manager didFetchRecommendedProducts:(NSArray *)products{
+    [self stopAnimating];
+     self.products = products;
+    [self.collectionView reloadData];
+}
+- (void)productManager:(VPProductManager *)manager didFailToFetchRecommendedProducts:(NSString *)message{
     
 }
 
-- (void)productManager:(VPProductManager *)manager didFailToFetchProducts:(NSString *)message{
-    [self showError:message];
-}
+
 
 #pragma mark - Segue Callbacks
 
@@ -179,15 +201,15 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Category1" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         //[self startAnimating];
-        [self fetchProducts];
+        [self fetchFeaturedProducts];
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Category2" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self fetchProducts];
+        [self fetchFeaturedProducts];
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Category3" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self fetchProducts];
+        [self fetchFeaturedProducts];
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

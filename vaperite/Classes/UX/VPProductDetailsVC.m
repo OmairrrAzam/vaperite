@@ -11,6 +11,7 @@
 #import "VPProductDetailCounterTableViewCell.h"
 #import  "VPProductModel.h"
 #import "VPProductManager.h"
+#import "VPReviewsModel.h"
 
 @interface VPProductDetailsVC ()<UITableViewDelegate, UITableViewDataSource, VPProductManagerDelegate>
 @property (strong, nonatomic) VPProductManager *productManager;
@@ -35,7 +36,7 @@
     }
     [self startAnimating];
     
-    [self.productManager fetchProductDetailsWithProductId:self.product.productId andSessionId:self.sessionId];
+    [self.productManager fetchProductDetailsWithProductId:self.product.id andSessionId:self.sessionId];
     self.qty = 1;
     [self.tableView setBackgroundColor : [UIColor colorWithRed:203/255.0 green:227/255.0 blue:222/255.0 alpha:1]];
     //self.tfCounter.text = @"1";
@@ -58,7 +59,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 3) {
-        return 4;
+        return [self.product.reviews count];
     }
     return 1;
 }
@@ -114,8 +115,13 @@
     
     if (indexPath.section == 0){
         
-        UILabel *lblName       = (UILabel *)[cell.contentView viewWithTag:2];
-        UILabel *lblPrice      = (UILabel *)[cell.contentView viewWithTag:3];
+        UILabel *lblName          = (UILabel *)[cell.contentView viewWithTag:2];
+        UILabel *lblPrice         = (UILabel *)[cell.contentView viewWithTag:3];
+        UIImageView *productImage = (UIImageView *)[cell.contentView viewWithTag:5];
+        
+        
+        //NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.product.imgUrl]];
+        //productImage.image = [UIImage imageWithData:imageData];
         
         lblName.text       = self.product.name;
         lblPrice.text      = [NSString stringWithFormat:@"$%@", self.product.price];
@@ -126,11 +132,18 @@
     if (indexPath.section == 1) {
         UITextField *tfCounter = (UITextField *)[cell.contentView viewWithTag:1];
         tfCounter.text = [NSString stringWithFormat:@"%d", self.qty];
-    }
+    }else if (indexPath.section == 2){
+        UITextView *tvDescription      = (UITextView *)[cell.contentView viewWithTag:10];
+        tvDescription.text             = self.product.shortDescription;
+    }else if (indexPath.section == 3){
+        UILabel *lblReviewTitle     = (UILabel*)[cell.contentView viewWithTag:20];
+        UITextView *tvReviewDetail  = (UITextView*)[cell.contentView viewWithTag:21];
+        
+        VPReviewsModel *currentReview = [self.product.reviews objectAtIndex:indexPath.row];
+        
+        lblReviewTitle.text = currentReview.titl;
+        tvReviewDetail.text = currentReview.desc;
     
-    if (indexPath.section == 2){
-        UILabel *lblDescription      = (UILabel *)[cell.contentView viewWithTag:10];
-        lblDescription.text          = self.product.shortDescription;
     }
     
     
@@ -244,12 +257,30 @@
     [[self navigationController] popViewControllerAnimated:YES];
 }
 
+#pragma mark - ProductDetails Manager Delegates
+
 - (void)productManager:(VPProductManager *)manager didFetchProductDetails:(VPProductModel *)product{
     self.product = product;
+    [self.productManager fetchProductReviewswithProductId:self.product.id andStoreId:self.storeId];
+}
+
+- (void)productManager:(VPProductManager *)manager didFailToFetchProductDetails:(NSString *)message{
+}
+
+- (void)productManager:(VPProductManager *)manager didFetchProductReviews:(NSArray *)reviews{
+    self.product.reviews = reviews;
+    [self.productManager fetchProductImageWithProductId:self.product.id andSessionId:self.sessionId];
+}
+
+- (void)productManager:(VPProductManager *)manager didFailToFetchProductReviews:(NSString *)message{
+}
+
+- (void)productManager:(VPProductManager *)manager didFetchProductImage:(NSString *)imgURL{
+    self.product.imgUrl = imgURL;
     [self stopAnimating];
     [self.tableView reloadData];
 }
-- (void)productManager:(VPProductManager *)manager didFailToFetchProductDetails:(NSString *)message{
-    
+
+- (void)productManager:(VPProductManager *)manager didFailToFetchProductImage:(NSString *)message{
 }
 @end

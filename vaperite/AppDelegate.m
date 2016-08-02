@@ -13,7 +13,7 @@
 #import "AFNetworkActivityLogger.h"
 #import "VPSessionManager.h"
 
-#define kSessionid           @"vp_session_id"
+#define kSessionid           @"vaperite.session_id"
 
 @interface AppDelegate () <VPSessionManagerDelegate>
 @property (strong, nonatomic) VPSessionManager *sessionManager;

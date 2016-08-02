@@ -14,7 +14,7 @@
 #import "VPTabsUISegmentedControl.h"
 #import "VPUserManager.h"
 #import "VPUsersModel.h"
-
+#import "VPDashboardProductsVC.h"
 
 #import "VPBaseUIButton.h"
 
@@ -60,8 +60,11 @@
     self.btnAward.layer.borderWidth = 0.5;
     
     //initializing first view in container view
-    self.currentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DASHBOARD_PRODUCTS"];
-    self.currentViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    VPDashboardProductsVC *defaultVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DASHBOARD_PRODUCTS"];
+    defaultVC.productType = @"featured";
+    self.currentViewController = defaultVC;
+    
+    //self.currentViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
     [self addChildViewController:self.currentViewController];
     [self addSubview:self.currentViewController.view toView:self.containerView];
     
@@ -149,7 +152,8 @@
     [self unhighlithButton:self.btnRecommended];
     [self unhighlithButton:self.btnAward];
     
-    UIViewController *newViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DASHBOARD_PRODUCTS"];
+    VPDashboardProductsVC *newViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DASHBOARD_PRODUCTS"];
+    newViewController.productType = @"featured";
     newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
     [self cycleFromViewController:self.currentViewController toViewController:newViewController];
     self.currentViewController = newViewController;
@@ -161,7 +165,8 @@
     [self unhighlithButton:self.btnFeatured];
     [self unhighlithButton:self.btnAward];
     
-    UIViewController *newViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DASHBOARD_PRODUCTS"];
+    VPDashboardProductsVC *newViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DASHBOARD_PRODUCTS"];
+    newViewController.productType = @"recommended";
     newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
     [self cycleFromViewController:self.currentViewController toViewController:newViewController];
     self.currentViewController = newViewController;

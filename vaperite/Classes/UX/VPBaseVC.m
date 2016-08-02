@@ -10,7 +10,8 @@
 #import <KVNProgress/KVNProgress.h>
 #import "UIViewController+ECSlidingViewController.h"
 
-#define kSessionid           @"vp_session_id"
+#define kSessionid   @"vaperite.session_id"
+#define kStoreid     @"vaperite.store_id"
 
 @interface VPBaseVC ()
 @property (nonatomic) KVNProgressConfiguration *basicConfiguration;
@@ -22,7 +23,10 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
     self.sessionId = [[NSUserDefaults standardUserDefaults] objectForKey:kSessionid];
+    self.storeId = [[NSUserDefaults standardUserDefaults] objectForKey:kStoreid];
+    
     self.basicConfiguration = [KVNProgressConfiguration defaultConfiguration];
 
     self.customConfiguration = [self customKVNProgressUIConfiguration];

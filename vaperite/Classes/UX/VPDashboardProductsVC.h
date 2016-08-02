@@ -10,4 +10,6 @@
 
 @interface VPDashboardProductsVC : VPBaseVC
 
+@property (strong, nonatomic)NSString *productType;
+
 @end

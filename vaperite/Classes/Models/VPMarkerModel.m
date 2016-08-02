@@ -9,7 +9,7 @@
 #import "VPMarkerModel.h"
 #import "NSDictionary+Helper.h"
 
-#define kSelectedStoreId         @"vaperite.store_id"
+#define kSelectedStoreId     @"vaperite.store_id"
 
 
 @implementation VPMarkerModel
@@ -67,20 +67,9 @@ MKRouteStep *lastStep;
 }
 
 - (void)save {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    [defaults setObject:self.id forKey:kSelectedStoreId];
-    [defaults synchronize];
-
-    
-//    NSDictionary *tokenDict = [[NSDictionary alloc]initWithObjectsAndKeys:
-//                               [defaults objectForKey:kOauthToken], kOauthToken,
-//                               [defaults objectForKey:kOauthTokenSecret], kOauthTokenSecret,nil];
-    
-    
-//    return tokenDict;
-    //return nil;
-
+   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+   [defaults setObject:self.id forKey:kSelectedStoreId];
+   [defaults synchronize];
 }
 
 

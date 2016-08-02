@@ -21,6 +21,7 @@
 
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFields;
 @property (strong, nonatomic)  NSString *sessionId;
+@property (strong, nonatomic)  NSString *storeId;
 - (void) changeViewThroughSlider:(NSString*)viewController;
 - (void) dismissMe;
 @end

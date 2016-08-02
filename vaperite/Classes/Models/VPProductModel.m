@@ -12,14 +12,13 @@
 @implementation VPProductModel
 
 + (NSArray *)loadFromArray:(NSArray *)arrProducts {
-    
     NSMutableArray *products = [[NSMutableArray alloc] init];
-    
     
     for (NSDictionary *dictProduct in arrProducts) {
         VPProductModel *product = [[VPProductModel alloc] initWithDictionary:dictProduct];
         [products addObject:product];
     }
+    
     return products;
 }
 
@@ -27,7 +26,7 @@
 - (id)initWithDictionary:(NSDictionary *)dictProduct {
     self = [super init];
 
-    self.productId         = [dictProduct objectForKeyHandlingNull:@"product_id"];
+    self.id                = [dictProduct objectForKeyHandlingNull:@"product_id"];
     self.sku               = [dictProduct objectForKeyHandlingNull:@"sku"];
     self.set               = [dictProduct objectForKeyHandlingNull:@"set"];
     self.type              = [dictProduct objectForKeyHandlingNull:@"type"];
@@ -36,8 +35,7 @@
     self.price             = [dictProduct objectForKeyHandlingNull:@"price"];
     self.desc              = [dictProduct objectForKeyHandlingNull:@"description"];
     self.shortDescription  = [dictProduct objectForKeyHandlingNull:@"short_description"];
-    
-    
+
     return self;
 }
 
