@@ -9,5 +9,5 @@
 #import "VPBaseVC.h"
 
 @interface VPProductsVC : VPBaseVC
-
+@property (weak, nonatomic) NSString   *categoryId;
 @end

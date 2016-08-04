@@ -39,7 +39,7 @@
 			<key>isExpanded</key>
 			<false/>
 			<key>isVisible</key>
-			<true/>
+			<false/>
 			<key>value</key>
 			<string>Categories</string>
 			<key>cellIdentifier</key>
@@ -48,16 +48,20 @@
 			<integer>0</integer>
 		</dict>
 		<dict>
+			<key>value</key>
+			<string>Premium Liquids</string>
+			<key>viewController</key>
+			<string>Categories</string>
 			<key>ivIcon</key>
 			<string>menu-liquids-icon</string>
 			<key>isExpandable</key>
-			<true/>
+			<false/>
 			<key>isExpanded</key>
 			<false/>
 			<key>isVisible</key>
 			<true/>
-			<key>value</key>
-			<string>Premium Liquids</string>
+			<key>id</key>
+			<string>97</string>
 			<key>primaryTitle</key>
 			<string></string>
 			<key>secondaryTitle</key>
@@ -65,23 +69,27 @@
 			<key>cellIdentifier</key>
 			<string>idCellNormal</string>
 			<key>additionalRows</key>
-			<integer>2</integer>
+			<integer>0</integer>
 		</dict>
 		<dict>
+			<key>value</key>
+			<string>Coil Replacements</string>
+			<key>ivIcon</key>
+			<string>menu-oil-peplacments-icon</string>
 			<key>viewController</key>
-			<string>Dashboard</string>
+			<string>Categories</string>
 			<key>isChild</key>
-			<true/>
+			<false/>
 			<key>isExpandable</key>
 			<false/>
 			<key>isExpanded</key>
 			<false/>
 			<key>isVisible</key>
-			<false/>
-			<key>value</key>
-			<string>Natural Premium Liquids</string>
+			<true/>
+			<key>id</key>
+			<string>9</string>
 			<key>primaryTitle</key>
-			<string>Lastname</string>
+			<string>Coil Replacements</string>
 			<key>secondaryTitle</key>
 			<string></string>
 			<key>cellIdentifier</key>

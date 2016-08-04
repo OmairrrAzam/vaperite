@@ -47,6 +47,7 @@
     self.btnForgot.layer.borderWidth = 1.0;
 }
 
+
 #pragma mark - Private Methods
 
 - (BOOL)validate {
@@ -115,7 +116,12 @@
 #pragma mark - UserManagerDelegate Method
 
 - (void)userManager:(VPUserManager *)userManager didAuthenticateWithUser:(VPUsersModel *)user{
+    self.loggedInUser = user;
+    [user save];
     
+    if(self.loggedInUser){
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
     
 }
 - (void)userManager:(VPUserManager *)userManager didFailToAuthenticateWithMessage:(NSString *)message{

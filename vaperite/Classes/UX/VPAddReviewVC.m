@@ -15,9 +15,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *tfName;
 @property (weak, nonatomic) IBOutlet UITextField *tfSubject;
 @property (weak, nonatomic) IBOutlet UITextView *tvReview;
+
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *containerView;
-- (IBAction)btnSave:(id)sender;
-- (IBAction)btnBack:(id)sender;
+
+
 
 @end
 
@@ -92,6 +93,8 @@
     [[self navigationController] popViewControllerAnimated:YES];
     //[self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
 
 #pragma mark - UITextFieldDelegate Methods
 

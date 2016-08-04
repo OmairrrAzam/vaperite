@@ -7,6 +7,7 @@
 @class VPUserManager;
 @class VPUsersModel;
 @class VPReviewsModel;
+@class VPUsersModel;
 @protocol VPUserManagerDelegate
 
 @optional
@@ -26,6 +27,9 @@
 - (void)userManager:(VPUserManager *)userManager didAddReview:(VPReviewsModel *)review;
 - (void)userManager:(VPUserManager *)userManager didFailToAddReview:(NSString *)message;
 
+- (void)userManager:(VPUserManager *)userManager didFetchAddress:(VPUsersModel *)review;
+- (void)userManager:(VPUserManager *)userManager didFailToFetchAddress:(NSString *)message;
+
 @end
 
 @interface VPUserManager : VPBaseManager
@@ -37,4 +41,5 @@
 - (void)createUserFromStoreId:(NSString*)storeId session:(NSString*)sessionId email:(NSString*)email password:(NSString*)password firstname:(NSString*)fname lastname:(NSString*)lname;
 - (void)getCustomerInfoFromCustomerId:(NSString*)customerId andSession:(NSString*)sessionId;
 - (void)addReviewFromSession:(NSString*)sessionId storeId:(NSString*)storeId productId:(NSString*)productId customerId:(NSString*)customerId title:(NSString*)title detail:(NSString*)detail nickName:(NSString*)nickName;
+-(void) fetchAddressFromCustomerId:(NSString*)cutomerId;
 @end

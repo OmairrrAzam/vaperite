@@ -24,6 +24,7 @@
 @property (weak, nonatomic) id<VPCategoryManagerDelegate> delegate;
 
 - (void)loadCategoriesWithSessionId: (NSString*)sessionId;
+- (void)loadCategoriesByParentId: (NSString*)parentId sessionId:(NSString*)sessionId;
 @end
 
 

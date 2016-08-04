@@ -8,7 +8,6 @@
 
 #import "VPBaseVC.h"
 #import <KVNProgress/KVNProgress.h>
-#import "UIViewController+ECSlidingViewController.h"
 
 
 #define kSessionid   @"vaperite.session_id"
@@ -19,6 +18,8 @@
 @property (nonatomic) KVNProgressConfiguration *customConfiguration;
 @property (strong, nonatomic) VPSessionManager *sessionManager;
 @end
+
+
 
 @implementation VPBaseVC
 
@@ -36,16 +37,24 @@
     self.navigationItem.rightBarButtonItem =[self cartButton];
     self.navigationItem.leftBarButtonItem  =[self menuButton];
     
-    if (!self.sessionManager) {
-        self.sessionManager = [[VPSessionManager alloc]init];
-        self.sessionManager.delegate = self;
-    }
-    [self.sessionManager getSessionIdWithUserApi:@"" apiKey:@""];
+    //it has to be here for initializtion
+    self.loggedInUser = [VPUsersModel currentUser];
+    self.currentStore = [VPMarkerModel currentStore];
+//    if (!self.sessionManager) {
+//        self.sessionManager = [[VPSessionManager alloc]init];
+//        self.sessionManager.delegate = self;
+//    }
+//    [self.sessionManager getSessionIdWithUserApi:@"" apiKey:@""];
     
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    // it has to be here so that variable is available and updated
+    // on every view controller
+    self.loggedInUser = [VPUsersModel currentUser];
+    self.currentStore = [VPMarkerModel currentStore];
+    
    // [self startAnimating];
 }
 

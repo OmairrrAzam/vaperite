@@ -41,7 +41,7 @@
     self = [super init];
     
     self.name        = [dictCategory objectForKeyHandlingNull:@"name"];
-    self.id          = [dictCategory objectForKeyHandlingNull:@"category_id"];
+    self.id          = [dictCategory objectForKeyHandlingNull:@"id"];
     self.parentId    = [dictCategory objectForKeyHandlingNull:@"parent_id"];
     
     return self;

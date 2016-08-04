@@ -10,12 +10,16 @@
 #import "UIViewController+ECSlidingViewController.h"
 #import "VPMenuTableViewCell.h"
 #import "VPCategoryManager.h"
+#import "VPCategoriesVC.h"
+#import "VPBaseNavigationController.h"
 
 @interface VPSliderMenuVC () <UITableViewDataSource, UITableViewDelegate, VPCategoryManagerDelegate>
 @property (strong,nonatomic) NSArray *menuItems;
 @property (nonatomic, strong) NSMutableArray *cellDescriptors;
 @property (nonatomic, strong) NSMutableArray *visibleRowsPerSection;
 @property (nonatomic, strong) VPCategoryManager *categoryManager;
+
+
 @end
 
 @implementation VPSliderMenuVC
@@ -152,9 +156,25 @@
         
         [self.tableView reloadData];
     }else{
-        self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
-        self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:[actualElement objectForKey:@"viewController"]];
-        [self.slidingViewController resetTopViewAnimated:YES];
+        
+        NSString  *id = [actualElement objectForKey:@"id"];
+        if (id){
+            
+            VPBaseNavigationController *nav = (VPBaseNavigationController*)[self.storyboard instantiateViewControllerWithIdentifier:[actualElement objectForKey:@"viewController"]];
+            VPCategoriesVC *rootController = (VPCategoriesVC *)[nav.viewControllers objectAtIndex: 0];
+            rootController.parentId = id;
+            self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
+            self.slidingViewController.topViewController = nav;
+            [self.slidingViewController resetTopViewAnimated:YES];
+            
+        }else{
+            self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
+            self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:[actualElement objectForKey:@"viewController"]];
+            [self.slidingViewController resetTopViewAnimated:YES];
+        }
+        
+
+        
     }
 }
 
@@ -169,4 +189,7 @@
     
     [self.categoryManager loadCategoriesWithSessionId:self.sessionId];
 }
+
+
+
 @end

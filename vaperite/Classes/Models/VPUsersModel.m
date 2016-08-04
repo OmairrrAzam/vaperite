@@ -6,10 +6,11 @@
 //  Copyright © 2016 Apple. All rights reserved.
 //
 
-#define kOauthToken         @"oauth_token"
-#define kOauthTokenSecret   @"oauth_token_secret"
+#define kCustomerId  @"vp.user.customer_id"
+
 #import "VPUsersModel.h"
 #import "NSDictionary+Helper.h"
+
 
 @implementation VPUsersModel
 
@@ -17,27 +18,15 @@
     
     VPUsersModel *user = nil;
     
-    //    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    //    NSString *userId = [defaults objectForKey:kUserId];
-    //    NSString *apiToken = [defaults objectForKey:kUserApiToken];
-    //    if (userId && apiToken) {
-    //        user = [[TMUserModel alloc] init];
-    //        user.id = userId;
-    //        user.email = [defaults objectForKey:kUserEmail];
-    //        user.firstName = [defaults objectForKey:kUserFirstName];
-    //        user.lastName = [defaults objectForKey:kUserLastName];
-    //        user.address = [defaults objectForKey:kUserAddress];
-    //        user.city = [defaults objectForKey:kUserCity];
-    //        user.state = [defaults objectForKey:kUserState];
-    //        user.zipcode = [defaults objectForKey:kUserZipcode];
-    //        user.country = [defaults objectForKey:kUserCountry];
-    //        user.phoneNumber = [defaults objectForKey:kUserPhone];
-    //        user.apiToken = [defaults objectForKey:kUserApiToken];
-    //
-    //    }
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [defaults objectForKey:kCustomerId];
+    
+    if (userId ) {
+        user = [[VPUsersModel alloc] init];
+        user.customer_id             = userId;
+    }
     return user;
 }
-
 
 + (NSArray *)loadFromArray:(NSArray *)arrUsers {
     
@@ -49,23 +38,12 @@
     return users;
 }
 
-
-+(void)saveToSession:(NSDictionary*)dict {
+-(void)save{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:dict[@"oauth_token"] forKey:kOauthToken];
-    [defaults setObject:dict[@"oauth_token_secret"] forKey:kOauthTokenSecret];
+    [defaults setObject:self.customer_id forKey:kCustomerId];
+    [defaults synchronize];
 }
 
-+(NSDictionary*)getTokenFromSession{
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    NSDictionary *tokenDict = [[NSDictionary alloc]initWithObjectsAndKeys:
-                                                [defaults objectForKey:kOauthToken], kOauthToken,
-                                                [defaults objectForKey:kOauthTokenSecret], kOauthTokenSecret,nil];
-    
-    return tokenDict;
-}
 
 - (id)initWithDictionary:(NSDictionary *)dictUser {
     

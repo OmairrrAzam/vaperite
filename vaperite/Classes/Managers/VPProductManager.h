@@ -34,6 +34,9 @@
 - (void)productManager:(VPProductManager *)manager didAddRating:(NSString *)rating;
 - (void)productManager:(VPProductManager *)manager didFailToAddRating:(NSString *)message;
 
+- (void)productManager:(VPProductManager *)manager didFetchProductsFromCategoryId:(NSArray *)products;
+- (void)productManager:(VPProductManager *)manager didFailToFetchProductsFromCategoryId:(NSString *)message;
+
 
 @end
 
@@ -43,8 +46,10 @@
 
 - (void)fetchFeaturedProductsWithSessionId:(NSString*)sessionId;
 - (void)fetchRecommendedProductsWithSessionId:(NSString*)sessionId;
-- (void)fetchProductDetailsWithProductId:(NSString*)productId andSessionId:(NSString*)sessionId;
+- (void)fetchProductDetailsWithProductId:(NSString*)productId andStoreId:(NSString*)storeId;
 - (void)fetchProductReviewswithProductId:(NSString*)productId andStoreId:(NSString*)storeId;
 - (void)fetchProductImageWithProductId:(NSString*)productId andSessionId:(NSString*)sessionId;
 - (void) addProductRatingFromSession:(NSString*)sessionId rating:(NSString*)rating reviewId:(NSString*)reviewId productId:(NSString*)productId;
+- (void) fetchProductRatingFromSession:(NSString*)sessionId storeId:(NSString*)storeId andProductId:(NSString*)productId;
+- (void) fetchProductsFromCategoryId:(NSString*)categoryId;
 @end

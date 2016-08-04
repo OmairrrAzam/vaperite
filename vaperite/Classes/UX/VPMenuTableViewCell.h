@@ -14,6 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *ivDropDown;
 @property (weak, nonatomic) IBOutlet UIImageView *ivIcon;
 @property (weak, nonatomic) IBOutlet UILabel *lblTitle;
-
+@property (weak, nonatomic) NSString *id;
 -(void)configure;
 @end

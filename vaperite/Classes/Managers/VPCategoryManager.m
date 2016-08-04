@@ -12,59 +12,50 @@
 @implementation VPCategoryManager
 
 - (void)loadCategoriesWithSessionId: (NSString*)sessionId{
-    NSURLSession *session = [NSURLSession sharedSession];
-
-    NSURL *url = [NSURL URLWithString:@"https://ec2-54-208-24-225.compute-1.amazonaws.com/customapi/index/getCategories"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"POST"];
-    NSString *params = [NSString stringWithFormat:@"session=%@",sessionId];
     
+    NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx"};
     
-    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
+    VPSessionManager *manager = [VPSessionManager sharedManager];
     
+    [manager POST:@"getCategories" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (self.delegate) {
+            
+            NSArray *arrCategories = [responseObject objectForKey:@"data"];
+            NSArray *categories = [VPCategoryModel loadFromArray:arrCategories];
+            [self.delegate categoryManager:self didLoadCategories:categories];
+            
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSString *message = @"testing";
+        if (self.delegate) {
+            [self.delegate categoryManager:self didFailToLoadCategories:message];
+        }
+    }];
     
-    [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        NSString *strResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", strResponse);
-        
-        NSArray *dict = [NSJSONSerialization JSONObjectWithData:[strResponse dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
-        
-        NSArray *categories = [VPCategoryModel loadFromArray:dict];
-        
-        [self.delegate categoryManager:self didLoadCategories:categories];
-        //VPUsersModel *user = [[VPUsersModel alloc]initWithDictionary:dict];
-        //[self.delegate userManager:self didCreateUser:user];
-        
-     }] resume];
 }
 
 - (void)loadCategoriesByParentId: (NSString*)parentId sessionId:(NSString*)sessionId{
-    NSURLSession *session = [NSURLSession sharedSession];
     
-    NSURL *url = [NSURL URLWithString:@"https://ec2-54-208-24-225.compute-1.amazonaws.com/customapi/index/getCategoriesByParentId"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"POST"];
-    NSString *params = [NSString stringWithFormat:@"parentid=%@&session=%@",parentId,sessionId];
+    NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx", @"parentid":parentId};
     
+    VPSessionManager *manager = [VPSessionManager sharedManager];
     
-    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
+    [manager POST:@"getCategoriesByParentId" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (self.delegate) {
+            
+            NSArray *arrDetails = [responseObject objectForKey:@"data"];
+            NSArray *categories = [VPCategoryModel loadFromArray:arrDetails];
+            [self.delegate categoryManager:self didLoadCategoriesFromParentId:categories];
+            
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+       
+        if (self.delegate) {
+            NSString *message = [self extractMessageFromTask:task andError:error];
+            [self.delegate categoryManager:self didFailToLoadCategoriesFromParentId:message];
+        }
+    }];
     
-    
-    [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        NSString *strResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", strResponse);
-        
-        NSArray *dict = [NSJSONSerialization JSONObjectWithData:[strResponse dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
-        
-        NSArray *categories = [VPCategoryModel loadFromArray:dict];
-        
-        [self.delegate categoryManager:self didLoadCategoriesFromParentId:categories];
-        //VPUsersModel *user = [[VPUsersModel alloc]initWithDictionary:dict];
-        //[self.delegate userManager:self didCreateUser:user];
-        
-    }] resume];
 }
 
 @end

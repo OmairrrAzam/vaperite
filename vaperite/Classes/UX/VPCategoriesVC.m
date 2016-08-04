@@ -7,9 +7,16 @@
 //
 
 #import "VPCategoriesVC.h"
+#import "VPCategoryManager.h"
+#import "VPCategoryModel.h"
+#import "VPProductsVC.h"
+#import "VPCategoryModel.h"
 
-@interface VPCategoriesVC ()<UITableViewDelegate, UITableViewDataSource>
-
+@interface VPCategoriesVC ()<UITableViewDelegate, UITableViewDataSource, VPCategoryManagerDelegate>
+@property (strong, nonatomic) VPCategoryManager *categoryManager;
+@property (strong, nonatomic) VPCategoryModel *selectedCategory;
+@property (strong, nonatomic) NSArray *allSubCategories;
+@property (strong, nonatomic)IBOutlet UITableView *tableview;
 @end
 
 @implementation VPCategoriesVC
@@ -26,6 +33,13 @@ NSMutableArray *categoriesImgArray;
                        @"premium-liquid",
                        @"hipster-vape-co",@"coil-replacements",nil];
     
+    if (!self.categoryManager) {
+        self.categoryManager = [[VPCategoryManager alloc]init];
+        self.categoryManager.delegate = self;
+    }
+    
+    [self.categoryManager loadCategoriesByParentId:self.parentId sessionId:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,7 +50,7 @@ NSMutableArray *categoriesImgArray;
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [categoriesArray count];
+    return [self.allSubCategories count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -49,6 +63,7 @@ NSMutableArray *categoriesImgArray;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    VPCategoryModel *selectedCategory = [self.allSubCategories objectAtIndex:indexPath.section];
     static NSString *cellIdentifier = @"categoryCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
@@ -56,20 +71,44 @@ NSMutableArray *categoriesImgArray;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier ];
     }
     
-    UILabel *lblName = (UILabel *)[cell.contentView viewWithTag:20];
-    lblName.text = [NSString stringWithFormat:@"%@", [categoriesArray objectAtIndex:indexPath.section ]];
     
-    UIImage *bgImage = [UIImage imageNamed:[categoriesImgArray objectAtIndex:indexPath.section]];
+    UILabel *lblName = (UILabel *)[cell.contentView viewWithTag:20];
+    lblName.text = [NSString stringWithFormat:@"%@", selectedCategory.name];
+    
+    UIImage *bgImage = [UIImage imageNamed:[categoriesImgArray objectAtIndex:0]];
     UIImageView *bgCategory = (UIImageView *)[cell.contentView viewWithTag:21];
     bgCategory.image = bgImage;
 
     return cell;
 }
 
+#pragma mark - VPCategoryDelegate Methods
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    self.selectedCategory = [self.allSubCategories objectAtIndex:indexPath.section];
     [self performSegueWithIdentifier:@"categoryProductView" sender:self];
 }
 
+- (void)categoryManager:(VPCategoryManager *)categoryManager didLoadCategoriesFromParentId:(NSArray *)categories{
+    self.allSubCategories = categories;
+    [self stopAnimating];
+    [self.tableview reloadData];
+    
+}
+
+- (void)categoryManager:(VPCategoryManager *)categoryManager didFailToLoadCategoriesFromParentId:(NSString *)message{
+    
+}
+
+#pragma mark - Segue Callbacks
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"categoryProductView"]) {
+        VPProductsVC *productsVC = [segue destinationViewController];
+        productsVC.categoryId    =  self.selectedCategory.id;
+    }
+}
 
 
 @end

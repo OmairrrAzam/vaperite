@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "ECSlidingViewController.h"
 #import "VPSessionManager.h"
-
+#import "VPUsersModel.h"
+#import "UIViewController+ECSlidingViewController.h"
+#import "VPMarkerModel.h"
 
 @interface VPBaseVC : UIViewController <ECSlidingViewControllerDelegate,VPSessionManagerDelegate>
 
@@ -24,6 +26,8 @@
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *textFields;
 @property (strong, nonatomic)  NSString *sessionId;
 @property (strong, nonatomic)  NSString *storeId;
+@property (strong, nonatomic)  VPUsersModel *loggedInUser;
+@property (strong, nonatomic)  VPMarkerModel *currentStore;
 
 - (void) changeViewThroughSlider:(NSString*)viewController;
 - (void) dismissMe;

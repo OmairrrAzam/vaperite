@@ -7,8 +7,10 @@
 //
 
 #import "VPUpdateProfileVC.h"
+#import "VPUserManager.h"
+#import "VPUsersModel.h"
 
-@interface VPUpdateProfileVC ()
+@interface VPUpdateProfileVC ()<VPUserManagerDelegate>
 
 @end
 
@@ -17,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,6 +27,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)userManager:(VPUserManager *)userManager didFetchAddress:(VPUsersModel *)review{
+    
+    
+}
+- (void)userManager:(VPUserManager *)userManager didFailToFetchAddress:(NSString *)message{
+    
+}
 /*
 #pragma mark - Navigation
 

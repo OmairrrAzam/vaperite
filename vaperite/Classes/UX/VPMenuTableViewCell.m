@@ -7,6 +7,7 @@
 //
 
 #import "VPMenuTableViewCell.h"
+#import "NSDictionary+Helper.h"
 
 @implementation VPMenuTableViewCell
 
@@ -42,6 +43,7 @@
         }
         self.ivIcon.image = [UIImage imageNamed:[self.menuItem objectForKey:@"ivIcon"]];
         self.lblTitle.text = [self.menuItem objectForKey:@"value"];
+    self.id = [self.menuItem objectForKeyHandlingNull:@"id"];
         [self setBackgroundColor:[UIColor clearColor]];
 }
 

@@ -23,6 +23,6 @@
 //- (id)initWithOrganization:(TMOrganizationModel *)organization;
 //- (NSString *)getPath:(NSString *)path;
 //- (NSString *)getResourcePath:(NSString *)resource forResourceId:(NSString *)resourceId;
-//- (NSString *)extractMessageFromTask:(NSURLSessionDataTask *)task andError:(NSError *)error;
+- (NSString *)extractMessageFromTask:(NSURLSessionDataTask *)task andError:(NSError *)error;
 
 @end

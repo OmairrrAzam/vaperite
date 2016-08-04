@@ -10,4 +10,6 @@
 
 @interface VPCategoriesVC : VPBaseVC
 
+@property (strong, nonatomic)NSString  *parentId;
+
 @end

@@ -38,7 +38,7 @@
 - (id)initWithDictionary:(NSDictionary *)dictReview {
     self = [super init];
     self.titl =  [dictReview objectForKey:@"title"] ;
-    self.desc = [dictReview objectForKey:@"detail"];
+    self.desc =  [dictReview objectForKey:@"detail"];
     return self;
 }
 

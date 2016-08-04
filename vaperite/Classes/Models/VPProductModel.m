@@ -26,8 +26,9 @@
 - (id)initWithDictionary:(NSDictionary *)dictProduct {
     self = [super init];
 
-    self.id                = [dictProduct objectForKeyHandlingNull:@"product_id"];
+    self.id                = [dictProduct objectForKeyHandlingNull:@"id"];
     self.sku               = [dictProduct objectForKeyHandlingNull:@"sku"];
+    self.imgUrl            = [dictProduct objectForKey:@"thumb"];
     self.set               = [dictProduct objectForKeyHandlingNull:@"set"];
     self.type              = [dictProduct objectForKeyHandlingNull:@"type"];
     self.categoryIds       = [dictProduct objectForKeyHandlingNull:@"categories"];
@@ -35,7 +36,21 @@
     self.price             = [dictProduct objectForKeyHandlingNull:@"price"];
     self.desc              = [dictProduct objectForKeyHandlingNull:@"description"];
     self.shortDescription  = [dictProduct objectForKeyHandlingNull:@"short_description"];
+    self.rating            = [dictProduct objectForKeyHandlingNull:@"rating"];
 
+    return self;
+}
+
+- (id)initWithDetailsDictionary:(NSDictionary *)dictProduct {
+    self = [super init];
+    
+    self.id                = [dictProduct objectForKeyHandlingNull:@"product_id"];
+    self.imgUrl            = [dictProduct objectForKey:@"image_url"];
+    self.name              = [dictProduct objectForKeyHandlingNull:@"name"];
+    self.price             = [dictProduct objectForKeyHandlingNull:@"price"];
+    self.desc              = [dictProduct objectForKeyHandlingNull:@"description"];
+    self.rating              = [dictProduct objectForKeyHandlingNull:@"rating"];
+    
     return self;
 }
 

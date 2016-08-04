@@ -10,5 +10,5 @@
 #import "ECSlidingViewController.h"
 
 @interface VPDashboardVc : VPBaseVC
-
+@property (strong, nonatomic)NSString *productType;
 @end

@@ -17,12 +17,15 @@
 @property (strong, nonatomic) NSString *store_id;
 @property (strong, nonatomic) NSString *token;
 
+@property (strong, nonatomic) NSString *street;
+@property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSString *state;
+@property (strong, nonatomic) NSString *postalcode;
 
-+(void)saveToSession:(NSDictionary*)dict;
-+(NSDictionary*)getTokenFromSession;
 + (VPUsersModel *)currentUser;
 + (NSArray *)loadFromArray:(NSArray *)arrUsers;
 - (id)initWithDictionary:(NSDictionary *)dictUser;
+-(void)save;
 
 @end
 

@@ -22,8 +22,9 @@
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *price;
 @property (strong, nonatomic) NSString *imgUrl;
+@property (strong, nonatomic) NSString *rating;
 
 + (NSArray *)loadFromArray:(NSArray *)arrProducts;
 - (id)initWithDictionary:(NSDictionary *)dictProduct;
-
+- (id)initWithDetailsDictionary:(NSDictionary *)dictProduct;
 @end

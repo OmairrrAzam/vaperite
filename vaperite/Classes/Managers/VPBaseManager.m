@@ -8,7 +8,7 @@
 
 #import "VPBaseManager.h"
 #import "AFNetworkReachabilityManager.h"
-static NSString *kBaseUrl = @"http://ec2-54-208-24-225.compute-1.amazonaws.com/";
+
 
 @interface VPBaseManager() 
 
@@ -168,6 +168,8 @@ static NSString *kBaseUrl = @"http://ec2-54-208-24-225.compute-1.amazonaws.com/"
     }
     
 }
+
+
 
 
 @end
