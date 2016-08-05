@@ -30,16 +30,24 @@
 - (void)userManager:(VPUserManager *)userManager didFetchAddress:(VPUsersModel *)review;
 - (void)userManager:(VPUserManager *)userManager didFailToFetchAddress:(NSString *)message;
 
+- (void)userManager:(VPUserManager *)userManager didUpdateAddress:(NSString *)response;
+- (void)userManager:(VPUserManager *)userManager didFailToUpdateAddress:(NSString *)message;
+
+- (void)userManager:(VPUserManager *)userManager didUpdatePassword:(NSString *)response;
+- (void)userManager:(VPUserManager *)userManager didFailToUpdatePassword:(NSString *)message;
+
 @end
 
 @interface VPUserManager : VPBaseManager
 
 @property (weak, nonatomic) id<VPUserManagerDelegate> delegate;
 
-- (void)authenticateWithEmail:(NSString *)email password:(NSString *)password pushToken:(NSString *)pushToken;
-- (void)getCartFromSession:(NSString*)sessionid andCartid:(NSString*)cartId;
-- (void)createUserFromStoreId:(NSString*)storeId session:(NSString*)sessionId email:(NSString*)email password:(NSString*)password firstname:(NSString*)fname lastname:(NSString*)lname;
-- (void)getCustomerInfoFromCustomerId:(NSString*)customerId andSession:(NSString*)sessionId;
+- (void) authenticateWithEmail:(NSString *)email password:(NSString *)password pushToken:(NSString *)pushToken;
+- (void) getCartFromSession:(NSString*)sessionid andCartid:(NSString*)cartId;
+- (void) createUserFromStoreId:(NSString*)storeId session:(NSString*)sessionId email:(NSString*)email password:(NSString*)password firstname:(NSString*)fname lastname:(NSString*)lname;
+- (void) getCustomerInfoFromCustomerId:(NSString*)customerId andSession:(NSString*)sessionId;
 - (void)addReviewFromSession:(NSString*)sessionId storeId:(NSString*)storeId productId:(NSString*)productId customerId:(NSString*)customerId title:(NSString*)title detail:(NSString*)detail nickName:(NSString*)nickName;
--(void) fetchAddressFromCustomerId:(NSString*)cutomerId;
+- (void) fetchAddressFromCustomerId:(NSString*)cutomerId;
+- (void) updateAddressWithCustomerID:(NSString*)customerId firstName:(NSString*)fn  lastName:(NSString*)ln streetAddress:(NSString*)street city:(NSString*)city postalCode:(NSString*)postal;
+-(void) updatePasswordWithCustomerID:(NSString*)customerId firstName:(NSString*)fn  lastName:(NSString*)ln email:(NSString*)email password:(NSString*)password;
 @end

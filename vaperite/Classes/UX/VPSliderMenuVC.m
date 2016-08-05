@@ -12,12 +12,14 @@
 #import "VPCategoryManager.h"
 #import "VPCategoriesVC.h"
 #import "VPBaseNavigationController.h"
+#import "VPUsersModel.h"
 
 @interface VPSliderMenuVC () <UITableViewDataSource, UITableViewDelegate, VPCategoryManagerDelegate>
 @property (strong,nonatomic) NSArray *menuItems;
 @property (nonatomic, strong) NSMutableArray *cellDescriptors;
 @property (nonatomic, strong) NSMutableArray *visibleRowsPerSection;
 @property (nonatomic, strong) VPCategoryManager *categoryManager;
+
 
 
 @end
@@ -30,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self loadCellDescriptors];
+    
     
     
     // Uncomment the following line to preserve selection between presentations.
@@ -40,8 +42,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
     [self stopAnimating];
+    [self loadCellDescriptors];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -65,8 +67,19 @@
             NSNumber *visible = [item valueForKey:@"isVisible"];
             BOOL isVisible = [visible boolValue];
             if (isVisible) {
-                NSNumber *index = [NSNumber numberWithInt:(int)[section indexOfObject:item]];
-                [visibleRows addObject:index];
+                NSNumber *requiresAuth = [item valueForKey:@"requiresAuthentication"];
+                BOOL requiresAuthentication = [requiresAuth boolValue];
+                
+                if(requiresAuthentication ){
+                    if(self.loggedInUser){
+                        NSNumber *index = [NSNumber numberWithInt:(int)[section indexOfObject:item]];
+                        [visibleRows addObject:index];
+                    }
+                   
+                }else{
+                    NSNumber *index = [NSNumber numberWithInt:(int)[section indexOfObject:item]];
+                    [visibleRows addObject:index];
+                }
                 
             }
         }
@@ -110,6 +123,8 @@
     static NSString *cellIdentifier = @"MenuCell";
     VPMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
+    
+    
     if(cell == nil){
         cell = [[VPMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier ];
     }
@@ -132,6 +147,8 @@
     NSNumber *selectedRow = [selectedSection objectAtIndex:indexPath.row];
     
     NSDictionary *actualElement = [[self.cellDescriptors objectAtIndex:indexPath.section]objectAtIndex:selectedRow.intValue];
+    
+    
     
     if ([[actualElement objectForKey:@"isExpandable"]boolValue] ) {
         
@@ -172,9 +189,6 @@
             self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:[actualElement objectForKey:@"viewController"]];
             [self.slidingViewController resetTopViewAnimated:YES];
         }
-        
-
-        
     }
 }
 

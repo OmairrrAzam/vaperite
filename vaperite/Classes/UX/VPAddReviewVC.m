@@ -8,16 +8,18 @@
 
 #import "VPAddReviewVC.h"
 #import "TPKeyboardAvoidingScrollView.h"
+#import "VPReviewManager.h"
+#import "VPReviewsModel.h"
 
-@interface VPAddReviewVC ()<UITextViewDelegate, UITextFieldDelegate>
+@interface VPAddReviewVC ()<UITextViewDelegate, UITextFieldDelegate, VPReviewManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *ratingView;
 @property (weak, nonatomic) IBOutlet UITextField *tfName;
 @property (weak, nonatomic) IBOutlet UITextField *tfSubject;
 @property (weak, nonatomic) IBOutlet UITextView *tvReview;
-
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *containerView;
 
+@property (strong, nonatomic) VPReviewManager *manager;
 
 
 @end
@@ -25,19 +27,58 @@
 @implementation VPAddReviewVC
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     [self configureInterface];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Private Methods
 
+- (VPReviewsModel *)validate {
+    
+    NSString *nickName = [self.tfName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *title = [self.tfSubject.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *desc = [self.tvReview.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if (nickName.length == 0) {
+        [self showError:@"Please enter your name"];
+        return nil;
+    }
+    
+    if (title.length == 0) {
+        [self showError:@"Subject is required."];
+        return nil;
+    }
+    
+    if (desc.length == 0) {
+        [self showError:@"Review is required."];
+        return nil;
+    }
+    
+    VPReviewsModel *review = [[VPReviewsModel alloc] init];
+    review.nickName   = nickName;
+    review.titl       = title;
+    review.desc       = desc;
+    review.storeId    = self.currentStore.id;
+    review.productId  = self.productId;
+    review.customerId = self.loggedInUser.customer_id;
+    review.rating     = @"20";
+    return review;
+    
+}
+
+- (void)addReview:(VPReviewsModel *)review {
+    
+    if (!self.manager) {
+        self.manager = [[VPReviewManager alloc] init];
+        self.manager.delegate = self;
+        [self.manager addReview:review];
+    }
+}
+
 - (void)configureInterface{
+    
     CGFloat borderWidth = 0.5f;
     UIColor *borderColor = [UIColor colorWithRed:252/255 green:252/255 blue:252/255 alpha:0.1];
     
@@ -87,20 +128,45 @@
 #pragma mark - IBActions
 
 - (IBAction)btnSave:(id)sender {
+    [self startAnimating];
+    
+    VPReviewsModel *review = [self validate];
+    
+    if (review) {
+        [self addReview:review];
+    }
 }
+
+
 
 - (IBAction)btnBack:(id)sender {
     [[self navigationController] popViewControllerAnimated:YES];
-    //[self dismissViewControllerAnimated:YES completion:nil];
 }
-
-
 
 #pragma mark - UITextFieldDelegate Methods
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+#pragma mark - VPReviewManagerDelegate Methods 
+
+- (void)reviewManager:(VPReviewManager *)manager didAddReview:(VPReviewsModel *)review {
+    [self stopAnimating];
+    [self startAnimatingWithSuccessMsg:@"Review Successfully added"];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)reviewManager:(VPReviewManager *)manager didFailToAddReview:(NSString *)message {
+    [self stopAnimating];
+    [self showError:message];
+}
+
+#pragma mark - Memory Cleanup Methods
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
 }
 
 

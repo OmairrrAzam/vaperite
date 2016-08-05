@@ -242,19 +242,18 @@
     
     CGFloat height = 20;
     if (indexPath.row == 0) {
-        height = 120;
-//        if (self.loggedInUser) {
-//            height = 0;
-//        }else{
-//            height = 120;
-//        }
+       if (self.loggedInUser) {
+            height = 0;
+        }else{
+            height = 120;
+        }
     }else if(indexPath.row == 1){
         height = 100;
     }else if (indexPath.row == 2){
         if (self.loggedInUser){
             height = 600;
         }else{
-            height = 300;
+            height = 400;
         }
     }
     return height;

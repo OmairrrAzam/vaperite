@@ -48,13 +48,16 @@
 - (id)initWithDictionary:(NSDictionary *)dictUser {
     
     self = [super init];
+   
     
     self.firstName   = [dictUser objectForKeyHandlingNull:@"firstname"];
     self.lastName    = [dictUser objectForKeyHandlingNull:@"lastname"];
     self.customer_id = [dictUser objectForKeyHandlingNull:@"customer_id"];
     self.email       = [dictUser objectForKeyHandlingNull:@"email"];
     self.store_id    = [dictUser objectForKeyHandlingNull:@"store_id"];
-
+    self.city        = [dictUser objectForKeyHandlingNull:@"city"];
+    self.postalcode  = [dictUser objectForKeyHandlingNull:@"postcode"];
+    self.street      = [dictUser objectForKeyHandlingNull:@"street"];
     return self;
 }
 

@@ -12,15 +12,20 @@
 #import  "VPProductModel.h"
 #import "VPProductManager.h"
 #import "VPReviewsModel.h"
+#import "UIImageView+AFNetworking.h"
+#import "VPAddReviewVC.h"
 
 @interface VPProductDetailsVC ()<UITableViewDelegate, UITableViewDataSource, VPProductManagerDelegate>
 
 
 @property (strong, nonatomic) VPProductManager *productManager;
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) int qty;
-
+@property (strong, nonatomic) UIButton *btnStar1;
+@property (strong, nonatomic) UIButton *btnStar2;
+@property (strong, nonatomic) UIButton *btnStar3;
+@property (strong, nonatomic) UIButton *btnStar4;
+@property (strong, nonatomic) UIButton *btnStar5;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)btnBack:(id)sender;
 - (IBAction)btnOptions:(id)sender;
@@ -32,6 +37,7 @@
 - (IBAction)btn3star_pressed:(id)sender;
 - (IBAction)btn4star_pressed:(id)sender;
 - (IBAction)btn5star_pressed:(id)sender;
+- (IBAction)addToCart_pressed:(id)sender;
 
 
 @end
@@ -47,7 +53,7 @@
     }
     [self startAnimating];
     
-    [self.productManager fetchProductDetailsWithProductId:self.product.id andStoreId:self.storeId];
+    [self.productManager fetchProductDetailsWithProductId:self.product.id andStoreId:self.currentStore.id];
     self.qty = 1;
     [self.tableView setBackgroundColor : [UIColor colorWithRed:203/255.0 green:227/255.0 blue:222/255.0 alpha:1]];
     //self.tfCounter.text = @"1";
@@ -130,45 +136,56 @@
         UILabel *lblPrice         = (UILabel *)[cell.contentView viewWithTag:3];
         UIImageView *productImage = (UIImageView *)[cell.contentView viewWithTag:5];
         
-         UIButton *star1 = (UIButton *)[cell.contentView viewWithTag:51];
-         UIButton *star2 = (UIButton *)[cell.contentView viewWithTag:52];
-         UIButton *star3 = (UIButton *)[cell.contentView viewWithTag:53];
-         UIButton *star4 = (UIButton *)[cell.contentView viewWithTag:54];
-         UIButton *star5 = (UIButton *)[cell.contentView viewWithTag:55];
+         self.btnStar1 = (UIButton *)[cell.contentView viewWithTag:51];
+         self.btnStar2 = (UIButton *)[cell.contentView viewWithTag:52];
+         self.btnStar3 = (UIButton *)[cell.contentView viewWithTag:53];
+         self.btnStar4 = (UIButton *)[cell.contentView viewWithTag:54];
+         self.btnStar5 = (UIButton *)[cell.contentView viewWithTag:55];
+        
         self.product.rating = @"3";
+        int value = [self.product.rating intValue];
+        int ratingValue = 100/value;
         UIImage *filledStar = [UIImage imageNamed:@"yellow-star.png"];
         
-        if ([self.product.rating isEqualToString:@"1"]) {
-            [star1 setImage:filledStar forState:UIControlStateNormal];
-        }else if([self.product.rating isEqualToString:@"2"]){
-            [star1 setImage:filledStar forState:UIControlStateNormal];
-            [star2 setImage:filledStar forState:UIControlStateNormal];
-        }else if([self.product.rating isEqualToString:@"3"]){
-            [star1 setImage:filledStar forState:UIControlStateNormal];
-            [star2 setImage:filledStar forState:UIControlStateNormal];
-            [star3 setImage:filledStar forState:UIControlStateNormal];
-        }else if([self.product.rating isEqualToString:@"4"]){
-            [star1 setImage:filledStar forState:UIControlStateNormal];
-            [star2 setImage:filledStar forState:UIControlStateNormal];
-            [star3 setImage:filledStar forState:UIControlStateNormal];
-            [star4 setImage:filledStar forState:UIControlStateNormal];
-        }else if([self.product.rating isEqualToString:@"5"]){
-            [star1 setImage:filledStar forState:UIControlStateNormal];
-            [star2 setImage:filledStar forState:UIControlStateNormal];
-            [star3 setImage:filledStar forState:UIControlStateNormal];
-            [star4 setImage:filledStar forState:UIControlStateNormal];
-            [star5 setImage:filledStar forState:UIControlStateNormal];
+        if (ratingValue < 20) {
+            [self.btnStar1 setImage:filledStar forState:UIControlStateNormal];
+        }else if(ratingValue > 20 && ratingValue < 40 ){
+            [self.btnStar1 setImage:filledStar forState:UIControlStateNormal];
+            [self.btnStar2 setImage:filledStar forState:UIControlStateNormal];
+        }else if(ratingValue > 40 && ratingValue < 60 ){
+            [self.btnStar1 setImage:filledStar forState:UIControlStateNormal];
+            [self.btnStar2 setImage:filledStar forState:UIControlStateNormal];
+            [self.btnStar3 setImage:filledStar forState:UIControlStateNormal];
+        }else if(ratingValue > 60 && ratingValue < 80 ){
+            [self.btnStar1 setImage:filledStar forState:UIControlStateNormal];
+            [self.btnStar2 setImage:filledStar forState:UIControlStateNormal];
+            [self.btnStar3 setImage:filledStar forState:UIControlStateNormal];
+            [self.btnStar4 setImage:filledStar forState:UIControlStateNormal];
+        }else if((ratingValue > 80 && ratingValue < 100 )){
+            [self.btnStar1 setImage:filledStar forState:UIControlStateNormal];
+            [self.btnStar2 setImage:filledStar forState:UIControlStateNormal];
+            [self.btnStar3 setImage:filledStar forState:UIControlStateNormal];
+            [self.btnStar4 setImage:filledStar forState:UIControlStateNormal];
+            [self.btnStar5 setImage:filledStar forState:UIControlStateNormal];
         }
         
-        //NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.product.imgUrl]];
-        //productImage.image = [UIImage imageWithData:imageData];
         
         lblName.text       = self.product.name;
         lblPrice.text      = [NSString stringWithFormat:@"$%@", self.product.price];
         
-        //cell.productImage.layer.cornerRadius = 37;
-        //cell.productImage.layer.masksToBounds = YES;
-    }
+        NSURL *url = [NSURL URLWithString: self.product.imgUrl];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        
+        UIImage *placeholderImage = [UIImage imageNamed:@"placeholder"];
+        
+        __weak UIImageView *weakImg = productImage;
+        [weakImg setImageWithURLRequest:request
+                                 placeholderImage:placeholderImage
+                                          success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                              productImage.image = image;
+                                              [weakImg setNeedsLayout];
+                                              
+                                          } failure:nil];    }
     
     if (indexPath.section == 1) {
         UITextField *tfCounter = (UITextField *)[cell.contentView viewWithTag:1];
@@ -291,7 +308,14 @@
 
 
 - (IBAction)addReview:(id)sender{
+    if(self.loggedInUser){
      [self performSegueWithIdentifier:@"add_review_segue" sender:self];
+    }else{
+        UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
+        loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:loginNavigator animated:YES completion:nil];
+    }
+
     //UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"AddReviewID"];
     //loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     //[self presentViewController:loginNavigator animated:YES completion:nil];
@@ -312,6 +336,16 @@
 }
 
 - (IBAction)btn5star_pressed:(id)sender {
+}
+
+- (IBAction)addToCart_pressed:(id)sender {
+    if(self.loggedInUser){
+        
+    }else{
+        UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
+        loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:loginNavigator animated:YES completion:nil];
+    }
 }
 
 #pragma mark - ProductDetails Manager Delegates
@@ -346,6 +380,19 @@
 
 - (void)productManager:(VPProductManager *)manager didFailToFetchProductImage:(NSString *)message{
 }
+
+
+#pragma mark - Segue Callbacks
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"add_review_segue"]) {
+        VPAddReviewVC *reviewVC = [segue destinationViewController];
+        reviewVC.productId = self.product.id;
+    }
+}
+
+
 
 //- (void)productManager:(VPProductManager *)manager didFetchProductRating:(NSString *)rating{
 //     [self stopAnimating];

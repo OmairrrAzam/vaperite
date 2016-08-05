@@ -31,6 +31,7 @@
 
 - (void) changeViewThroughSlider:(NSString*)viewController;
 - (void) dismissMe;
-
+- (void)startAnimatingWithSuccessMsg:(NSString*)msg;
+- (void)startAnimatingWithErrorMsg:(NSString*)msg;
 - (void)sessionManager:(VPSessionManager *)sessionManager didFetchSession:(NSString*)sessionId;
 @end

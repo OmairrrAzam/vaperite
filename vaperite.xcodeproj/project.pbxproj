@@ -18,6 +18,7 @@
 		180DDB391D1C093E00083967 /* METransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB341D1C093E00083967 /* METransitions.m */; };
 		180DDB3A1D1C093E00083967 /* MEZoomAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB361D1C093E00083967 /* MEZoomAnimationController.m */; };
 		180DDB431D1C242200083967 /* VPBaseUIButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB421D1C242200083967 /* VPBaseUIButton.m */; };
+		180EC9251D54C970007EE61F /* VPReviewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 180EC9241D54C970007EE61F /* VPReviewManager.m */; };
 		182DC7C51D26962200B049D6 /* VPGMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7C41D26962200B049D6 /* VPGMapVC.m */; };
 		182DC7C81D27AD3200B049D6 /* VPMapTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7C71D27AD3200B049D6 /* VPMapTableVC.m */; };
 		182DC7CB1D27B8D200B049D6 /* VPBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7CA1D27B8D200B049D6 /* VPBaseTableViewCell.m */; };
@@ -93,6 +94,8 @@
 		180DDB361D1C093E00083967 /* MEZoomAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEZoomAnimationController.m; sourceTree = "<group>"; };
 		180DDB411D1C242200083967 /* VPBaseUIButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPBaseUIButton.h; path = Classes/UX/VPBaseUIButton.h; sourceTree = "<group>"; };
 		180DDB421D1C242200083967 /* VPBaseUIButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPBaseUIButton.m; path = Classes/UX/VPBaseUIButton.m; sourceTree = "<group>"; };
+		180EC9231D54C970007EE61F /* VPReviewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPReviewManager.h; sourceTree = "<group>"; };
+		180EC9241D54C970007EE61F /* VPReviewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPReviewManager.m; sourceTree = "<group>"; };
 		182DC7C31D26962200B049D6 /* VPGMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPGMapVC.h; path = Classes/UX/VPGMapVC.h; sourceTree = "<group>"; };
 		182DC7C41D26962200B049D6 /* VPGMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPGMapVC.m; path = Classes/UX/VPGMapVC.m; sourceTree = "<group>"; };
 		182DC7C61D27AD3200B049D6 /* VPMapTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPMapTableVC.h; path = Classes/UX/VPMapTableVC.h; sourceTree = "<group>"; };
@@ -441,6 +444,8 @@
 		18F3D7B41D1CFDB8009D8EE3 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				180EC9231D54C970007EE61F /* VPReviewManager.h */,
+				180EC9241D54C970007EE61F /* VPReviewManager.m */,
 				18F887491D36AACC0086255A /* VPProductManager.h */,
 				18F8874A1D36AACC0086255A /* VPProductManager.m */,
 				18F887431D3692980086255A /* VPUserManager.h */,
@@ -637,6 +642,7 @@
 				1896B3D81D4F4B5B00CBEB9B /* VPReviewsModel.m in Sources */,
 				180DDB391D1C093E00083967 /* METransitions.m in Sources */,
 				182DC7CE1D27B9CA00B049D6 /* VPMapTableViewCell.m in Sources */,
+				180EC9251D54C970007EE61F /* VPReviewManager.m in Sources */,
 				18F3D7FB1D239F48009D8EE3 /* VPBaseCollectionViewCell.m in Sources */,
 				18C73AD11D341BFD00BEF533 /* VPLocationManager.m in Sources */,
 				1805FFC01D1B37780005E8AD /* VPSliderMenuVC.m in Sources */,
@@ -779,8 +785,8 @@
 			baseConfigurationReference = 6954208BCF3AE6D358BC3B4A /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: aftabaig+jb@gmail.com (289P6JVBRZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: aftabaig+jb@gmail.com (289P6JVBRZ)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = vaperite/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -796,8 +802,8 @@
 			baseConfigurationReference = 8E1A2E89789860391325720C /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: aftabaig+jb@gmail.com (289P6JVBRZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: aftabaig+jb@gmail.com (289P6JVBRZ)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = vaperite/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

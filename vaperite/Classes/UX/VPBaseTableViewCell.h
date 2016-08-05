@@ -10,4 +10,5 @@
 
 @interface VPBaseTableViewCell : UITableViewCell
 
+
 @end

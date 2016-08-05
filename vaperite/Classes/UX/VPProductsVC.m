@@ -10,6 +10,7 @@
 #import "VPProductModel.h"
 #import "VPProductDetailsVC.h"
 #import "VPProductManager.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface VPProductsVC ()<UITableViewDataSource, UITableViewDelegate, VPProductManagerDelegate>
 
@@ -100,12 +101,24 @@ NSMutableArray *productPrices;
     productImgV.layer.cornerRadius = 38.0f;
     productImgV.clipsToBounds      = YES;
     
-    UIImage *productImg            = [UIImage imageNamed:[productImages objectAtIndex:0]];
+    
     ivContainer.layer.cornerRadius = 15.0f;
     
-    productImgV.image = productImg;
+    
     productName.text  = currentProduct.name;
     productPrice.text = currentProduct.price;
+    
+    NSURL *url = [NSURL URLWithString: currentProduct.imgUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    __weak UIImageView *weakImg = productImgV;
+    [weakImg setImageWithURLRequest:request
+                   placeholderImage:nil
+                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                productImgV.image = image;
+                                [weakImg setNeedsLayout];
+                                
+                            } failure:nil];    
+
     return cell;
 }
 

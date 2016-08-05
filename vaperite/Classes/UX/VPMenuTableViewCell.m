@@ -41,9 +41,14 @@
                 self.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0);
             }
         }
+    
+        if([[self.menuItem objectForKey:@"requiresAuthentication"]boolValue]){
+            
+         self.requiresAuthentication = @"1";
+        }
         self.ivIcon.image = [UIImage imageNamed:[self.menuItem objectForKey:@"ivIcon"]];
         self.lblTitle.text = [self.menuItem objectForKey:@"value"];
-    self.id = [self.menuItem objectForKeyHandlingNull:@"id"];
+        self.id = [self.menuItem objectForKeyHandlingNull:@"id"];
         [self setBackgroundColor:[UIColor clearColor]];
 }
 

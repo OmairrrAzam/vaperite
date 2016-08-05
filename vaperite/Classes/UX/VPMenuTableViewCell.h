@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *ivIcon;
 @property (weak, nonatomic) IBOutlet UILabel *lblTitle;
 @property (weak, nonatomic) NSString *id;
+@property (weak, nonatomic) NSString *requiresAuthentication;
 -(void)configure;
 @end

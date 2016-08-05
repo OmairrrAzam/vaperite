@@ -28,30 +28,6 @@ static NSString *kApiUser  = @"techverx";
             [self.delegate userManager:self didFailToAuthenticateWithMessage:message];
         }
     }];
-
-    
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    NSURL *url = [NSURL URLWithString:@"http://ec2-54-208-24-225.compute-1.amazonaws.com/customapi/index/authenticate"];
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-//    [request setHTTPMethod:@"POST"];
-//    NSString *params = [NSString stringWithFormat:@"apiuser=techverx&apikey=techverx&email=%@&password=%@",email,password ];
-//    
-//    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
-//    
-//    
-//    [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        
-//        NSString *strResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//        NSLog(@"%@", strResponse);
-//       
-//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:[strResponse dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
-//        
-//        NSDictionary *u = [dict objectForKey:@"data"];
-//        
-//        VPUsersModel *user = [[VPUsersModel alloc]initWithDictionary:u];
-//        
-//        [self.delegate userManager:self didAuthenticateWithUser:user ];
-//    }] resume];
 }
 
 
@@ -142,16 +118,25 @@ static NSString *kApiUser  = @"techverx";
     }] resume];
 }
 
--(void) fetchAddressFromCustomerId:(NSString*)cutomerId{
-    NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx",@"customerid":cutomerId, @"billing_flag":@"1",@"shipping_flag":@"1"};
+-(void) fetchAddressFromCustomerId:(NSString*)customerId{
+    NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx",@"customerid":customerId, @"billing_flag":@"1",@"shipping_flag":@"1"};
+    
     VPSessionManager *manager = [VPSessionManager sharedManager];
     
     [manager POST:@"getCustomerAddress" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         if (self.delegate) {
+            NSString     *status  = [responseObject objectForKey:@"success"];
             
-            //NSArray *dictProducts = [responseObject objectForKey:@"data"];
-            //NSArray *products = [VPProductModel loadFromArray:dictProducts];
-//            [self.delegate productManager:self didFetchProductRating:responseObject];
+            if ([status boolValue] == 1){
+                
+                NSDictionary *address = [responseObject objectForKey:@"data"];
+                VPUsersModel *user = [[VPUsersModel alloc]initWithDictionary:address];
+                [self.delegate userManager:self didFetchAddress:user];
+            }else{
+                 NSString *msg = [responseObject objectForKey:@"data"];
+                [self.delegate userManager:self didFailToFetchAddress:msg];
+            }
+          
             
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -161,6 +146,53 @@ static NSString *kApiUser  = @"techverx";
         }
     }];
 
+}
+
+-(void) updateAddressWithCustomerID:(NSString*)customerId firstName:(NSString*)fn  lastName:(NSString*)ln streetAddress:(NSString*)street city:(NSString*)city postalCode:(NSString*)postal{
+    
+    NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx",@"customerid":customerId, @"billing_flag":@"1",@"shipping_flag":@"1",@"fn":fn, @"ln":ln, @"street_address":street, @"city":city, @"post_code":postal, @"country_code": @"US", @"phone":@"123"};
+    
+    VPSessionManager *manager = [VPSessionManager sharedManager];
+    
+    [manager POST:@"addCustomerAddress" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (self.delegate) {
+            NSString *addressStr = [responseObject objectForKey:@"data"];
+            
+            [self.delegate userManager:self didUpdateAddress:addressStr];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSString *message = @"testing";
+        if (self.delegate) {
+            //[self.delegate productManager:self didFailToFetchProductsFromCategoryId:message];
+        }
+    }];
+    
+}
+
+-(void) updatePasswordWithCustomerID:(NSString*)customerId firstName:(NSString*)fn  lastName:(NSString*)ln email:(NSString*)email password:(NSString*)password{
+    
+    NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx",@"customerid":customerId, @"fn":fn, @"ln":ln,
+                              @"email":email, @"password":password};
+    
+    VPSessionManager *manager = [VPSessionManager sharedManager];
+    
+    [manager POST:@"updateCustomerProfile" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (self.delegate) {
+             NSString *msg = [responseObject objectForKey:@"data"];
+             NSString *status = [responseObject objectForKey:@"status"];
+            if ([status boolValue] == 1){
+                [self.delegate userManager:self didUpdatePassword:msg];
+            }else{
+                [self.delegate userManager:self didFailToUpdatePassword:msg];
+            }
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSString *message = @"testing";
+        if (self.delegate) {
+            //[self.delegate productManager:self didFailToFetchProductsFromCategoryId:message];
+        }
+    }];
+    
 }
 
 - (void)addReviewFromSession:(NSString*)sessionId storeId:(NSString*)storeId productId:(NSString*)productId customerId:(NSString*)customerId title:(NSString*)title detail:(NSString*)detail nickName:(NSString*)nickName{

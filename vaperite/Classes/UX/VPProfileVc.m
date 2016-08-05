@@ -27,8 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //initializing first view in container view
-    self.currentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"updateAddress"];
+    self.currentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"updatePassword"];
     self.currentViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    
     [self addChildViewController:self.currentViewController];
     [self addSubview:self.currentViewController.view toView:self.containerView];
     

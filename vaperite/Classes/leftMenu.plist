@@ -120,6 +120,8 @@
 			<integer>0</integer>
 		</dict>
 		<dict>
+			<key>requiresAuthentication</key>
+			<true/>
 			<key>viewController</key>
 			<string>myProfile</string>
 			<key>isChild</key>

@@ -8,6 +8,8 @@
 
 #import "VPBaseVC.h"
 
+
 @interface VPAddReviewVC : VPBaseVC
 
+@property (strong, nonatomic)NSString  *productId;
 @end

@@ -25,6 +25,7 @@ NSMutableArray *categoriesImgArray;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self startAnimating];
     categoriesArray = [NSMutableArray arrayWithObjects:@"THE G.O.A.T E-Liquid",
                                                        @"PREMIUM LIQUID",
                                                        @"HIPSTER VAPE CO",@"COIL REPLACEMENTS",nil];

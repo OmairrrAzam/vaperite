@@ -27,25 +27,20 @@
     
     [super viewDidLoad];
     
-    self.sessionId = [[NSUserDefaults standardUserDefaults] objectForKey:kSessionid];
-    self.storeId = [[NSUserDefaults standardUserDefaults] objectForKey:kStoreid];
     
     self.basicConfiguration = [KVNProgressConfiguration defaultConfiguration];
 
     self.customConfiguration = [self customKVNProgressUIConfiguration];
     [KVNProgress setConfiguration:self.customConfiguration];
-    self.navigationItem.rightBarButtonItem =[self cartButton];
-    self.navigationItem.leftBarButtonItem  =[self menuButton];
     
-    //it has to be here for initializtion
     self.loggedInUser = [VPUsersModel currentUser];
     self.currentStore = [VPMarkerModel currentStore];
-//    if (!self.sessionManager) {
-//        self.sessionManager = [[VPSessionManager alloc]init];
-//        self.sessionManager.delegate = self;
-//    }
-//    [self.sessionManager getSessionIdWithUserApi:@"" apiKey:@""];
     
+    if (self.currentStore){
+        self.navigationItem.rightBarButtonItem =[self cartButton];
+        self.navigationItem.leftBarButtonItem  =[self menuButton];
+    }
+
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -136,6 +131,14 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
     };
     
     return configuration;
+}
+
+- (void)startAnimatingWithSuccessMsg:(NSString*)msg {
+    [KVNProgress showSuccessWithStatus:msg];
+}
+
+- (void)startAnimatingWithErrorMsg:(NSString*)msg {
+    [KVNProgress showErrorWithStatus:msg];
 }
 
 - (void)startAnimating {

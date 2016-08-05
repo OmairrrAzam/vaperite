@@ -12,7 +12,13 @@
 
 @property (strong, nonatomic) NSString *titl;
 @property (strong, nonatomic) NSString *desc;
+@property (strong, nonatomic) NSString *nickName;
+@property (strong, nonatomic) NSString *customerId;
+@property (strong, nonatomic) NSString *storeId;
+@property (strong, nonatomic) NSString *productId;
+@property (strong, nonatomic) NSString *rating;
 
 + (NSArray *)loadFromArray:(NSArray *)arrReviews;
 - (id)initWithDictionary:(NSDictionary *)dictReview;
+
 @end
