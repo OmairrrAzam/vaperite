@@ -134,6 +134,7 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 }
 
 - (void)startAnimatingWithSuccessMsg:(NSString*)msg {
+    
     [KVNProgress showSuccessWithStatus:msg];
 }
 
@@ -142,6 +143,7 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 }
 
 - (void)startAnimating {
+    
       [KVNProgress showWithStatus:@"Loading..."];
 }
 

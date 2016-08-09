@@ -17,9 +17,24 @@
 @property (weak, nonatomic) IBOutlet UITextField *tfName;
 @property (weak, nonatomic) IBOutlet UITextField *tfSubject;
 @property (weak, nonatomic) IBOutlet UITextView *tvReview;
+@property (weak, nonatomic) IBOutlet UILabel *lblRating;
+
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *containerView;
 
+@property (strong, nonatomic)IBOutlet UIButton *btnStar1;
+@property (strong, nonatomic)IBOutlet UIButton *btnStar2;
+@property (strong, nonatomic)IBOutlet UIButton *btnStar3;
+@property (strong, nonatomic)IBOutlet UIButton *btnStar4;
+@property (strong, nonatomic)IBOutlet UIButton *btnStar5;
+@property (strong, nonatomic) NSString *reviewRating;
+
 @property (strong, nonatomic) VPReviewManager *manager;
+
+- (IBAction)btn1star_pressed:(id)sender;
+- (IBAction)btn2star_pressed:(id)sender;
+- (IBAction)btn3star_pressed:(id)sender;
+- (IBAction)btn4star_pressed:(id)sender;
+- (IBAction)btn5star_pressed:(id)sender;
 
 
 @end
@@ -29,8 +44,10 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
     [self configureInterface];
+    self.reviewRating = @"3";
+    [self updateStars:@"3"];
+    
 }
 
 #pragma mark - Private Methods
@@ -63,7 +80,7 @@
     review.storeId    = self.currentStore.id;
     review.productId  = self.productId;
     review.customerId = self.loggedInUser.customer_id;
-    review.rating     = @"20";
+    review.rating     = self.reviewRating;
     return review;
     
 }
@@ -105,6 +122,48 @@
     self.tvReview.textColor = [UIColor lightGrayColor];
 }
 
+- (void)updateStars:(NSString*)starNo{
+    UIImage *filledStar = [UIImage imageNamed:@"yellow-star.png"];
+    UIImage *emptyStar = [UIImage imageNamed:@"grey-star.png"];
+    if ([starNo isEqualToString:@"1"]) {
+        [self.btnStar1 setImage:filledStar forState:UIControlStateNormal];
+        [self.btnStar2 setImage:emptyStar forState:UIControlStateNormal];
+        [self.btnStar3 setImage:emptyStar forState:UIControlStateNormal];
+        [self.btnStar4 setImage:emptyStar forState:UIControlStateNormal];
+        [self.btnStar5 setImage:emptyStar forState:UIControlStateNormal];
+        self.lblRating.text = @"Rating(1/5)";
+    }else if([starNo isEqualToString:@"2"] ){
+        [self.btnStar1 setImage:filledStar forState:UIControlStateNormal];
+        [self.btnStar2 setImage:filledStar forState:UIControlStateNormal];
+        [self.btnStar3 setImage:emptyStar forState:UIControlStateNormal];
+        [self.btnStar4 setImage:emptyStar forState:UIControlStateNormal];
+        [self.btnStar5 setImage:emptyStar forState:UIControlStateNormal];
+        self.lblRating.text = @"Rating(2/5)";
+    }else if([starNo isEqualToString:@"3"] ){
+        [self.btnStar1 setImage:filledStar forState:UIControlStateNormal];
+        [self.btnStar2 setImage:filledStar forState:UIControlStateNormal];
+        [self.btnStar3 setImage:filledStar forState:UIControlStateNormal];
+        [self.btnStar4 setImage:emptyStar forState:UIControlStateNormal];
+        [self.btnStar5 setImage:emptyStar forState:UIControlStateNormal];
+        self.lblRating.text = @"Rating(3/5)";
+    }else if([starNo isEqualToString:@"4"] ){
+        [self.btnStar1 setImage:filledStar forState:UIControlStateNormal];
+        [self.btnStar2 setImage:filledStar forState:UIControlStateNormal];
+        [self.btnStar3 setImage:filledStar forState:UIControlStateNormal];
+        [self.btnStar4 setImage:filledStar forState:UIControlStateNormal];
+        [self.btnStar5 setImage:emptyStar forState:UIControlStateNormal];
+
+        self.lblRating.text = @"Rating(4/5)";
+    }else if([starNo isEqualToString:@"5"]){
+        [self.btnStar1 setImage:filledStar forState:UIControlStateNormal];
+        [self.btnStar2 setImage:filledStar forState:UIControlStateNormal];
+        [self.btnStar3 setImage:filledStar forState:UIControlStateNormal];
+        [self.btnStar4 setImage:filledStar forState:UIControlStateNormal];
+        [self.btnStar5 setImage:filledStar forState:UIControlStateNormal];
+        self.lblRating.text = @"Rating(5/5)";
+    }
+}
+
 #pragma mark - TextView Delegate Methods
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -141,6 +200,31 @@
 
 - (IBAction)btnBack:(id)sender {
     [[self navigationController] popViewControllerAnimated:YES];
+}
+
+- (IBAction)btn1star_pressed:(id)sender{
+    self.reviewRating = @"20";
+    [self updateStars:@"1"];
+    
+}
+- (IBAction)btn2star_pressed:(id)sender{
+    self.reviewRating = @"40";
+    [self updateStars:@"2"];
+
+}
+- (IBAction)btn3star_pressed:(id)sender{
+    self.reviewRating = @"60";
+    [self updateStars:@"3"];
+}
+- (IBAction)btn4star_pressed:(id)sender{
+    self.reviewRating = @"80";
+    [self updateStars:@"4"];
+
+}
+- (IBAction)btn5star_pressed:(id)sender{
+    self.reviewRating = @"100";
+    [self updateStars:@"5"];
+
 }
 
 #pragma mark - UITextFieldDelegate Methods

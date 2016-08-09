@@ -202,26 +202,7 @@ static NSString *kApiUser  = @"techverx";
             [self.delegate productManager:self didFailToFetchProductsFromCategoryId:message];
         }
     }];
-    
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    
-//    NSURL *url = [NSURL URLWithString:@"https://ec2-54-208-24-225.compute-1.amazonaws.com/customapi/index/getRatting"];
-//    
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-//    [request setHTTPMethod:@"POST"];
-//    NSString *params = [NSString stringWithFormat:@"session=%@&storeid=%@&productid=%@",sessionId, storeId, productId ];
-//    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
-//    
-//    [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        NSString *strResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//       // NSLog(@"%@", strResponse);
-//        
-//    
-//        // NSArray *reviews = [VPReviewsModel loadFromArray:dict];
-//        //[self.delegate productManager:self didFetchProductReviews:reviews];
-//        
-//    }] resume];
-//
+ 
 }
 
 
@@ -246,6 +227,25 @@ static NSString *kApiUser  = @"techverx";
     
 }
 
+- (void) addToFavouriteWithCustomerId:(NSString*)customerId andProduct:(VPProductModel*)product{
+    
+    NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx",@"customerid":customerId, @"productid":product.id};
+    VPSessionManager *manager = [VPSessionManager sharedManager];
+    
+    [manager POST:@"addFavorite" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (self.delegate) {
+            
+            NSDictionary *dictProducts = [responseObject objectForKey:@"data"];
+            [self.delegate productManager:self didAddToFavourites:[dictProducts objectForKeyHandlingNull:@"msg"]];
+            
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSString *message = @"testing";
+        if (self.delegate) {
+            [self.delegate productManager:self didFailToFetchProductsFromCategoryId:message];
+        }
+    }];
+}
 
 
 @end

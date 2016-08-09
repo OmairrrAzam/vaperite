@@ -347,7 +347,7 @@
     [cell.contentView.superview setClipsToBounds:NO];
     
     cell.name.text  = currentProduct.sku;
-    cell.price.text = [NSString stringWithFormat:@"$%@", currentProduct.price];
+    cell.price.text = [NSString stringWithFormat:@"%@", currentProduct.price];
     
     NSString *urlString = currentProduct.imgUrl;
     if (!self.isStaging) {

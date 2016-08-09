@@ -101,10 +101,12 @@
     cell.price.text = [NSString stringWithFormat:@"$%@", currentProduct.price];
     
     NSString *urlString = currentProduct.imgUrl;
+    
     if (!self.isStaging) {
         urlString = [urlString stringByReplacingOccurrencesOfString:@"https://"
                                                          withString:@"http://"];
     }
+    
     NSURL *url = [NSURL URLWithString: urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     

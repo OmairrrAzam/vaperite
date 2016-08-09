@@ -38,6 +38,7 @@
 - (IBAction)btn4star_pressed:(id)sender;
 - (IBAction)btn5star_pressed:(id)sender;
 - (IBAction)addToCart_pressed:(id)sender;
+- (IBAction)btnFavourite_pressed:(id)sender;
 
 
 @end
@@ -304,6 +305,7 @@
 }
 
 - (IBAction)btn1star_pressed:(id)sender {
+    
 }
 
 
@@ -348,6 +350,28 @@
     }
 }
 
+- (IBAction)btnFavourite_pressed:(id)sender {
+    
+    if(self.loggedInUser){
+        if (!self.productManager) {
+            self.productManager = [[VPProductManager alloc]init];
+            self.productManager.delegate = self;
+        }
+        [self startAnimating];
+        
+        [self.productManager addToFavouriteWithCustomerId:self.loggedInUser.customer_id andProduct:self.product];
+    }else{
+        
+        UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
+        loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:loginNavigator animated:YES completion:nil];
+        
+    }
+    
+   
+    
+}
+
 #pragma mark - ProductDetails Manager Delegates
 
 - (void)productManager:(VPProductManager *)manager didFetchProductDetails:(VPProductModel *)product{
@@ -381,6 +405,15 @@
 - (void)productManager:(VPProductManager *)manager didFailToFetchProductImage:(NSString *)message{
 }
 
+
+- (void)productManager:(VPProductManager *)manager didAddToFavourites:(NSString *)message{
+    [self startAnimatingWithSuccessMsg:message];
+    
+    
+}
+- (void)productManager:(VPProductManager *)manager didFailToAddToFavourites:(NSString *)message{
+    [self startAnimatingWithErrorMsg:message];
+}
 
 #pragma mark - Segue Callbacks
 

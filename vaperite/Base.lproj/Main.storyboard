@@ -536,11 +536,11 @@
                                                                     </label>
                                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SWx-rb-usa" userLabel="favorite">
                                                                         <rect key="frame" x="15" y="0.0" width="22" height="22"/>
-                                                                        <state key="normal" image="5835D87D-7FB3-4B8C-BA2B-A000BBD8EE3D"/>
+                                                                        <state key="normal" image="392AC02D-D9B0-4E95-ACA9-C40672920581"/>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90w-uT-r39" userLabel="cart">
                                                                         <rect key="frame" x="76" y="-7" width="59" height="33"/>
-                                                                        <state key="normal" image="B0973B20-96EB-4BFD-ADC5-DBC6CD460FCB"/>
+                                                                        <state key="normal" image="150E98AE-FBA6-409C-A143-5F404BF9DFA1"/>
                                                                     </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1106,6 +1106,9 @@
                                                                 <constraint firstAttribute="width" constant="30" id="yl3-0P-J8q"/>
                                                             </constraints>
                                                             <state key="normal" title="Button" image="heart-icon"/>
+                                                            <connections>
+                                                                <action selector="btnFavourite_pressed:" destination="o0b-FG-dhP" eventType="touchUpInside" id="3if-fK-LDD"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1541,25 +1544,40 @@
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zx8-Db-k4H" userLabel="stars">
                                                         <rect key="frame" x="45" y="31" width="161" height="34"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZX-bn-5oV">
-                                                                <rect key="frame" x="66" y="5" width="24" height="24"/>
-                                                                <state key="normal" backgroundImage="yellow-star"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZX-bn-5oV">
+                                                                <rect key="frame" x="67" y="6" width="23" height="22"/>
+                                                                <state key="normal" image="grey-star"/>
+                                                                <connections>
+                                                                    <action selector="btn3star_pressed:" destination="PIU-mB-coz" eventType="touchUpInside" id="d8O-Vs-ctv"/>
+                                                                </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p1p-7k-t5t">
-                                                                <rect key="frame" x="38" y="5" width="24" height="24"/>
-                                                                <state key="normal" backgroundImage="yellow-star"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p1p-7k-t5t">
+                                                                <rect key="frame" x="39" y="6" width="23" height="22"/>
+                                                                <state key="normal" image="grey-star"/>
+                                                                <connections>
+                                                                    <action selector="btn2star_pressed:" destination="PIU-mB-coz" eventType="touchUpInside" id="BeN-NW-efn"/>
+                                                                </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ij-Ul-hCB">
-                                                                <rect key="frame" x="97" y="5" width="24" height="24"/>
-                                                                <state key="normal" backgroundImage="yellow-star"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ij-Ul-hCB">
+                                                                <rect key="frame" x="98" y="6" width="23" height="22"/>
+                                                                <state key="normal" image="grey-star"/>
+                                                                <connections>
+                                                                    <action selector="btn4star_pressed:" destination="PIU-mB-coz" eventType="touchUpInside" id="u5g-ar-eLy"/>
+                                                                </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sv4-Ub-Ek1">
-                                                                <rect key="frame" x="126" y="5" width="24" height="24"/>
-                                                                <state key="normal" backgroundImage="yellow-star"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sv4-Ub-Ek1">
+                                                                <rect key="frame" x="127" y="6" width="23" height="22"/>
+                                                                <state key="normal" image="grey-star"/>
+                                                                <connections>
+                                                                    <action selector="btn5star_pressed:" destination="PIU-mB-coz" eventType="touchUpInside" id="yPY-eK-hXL"/>
+                                                                </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jB1-1H-yKe">
-                                                                <rect key="frame" x="6" y="5" width="24" height="24"/>
-                                                                <state key="normal" backgroundImage="yellow-star"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jB1-1H-yKe">
+                                                                <rect key="frame" x="7" y="6" width="23" height="22"/>
+                                                                <state key="normal" image="grey-star"/>
+                                                                <connections>
+                                                                    <action selector="btn1star_pressed:" destination="PIU-mB-coz" eventType="touchUpInside" id="SX2-ad-ULV"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1661,7 +1679,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Add Review" id="NoE-qC-3lA"/>
                     <connections>
+                        <outlet property="btnStar1" destination="jB1-1H-yKe" id="sEl-S9-HBr"/>
+                        <outlet property="btnStar2" destination="p1p-7k-t5t" id="mAl-YY-VII"/>
+                        <outlet property="btnStar3" destination="lZX-bn-5oV" id="tBH-dL-Gxc"/>
+                        <outlet property="btnStar4" destination="6Ij-Ul-hCB" id="Gio-M8-Y0o"/>
+                        <outlet property="btnStar5" destination="Sv4-Ub-Ek1" id="dkp-05-bm8"/>
                         <outlet property="containerView" destination="Mn7-uM-3au" id="bXm-s6-Fss"/>
+                        <outlet property="lblRating" destination="DpW-h9-gD6" id="CJr-lA-uji"/>
                         <outlet property="ratingView" destination="9iD-o7-c60" id="4vJ-Wa-DRR"/>
                         <outlet property="tfName" destination="0GT-T4-3fO" id="99f-I4-k27"/>
                         <outlet property="tfSubject" destination="yG1-ay-ZC2" id="XLk-wr-E6o"/>
@@ -3077,88 +3101,7 @@
     <resources>
         <image name="+-icon" width="38" height="38"/>
         <image name="--icon" width="30" height="1"/>
-        <image name="5835D87D-7FB3-4B8C-BA2B-A000BBD8EE3D" width="22" height="21">
-            <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
-GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
-c1dOU0NvbG9ygAKADRIgwAAAgAOAC1h7MjIsIDIxfdIVChYYWk5TLm9iamVjdHOhF4AEgArSFQoaHaIb
-HIAFgAaACRAA0iAKISJfEBROU1RJRkZSZXByZXNlbnRhdGlvboAHgAhPEQ+mTU0AKgAAB0AAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAsCGpw/CKToUQb18l8N//JlFf/yXQr/5FEG
-8XkyCIApEgQrlDsHnOxTBvnyYQ7/8mQV//JcCf/fTgbsizkIkgYCAAcAAAAAAAAAAAAAAAAAAAAAHg0C
-IMlOCNPzXwv/96Ff//zZu//85c7//NW1//eVTf/zXgn/3lQK6fNjDv/4pGL//Nu9//zlzv/81LL/95RK
-//NbCP+nRAmwCgQACwAAAAAAAAAAAAAAAKxFCbXzYg7/+sid////////////////////////////+KVj
-//JIB//6vo7////////////////////////////4tHz/8lkH/4I2CIkAAAAAAAAAAAAAAADyVgf/+K5z
-//////////////////////////////////3v4f/5uIf///r1////////////////////////////////
-//eSSf/lTwbyAAAAAAAAAAAAAAAA9GgU//3r2v//////////////////////////////////////////
-///////////////////////////////////////81LH/8lsK/wAAAAAAAAAAAAAAAPV5K///9uz/////
-/////////////////////////////////////////////////////////////////////////////eXN
-//NlE/8AAAAAAAAAAAAAAAD0cyH//fTp////////////////////////////////////////////////
-//////////////////////////////////zgxP/yYQ//AAAAAAAAAAAAAAAA8l8M//zbvP//////////
-///////////////////////////////////////////////////////////////////////6wI//8VUH
-/wAAAAAAAAAAAAAAAOhRBvX3nFb/////////////////////////////////////////////////////
-//////////////////////////7/9YIw/8pHBdUAAAAAAAAAAAAAAACTPAeb82EN//zbvv//////////
-////////////////////////////////////////////////////////////+sOW//NVB/9nKwZtAAAA
-AAAAAAAAAAAAHQ0CH9tNBuf1fzD//v77////////////////////////////////////////////////
-/////////////eze//RsGP++SAfJAwEABAAAAAAAAAAAAAAAAAAAAABlKgdr8lIH//inZv//////////
-//////////////////////////////////////////////////eORP/yVAf/QBwFQwAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAJY7B5/yUwf/+sKP////////////////////////////////////////////////
-//emYv/yUQf/cS8HdwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJBAAKvkgIyfJaC//70K3/////
-//////////////////////////////////q3gf/xUQf/nj8JpgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAB8OAiHMSwbY818M//rOpf////////////////////////////q6hf/yVAf/r0MI
-uQgDAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALhQEMdZNBuLzYQ7/+syi
-//////////////////m3gP/yVgf/t0cHwRQIARUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAtFAMw004H3/FcC//6xpn///////itcP/yVQf/ukkJxBYJARcAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB8OAiHDSQjO82MO
-//eNQf/yXQn/rEQJtg0FAQ4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAEggBE4M0B4q6PwXEci8HeAUCAAYAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgEAAAMAAAABABYAAAEBAAMA
-AAABABUAAAECAAMAAAAEAAAH7gEDAAMAAAABAAEAAAEGAAMAAAABAAIAAAERAAQAAAABAAAACAESAAMA
-AAABAAEAAAEVAAMAAAABAAQAAAEWAAMAAAABABUAAAEXAAQAAAABAAAHOAEcAAMAAAABAAEAAAFSAAMA
-AAABAAEAAAFTAAMAAAAEAAAH9odzAAcAAAeoAAAH/gAAAAAACAAIAAgACAABAAEAAQABAAAHqGFwcGwC
-IAAAbW50clJHQiBYWVogB9kAAgAZAAsAGgALYWNzcEFQUEwAAAAAYXBwbAAAAAAAAAAAAAAAAAAAAAAA
-APbWAAEAAAAA0y1hcHBsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAALZGVzYwAAAQgAAABvZHNjbQAAAXgAAAVsY3BydAAABuQAAAA4d3RwdAAABxwAAAAUclhZWgAABzAA
-AAAUZ1hZWgAAB0QAAAAUYlhZWgAAB1gAAAAUclRSQwAAB2wAAAAOY2hhZAAAB3wAAAAsYlRSQwAAB2wA
-AAAOZ1RSQwAAB2wAAAAOZGVzYwAAAAAAAAAUR2VuZXJpYyBSR0IgUHJvZmlsZQAAAAAAAAAAAAAAFEdl
-bmVyaWMgUkdCIFByb2ZpbGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAG1sdWMAAAAAAAAAHgAAAAxza1NLAAAAKAAAAXhockhSAAAAKAAAAaBjYUVTAAAAJAAAAchw
-dEJSAAAAJgAAAex1a1VBAAAAKgAAAhJmckZVAAAAKAAAAjx6aFRXAAAAFgAAAmRpdElUAAAAKAAAAnpu
-Yk5PAAAAJgAAAqJrb0tSAAAAFgAAAshjc0NaAAAAIgAAAt5oZUlMAAAAHgAAAwBkZURFAAAALAAAAx5o
-dUhVAAAAKAAAA0pzdlNFAAAAJgAAAqJ6aENOAAAAFgAAA3JqYUpQAAAAGgAAA4hyb1JPAAAAJAAAA6Jl
-bEdSAAAAIgAAA8ZwdFBPAAAAJgAAA+hubE5MAAAAKAAABA5lc0VTAAAAJgAAA+h0aFRIAAAAJAAABDZ0
-clRSAAAAIgAABFpmaUZJAAAAKAAABHxwbFBMAAAALAAABKRydVJVAAAAIgAABNBhckVHAAAAJgAABPJl
-blVTAAAAJgAABRhkYURLAAAALgAABT4AVgFhAGUAbwBiAGUAYwBuAP0AIABSAEcAQgAgAHAAcgBvAGYA
-aQBsAEcAZQBuAGUAcgBpAQ0AawBpACAAUgBHAEIAIABwAHIAbwBmAGkAbABQAGUAcgBmAGkAbAAgAFIA
-RwBCACAAZwBlAG4A6AByAGkAYwBQAGUAcgBmAGkAbAAgAFIARwBCACAARwBlAG4A6QByAGkAYwBvBBcE
-MAQzBDAEOwRMBD0EOAQ5ACAEPwRABD4ERAQwBDkEOwAgAFIARwBCAFAAcgBvAGYAaQBsACAAZwDpAG4A
-6QByAGkAcQB1AGUAIABSAFYAQpAadSgAIABSAEcAQgAggnJfaWPPj/AAUAByAG8AZgBpAGwAbwAgAFIA
-RwBCACAAZwBlAG4AZQByAGkAYwBvAEcAZQBuAGUAcgBpAHMAawAgAFIARwBCAC0AcAByAG8AZgBpAGzH
-fLwYACAAUgBHAEIAINUEuFzTDMd8AE8AYgBlAGMAbgD9ACAAUgBHAEIAIABwAHIAbwBmAGkAbAXkBegF
-1QXkBdkF3AAgAFIARwBCACAF2wXcBdwF2QBBAGwAbABnAGUAbQBlAGkAbgBlAHMAIABSAEcAQgAtAFAA
-cgBvAGYAaQBsAMEAbAB0AGEAbADhAG4AbwBzACAAUgBHAEIAIABwAHIAbwBmAGkAbGZukBoAIABSAEcA
-QgAgY8+P8GWHTvZOAIIsACAAUgBHAEIAIDDXMO0w1TChMKQw6wBQAHIAbwBmAGkAbAAgAFIARwBCACAA
-ZwBlAG4AZQByAGkAYwOTA7UDvQO5A7oDzAAgA8ADwQO/A8YDrwO7ACAAUgBHAEIAUABlAHIAZgBpAGwA
-IABSAEcAQgAgAGcAZQBuAOkAcgBpAGMAbwBBAGwAZwBlAG0AZQBlAG4AIABSAEcAQgAtAHAAcgBvAGYA
-aQBlAGwOQg4bDiMORA4fDiUOTAAgAFIARwBCACAOFw4xDkgOJw5EDhsARwBlAG4AZQBsACAAUgBHAEIA
-IABQAHIAbwBmAGkAbABpAFkAbABlAGkAbgBlAG4AIABSAEcAQgAtAHAAcgBvAGYAaQBpAGwAaQBVAG4A
-aQB3AGUAcgBzAGEAbABuAHkAIABwAHIAbwBmAGkAbAAgAFIARwBCBB4EMQRJBDgEOQAgBD8EQAQ+BEQE
-OAQ7BEwAIABSAEcAQgZFBkQGQQAgBioGOQYxBkoGQQAgAFIARwBCACAGJwZEBjkGJwZFAEcAZQBuAGUA
-cgBpAGMAIABSAEcAQgAgAFAAcgBvAGYAaQBsAGUARwBlAG4AZQByAGUAbAAgAFIARwBCAC0AYgBlAHMA
-awByAGkAdgBlAGwAcwBldGV4dAAAAABDb3B5cmlnaHQgMjAwNyBBcHBsZSBJbmMuLCBhbGwgcmlnaHRz
-IHJlc2VydmVkLgBYWVogAAAAAAAA81IAAQAAAAEWz1hZWiAAAAAAAAB0TQAAPe4AAAPQWFlaIAAAAAAA
-AFp1AACscwAAFzRYWVogAAAAAAAAKBoAABWfAAC4NmN1cnYAAAAAAAAAAQHNAABzZjMyAAAAAAABDEIA
-AAXe///zJgAAB5IAAP2R///7ov///aMAAAPcAADAbNIlJicoWiRjbGFzc25hbWVYJGNsYXNzZXNfEBBO
-U0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VSZXBaTlNJbWFnZVJlcFhOU09iamVjdNIl
-Ji0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMwLSvTMzQKNTY3V05TV2hpdGVcTlNDb2xv
-clNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9V05TSW1hZ2WiPCtfEA9OU0tleWVkQXJj
-aGl2ZXLRQEFUcm9vdIABAAgAEQAaACMALQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCXAJwA
-pwCpAKsArQCyALUAtwC5ALsAvQDCANkA2wDdEIcQjBCXEKAQsxC3EMoQ1RDeEOMQ6xDuEPMRAhEGEQ0R
-FREiEScRKRErETAROBE7EUARSBFLEV0RYBFlAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAAEWc
-</mutableData>
-        </image>
-        <image name="B0973B20-96EB-4BFD-ADC5-DBC6CD460FCB" width="33" height="37">
+        <image name="150E98AE-FBA6-409C-A143-5F404BF9DFA1" width="33" height="37">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -3290,6 +3233,87 @@ LQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCXAJwApwCpAKsArQCyALUAtwC5ALsAvQDCANkA
 PB1BAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAAHUM
 </mutableData>
         </image>
+        <image name="392AC02D-D9B0-4E95-ACA9-C40672920581" width="22" height="21">
+            <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
+GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
+c1dOU0NvbG9ygAKADRIgwAAAgAOAC1h7MjIsIDIxfdIVChYYWk5TLm9iamVjdHOhF4AEgArSFQoaHaIb
+HIAFgAaACRAA0iAKISJfEBROU1RJRkZSZXByZXNlbnRhdGlvboAHgAhPEQ+mTU0AKgAAB0AAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAsCGpw/CKToUQb18l8N//JlFf/yXQr/5FEG
+8XkyCIApEgQrlDsHnOxTBvnyYQ7/8mQV//JcCf/fTgbsizkIkgYCAAcAAAAAAAAAAAAAAAAAAAAAHg0C
+IMlOCNPzXwv/96Ff//zZu//85c7//NW1//eVTf/zXgn/3lQK6fNjDv/4pGL//Nu9//zlzv/81LL/95RK
+//NbCP+nRAmwCgQACwAAAAAAAAAAAAAAAKxFCbXzYg7/+sid////////////////////////////+KVj
+//JIB//6vo7////////////////////////////4tHz/8lkH/4I2CIkAAAAAAAAAAAAAAADyVgf/+K5z
+//////////////////////////////////3v4f/5uIf///r1////////////////////////////////
+//eSSf/lTwbyAAAAAAAAAAAAAAAA9GgU//3r2v//////////////////////////////////////////
+///////////////////////////////////////81LH/8lsK/wAAAAAAAAAAAAAAAPV5K///9uz/////
+/////////////////////////////////////////////////////////////////////////////eXN
+//NlE/8AAAAAAAAAAAAAAAD0cyH//fTp////////////////////////////////////////////////
+//////////////////////////////////zgxP/yYQ//AAAAAAAAAAAAAAAA8l8M//zbvP//////////
+///////////////////////////////////////////////////////////////////////6wI//8VUH
+/wAAAAAAAAAAAAAAAOhRBvX3nFb/////////////////////////////////////////////////////
+//////////////////////////7/9YIw/8pHBdUAAAAAAAAAAAAAAACTPAeb82EN//zbvv//////////
+////////////////////////////////////////////////////////////+sOW//NVB/9nKwZtAAAA
+AAAAAAAAAAAAHQ0CH9tNBuf1fzD//v77////////////////////////////////////////////////
+/////////////eze//RsGP++SAfJAwEABAAAAAAAAAAAAAAAAAAAAABlKgdr8lIH//inZv//////////
+//////////////////////////////////////////////////eORP/yVAf/QBwFQwAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAJY7B5/yUwf/+sKP////////////////////////////////////////////////
+//emYv/yUQf/cS8HdwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJBAAKvkgIyfJaC//70K3/////
+//////////////////////////////////q3gf/xUQf/nj8JpgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAB8OAiHMSwbY818M//rOpf////////////////////////////q6hf/yVAf/r0MI
+uQgDAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALhQEMdZNBuLzYQ7/+syi
+//////////////////m3gP/yVgf/t0cHwRQIARUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAtFAMw004H3/FcC//6xpn///////itcP/yVQf/ukkJxBYJARcAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB8OAiHDSQjO82MO
+//eNQf/yXQn/rEQJtg0FAQ4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAEggBE4M0B4q6PwXEci8HeAUCAAYAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgEAAAMAAAABABYAAAEBAAMA
+AAABABUAAAECAAMAAAAEAAAH7gEDAAMAAAABAAEAAAEGAAMAAAABAAIAAAERAAQAAAABAAAACAESAAMA
+AAABAAEAAAEVAAMAAAABAAQAAAEWAAMAAAABABUAAAEXAAQAAAABAAAHOAEcAAMAAAABAAEAAAFSAAMA
+AAABAAEAAAFTAAMAAAAEAAAH9odzAAcAAAeoAAAH/gAAAAAACAAIAAgACAABAAEAAQABAAAHqGFwcGwC
+IAAAbW50clJHQiBYWVogB9kAAgAZAAsAGgALYWNzcEFQUEwAAAAAYXBwbAAAAAAAAAAAAAAAAAAAAAAA
+APbWAAEAAAAA0y1hcHBsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAALZGVzYwAAAQgAAABvZHNjbQAAAXgAAAVsY3BydAAABuQAAAA4d3RwdAAABxwAAAAUclhZWgAABzAA
+AAAUZ1hZWgAAB0QAAAAUYlhZWgAAB1gAAAAUclRSQwAAB2wAAAAOY2hhZAAAB3wAAAAsYlRSQwAAB2wA
+AAAOZ1RSQwAAB2wAAAAOZGVzYwAAAAAAAAAUR2VuZXJpYyBSR0IgUHJvZmlsZQAAAAAAAAAAAAAAFEdl
+bmVyaWMgUkdCIFByb2ZpbGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAG1sdWMAAAAAAAAAHgAAAAxza1NLAAAAKAAAAXhockhSAAAAKAAAAaBjYUVTAAAAJAAAAchw
+dEJSAAAAJgAAAex1a1VBAAAAKgAAAhJmckZVAAAAKAAAAjx6aFRXAAAAFgAAAmRpdElUAAAAKAAAAnpu
+Yk5PAAAAJgAAAqJrb0tSAAAAFgAAAshjc0NaAAAAIgAAAt5oZUlMAAAAHgAAAwBkZURFAAAALAAAAx5o
+dUhVAAAAKAAAA0pzdlNFAAAAJgAAAqJ6aENOAAAAFgAAA3JqYUpQAAAAGgAAA4hyb1JPAAAAJAAAA6Jl
+bEdSAAAAIgAAA8ZwdFBPAAAAJgAAA+hubE5MAAAAKAAABA5lc0VTAAAAJgAAA+h0aFRIAAAAJAAABDZ0
+clRSAAAAIgAABFpmaUZJAAAAKAAABHxwbFBMAAAALAAABKRydVJVAAAAIgAABNBhckVHAAAAJgAABPJl
+blVTAAAAJgAABRhkYURLAAAALgAABT4AVgFhAGUAbwBiAGUAYwBuAP0AIABSAEcAQgAgAHAAcgBvAGYA
+aQBsAEcAZQBuAGUAcgBpAQ0AawBpACAAUgBHAEIAIABwAHIAbwBmAGkAbABQAGUAcgBmAGkAbAAgAFIA
+RwBCACAAZwBlAG4A6AByAGkAYwBQAGUAcgBmAGkAbAAgAFIARwBCACAARwBlAG4A6QByAGkAYwBvBBcE
+MAQzBDAEOwRMBD0EOAQ5ACAEPwRABD4ERAQwBDkEOwAgAFIARwBCAFAAcgBvAGYAaQBsACAAZwDpAG4A
+6QByAGkAcQB1AGUAIABSAFYAQpAadSgAIABSAEcAQgAggnJfaWPPj/AAUAByAG8AZgBpAGwAbwAgAFIA
+RwBCACAAZwBlAG4AZQByAGkAYwBvAEcAZQBuAGUAcgBpAHMAawAgAFIARwBCAC0AcAByAG8AZgBpAGzH
+fLwYACAAUgBHAEIAINUEuFzTDMd8AE8AYgBlAGMAbgD9ACAAUgBHAEIAIABwAHIAbwBmAGkAbAXkBegF
+1QXkBdkF3AAgAFIARwBCACAF2wXcBdwF2QBBAGwAbABnAGUAbQBlAGkAbgBlAHMAIABSAEcAQgAtAFAA
+cgBvAGYAaQBsAMEAbAB0AGEAbADhAG4AbwBzACAAUgBHAEIAIABwAHIAbwBmAGkAbGZukBoAIABSAEcA
+QgAgY8+P8GWHTvZOAIIsACAAUgBHAEIAIDDXMO0w1TChMKQw6wBQAHIAbwBmAGkAbAAgAFIARwBCACAA
+ZwBlAG4AZQByAGkAYwOTA7UDvQO5A7oDzAAgA8ADwQO/A8YDrwO7ACAAUgBHAEIAUABlAHIAZgBpAGwA
+IABSAEcAQgAgAGcAZQBuAOkAcgBpAGMAbwBBAGwAZwBlAG0AZQBlAG4AIABSAEcAQgAtAHAAcgBvAGYA
+aQBlAGwOQg4bDiMORA4fDiUOTAAgAFIARwBCACAOFw4xDkgOJw5EDhsARwBlAG4AZQBsACAAUgBHAEIA
+IABQAHIAbwBmAGkAbABpAFkAbABlAGkAbgBlAG4AIABSAEcAQgAtAHAAcgBvAGYAaQBpAGwAaQBVAG4A
+aQB3AGUAcgBzAGEAbABuAHkAIABwAHIAbwBmAGkAbAAgAFIARwBCBB4EMQRJBDgEOQAgBD8EQAQ+BEQE
+OAQ7BEwAIABSAEcAQgZFBkQGQQAgBioGOQYxBkoGQQAgAFIARwBCACAGJwZEBjkGJwZFAEcAZQBuAGUA
+cgBpAGMAIABSAEcAQgAgAFAAcgBvAGYAaQBsAGUARwBlAG4AZQByAGUAbAAgAFIARwBCAC0AYgBlAHMA
+awByAGkAdgBlAGwAcwBldGV4dAAAAABDb3B5cmlnaHQgMjAwNyBBcHBsZSBJbmMuLCBhbGwgcmlnaHRz
+IHJlc2VydmVkLgBYWVogAAAAAAAA81IAAQAAAAEWz1hZWiAAAAAAAAB0TQAAPe4AAAPQWFlaIAAAAAAA
+AFp1AACscwAAFzRYWVogAAAAAAAAKBoAABWfAAC4NmN1cnYAAAAAAAAAAQHNAABzZjMyAAAAAAABDEIA
+AAXe///zJgAAB5IAAP2R///7ov///aMAAAPcAADAbNIlJicoWiRjbGFzc25hbWVYJGNsYXNzZXNfEBBO
+U0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VSZXBaTlNJbWFnZVJlcFhOU09iamVjdNIl
+Ji0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMwLSvTMzQKNTY3V05TV2hpdGVcTlNDb2xv
+clNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9V05TSW1hZ2WiPCtfEA9OU0tleWVkQXJj
+aGl2ZXLRQEFUcm9vdIABAAgAEQAaACMALQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCXAJwA
+pwCpAKsArQCyALUAtwC5ALsAvQDCANkA2wDdEIcQjBCXEKAQsxC3EMoQ1RDeEOMQ6xDuEPMRAhEGEQ0R
+FREiEScRKRErETAROBE7EUARSBFLEV0RYBFlAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAAEWc
+</mutableData>
+        </image>
         <image name="add-to-cart-icon-bg" width="58" height="43"/>
         <image name="add-to-fav-icon" width="58" height="43"/>
         <image name="award-logo-1" width="160" height="162"/>
@@ -3309,7 +3333,6 @@ PB1BAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAAHUM
         <image name="products-heart-icon" width="22" height="21"/>
         <image name="search-category" width="600" height="50"/>
         <image name="vaperite_woodstock" width="319" height="282"/>
-        <image name="yellow-star" width="23" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="lhB-29-EuC"/>

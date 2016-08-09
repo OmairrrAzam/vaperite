@@ -33,7 +33,7 @@
     self.type              = [dictProduct objectForKeyHandlingNull:@"type"];
     self.categoryIds       = [dictProduct objectForKeyHandlingNull:@"categories"];
     self.name              = [dictProduct objectForKeyHandlingNull:@"name"];
-    self.price             = [dictProduct objectForKeyHandlingNull:@"price"];
+    self.price             = [dictProduct objectForKeyHandlingNull:@"pirce"];
     self.desc              = [dictProduct objectForKeyHandlingNull:@"description"];
     self.shortDescription  = [dictProduct objectForKeyHandlingNull:@"short_description"];
     self.rating            = [dictProduct objectForKeyHandlingNull:@"rating"];

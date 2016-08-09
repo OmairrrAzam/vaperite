@@ -11,7 +11,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "NXOAuth2.h"
 #import "AFNetworkActivityLogger.h"
-
+#import <KVNProgress/KVNProgress.h>
 
 @interface AppDelegate ()
 
@@ -31,6 +31,9 @@
     // aftnetworking initialization
     
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if (![AFNetworkReachabilityManager sharedManager].reachable){
+            [KVNProgress showErrorWithStatus:@"No Connectivity"];
+        }
         NSLog(@"Reachability: %@", AFStringFromNetworkReachabilityStatus(status));
     }];
     
