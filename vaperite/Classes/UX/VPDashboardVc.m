@@ -24,14 +24,19 @@
 #import "VPCategoryModel.h"
 #import "VPBaseNavigationController.h"
 #import "VPCategoriesVC.h"
+#import "VPFavoriteModel.h"
+#import "VPCartModel.h"
+
 
 #define ORANGE_COLOR        [UIColor colorWithRed:0.921 green:0.411 blue:0.145 alpha:1.0]
 
 @interface VPDashboardVc ()< VPUserManagerDelegate,UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, VPProductManagerDelegate,VPCategoryManagerDelegate>
 
 
-@property (strong, nonatomic) VPUserManager *userManager;
+@property (strong, nonatomic) VPCartModel *userCart;
+@property (strong, nonatomic) VPFavoriteModel *userFav;
 
+@property (strong, nonatomic) VPUserManager *userManager;
 @property (weak, nonatomic) UIViewController *currentViewController;
 @property (strong, nonatomic) VPProductModel *selectedProduct;
 @property (strong, nonatomic) NSArray *products;
@@ -47,6 +52,7 @@
 @property (weak, nonatomic) IBOutlet VPBaseUIButton *btnAward;
 @property (nonatomic, strong) IBOutlet UICollectionViewFlowLayout *flowLayout;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (nonatomic) BOOL productPresentInCart;
 
 - (IBAction)btnLogin_Pressed:(VPBaseUIButton *)btnLogin;
 - (IBAction)btnRegister_Pressed:(VPBaseUIButton *)btnRegister;
@@ -54,6 +60,9 @@
 - (IBAction)btnRecommended_Pressed:(VPBaseUIButton *)btnRecommended;
 - (IBAction)btnAward_Pressed:(VPBaseUIButton *)btnAward;
 
+
+- (IBAction)btnAddToCart:(id)sender;
+- (IBAction)btnAddToFav:(id)sender;
 
 @end
 
@@ -83,7 +92,10 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self fetchProducts];
+    [self refreshMemory];
+    
 }
+
 
 - (void)fetchProducts {
     [self startAnimating];
@@ -117,6 +129,11 @@
 }
 
 #pragma mark - Private Methods 
+
+- (void)refreshMemory{
+    self.userCart = [VPCartModel currentCart];
+    self.userFav  = [VPFavoriteModel currentFav];
+}
 
 - (void)cycleFromViewController:(UIViewController*) oldViewController
                toViewController:(UIViewController*) newViewController {
@@ -222,6 +239,44 @@
     [self.tableView reloadData];
 }
 
+- (IBAction)btnAddToCart:(id)sender {
+    if(self.loggedInUser){
+        
+        VPBaseUIButton *btn = (VPBaseUIButton*)sender;
+        
+        VPProductModel *selectedProduct = [self.products objectAtIndex:btn.index];
+        selectedProduct.cartQty = 1;
+        self.productPresentInCart = [self.userCart productPresentInCart:selectedProduct];
+        if(self.productPresentInCart){
+            [self startAnimatingWithSuccessMsg:@"Product Already Present in Cart"];
+        }else{
+            [self.userCart.products addObject:selectedProduct];
+            [self.userCart save];
+            [self startAnimatingWithSuccessMsg:@"Added To Cart"];
+        }
+        //userCart.products =
+        [self.tableView reloadData];
+        
+    }else{
+        UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
+        loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:loginNavigator animated:YES completion:nil];
+    }
+
+
+}
+
+- (IBAction)btnAddToFav:(id)sender {
+    
+    
+    VPBaseUIButton *btn = (VPBaseUIButton*)sender;
+    VPProductModel *selectedProduct = [self.products objectAtIndex:btn.index];
+    [self addToFavorites:selectedProduct];
+    [self.tableView reloadData];
+    [self.collectionView reloadData];
+
+}
+
 - (IBAction)btnSearch:(id)sender {
     [self startAnimating];
     [self.categoryManager loadCategoriesWithSessionId:nil];
@@ -289,6 +344,8 @@
         self.btnFeatured    = (VPBaseUIButton*)[cell viewWithTag:1];
         self.btnRecommended = (VPBaseUIButton*)[cell viewWithTag:2];
         self.btnAward       = (VPBaseUIButton*)[cell viewWithTag:3];
+        
+        
         
         self.btnFeatured.layer.borderColor    = [UIColor lightGrayColor].CGColor;
         self.btnRecommended.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -375,6 +432,23 @@
     cell.productImage.layer.cornerRadius = 8.0f;
     cell.productImage.clipsToBounds = YES;
     
+    UIImage *imgNFav = [UIImage imageNamed:@"products-heart-icon.png"];
+    UIImage *imgFav = [UIImage imageNamed:@"heart-icon.png"];
+
+    VPBaseUIButton *addToCart = (VPBaseUIButton*)[cell viewWithTag:102];
+    VPBaseUIButton *addToFav = (VPBaseUIButton*)[cell viewWithTag:101];
+    
+    BOOL presentInFav = [self.userFav productPresentInFav:currentProduct];
+    if (presentInFav) {
+        [addToFav setImage:imgFav forState:UIControlStateNormal];
+    }else{
+        [addToFav setImage:imgNFav forState:UIControlStateNormal];
+    }
+    
+    int index = (int)indexPath.row;
+    addToCart.index = index;
+    addToFav.index  = index;
+    
     return cell;
 }
 
@@ -417,7 +491,7 @@
 }
 
 - (void)productManager:(VPProductManager *)manager didFailToFetchFeaturedProducts:(NSString *)message{
-    //[self showError:message];
+   [self startAnimatingWithErrorMsg:message];
 }
 
 - (void)productManager:(VPProductManager *)manager didFetchRecommendedProducts:(NSArray *)products{
@@ -426,27 +500,12 @@
     [self.tableView reloadData];
 }
 
-- (void)productManager:(VPProductManager *)manager didFailToFetchRecommendedProducts:(NSString *)message{
-    
-}
-
-- (void)productManager:(VPProductManager *)manager didFetchProductsFromCategoryId:(NSArray *)products{
-    
-}
-- (void)productManager:(VPProductManager *)manager didFailToFetchProductsFromCategoryId:(NSString *)message{
-    
+- (void)productManager:(VPProductManager *)manager didFailToFetchRecommendedProducts:(NSString *)message
+{
+    [self startAnimatingWithErrorMsg:message];
 }
 
 
-#pragma mark - VPUserManagerDelegate Methods
-
-- (void)userManager:(VPUserManager *)userManager didAuthenticate:(NSDictionary *)response {
-   
-}
-
-- (void)userManager:(VPUserManager *)userManager didFailToAuthenticate:(NSString *)message{
-    
-}
 
 #pragma mark - VPCategoryManagerDelegate Methods
 
@@ -480,8 +539,9 @@
     
 }
 
-- (void)categoryManager:(VPCategoryManager *)categoryManager didFailToLoadCategories:(NSString *)message{
-    
+- (void)categoryManager:(VPCategoryManager *)categoryManager didFailToLoadCategories:(NSString *)message
+{
+    [self startAnimatingWithErrorMsg:message];
 }
 
 #pragma mark - Segue Callbacks

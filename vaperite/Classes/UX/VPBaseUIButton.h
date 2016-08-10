@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface VPBaseUIButton : UIButton
+@property (nonatomic) int index;
 
 @end

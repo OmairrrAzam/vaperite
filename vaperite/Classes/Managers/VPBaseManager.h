@@ -20,6 +20,8 @@
 @property (nonatomic, strong) NSMutableArray *arrNeighboursData;
 @property (nonatomic, strong) NSXMLParser *xmlParser;
 @property (nonatomic, strong) NSMutableString *foundValue;
+
+
 //- (id)initWithOrganization:(TMOrganizationModel *)organization;
 //- (NSString *)getPath:(NSString *)path;
 //- (NSString *)getResourcePath:(NSString *)resource forResourceId:(NSString *)resourceId;

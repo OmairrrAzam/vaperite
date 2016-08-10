@@ -11,17 +11,22 @@
 #import "VPProductDetailsVC.h"
 #import "VPProductManager.h"
 #import "UIImageView+AFNetworking.h"
+#import "VPCartModel.h"
+#import "VPFavoriteModel.h"
+
 
 @interface VPProductsVC ()<UITableViewDataSource, UITableViewDelegate, VPProductManagerDelegate>
 
 
-@property (weak, nonatomic) VPProductModel *selectedProduct;
+@property (strong, nonatomic) VPProductModel *selectedProduct;
 @property (strong, nonatomic) NSArray *products;
 
 
 - (IBAction)btnAddFav:(id)sender;
 - (IBAction)btnAddCart:(id)sender;
 
+@property (strong, nonatomic) VPCartModel *userCart;
+@property (strong, nonatomic) VPFavoriteModel *userFav;
 @property (strong, nonatomic) VPProductManager *productManager;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *ivContainer;
@@ -46,12 +51,18 @@ NSMutableArray *productPrices;
         self.productManager = [[VPProductManager alloc]init];
         self.productManager.delegate = self;
     }
-    [self startAnimating];
     
-    [self.productManager fetchProductsFromCategoryId:self.categoryId];
-    //[self.productManager fetchProductsFromCategoryId:self.categoryId];
+    
+        //[self.productManager fetchProductsFromCategoryId:self.categoryId];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.productManager fetchProductsFromCategoryId:self.categoryId];
+    self.userCart = [VPCartModel currentCart];
+    self.userFav  = [VPFavoriteModel currentFav];
+    [self startAnimating];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -125,6 +136,7 @@ NSMutableArray *productPrices;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     self.selectedProduct = [self.products objectAtIndex:indexPath.section];
+    
     [self performSegueWithIdentifier:@"product_details" sender:self];
 }
 
@@ -135,7 +147,9 @@ NSMutableArray *productPrices;
     if ([[segue identifier] isEqualToString:@"product_details"]) {
 
         VPProductDetailsVC *productDetailVC = [segue destinationViewController];
+        
         productDetailVC.product = self.selectedProduct;
+        
     }
 }
 
@@ -143,10 +157,66 @@ NSMutableArray *productPrices;
 #pragma mark - IBActions
 
 - (IBAction)btnAddFav:(id)sender {
+    
+    CGPoint buttonPosition          = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath          = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    VPProductModel *selectedProduct = [self.products objectAtIndex:indexPath.section];
+   
+    if(self.loggedInUser){
+        BOOL productPresentInFav = [self.userFav productPresentInFav:selectedProduct];
+        
+        if(productPresentInFav){
+            
+            [self startAnimatingWithSuccessMsg:@"Already Present in Favorites"];
+        }else{
+            
+            [self.userFav.products addObject:selectedProduct];
+            
+            [self.userFav save];
+            
+            [self startAnimatingWithSuccessMsg:@"Added To Favorites"];
+        }
+        //userCart.products =
+        
+        [self.tableView reloadData];
+        
+    }else{
+        UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
+        loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:loginNavigator animated:YES completion:nil];
+    }
+
 }
 
 - (IBAction)btnAddCart:(id)sender {
+    
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    VPProductModel *product = [self.products objectAtIndex:indexPath.section];
+    product.cartQty = 1;
+    
+    if(self.loggedInUser){
+        BOOL productPresentInCart = [self.userCart productPresentInCart:product];
+        if(productPresentInCart){
+            [self.userCart updateProductInCart:product];
+            [self startAnimatingWithSuccessMsg:@"Cart Updated"];
+        }else{
+            [self.userCart.products addObject:product];
+            [self.userCart save];
+            [self startAnimatingWithSuccessMsg:@"Added To Cart"];
+        }
+        //userCart.products =
+        [self.tableView reloadData];
+        
+    }else{
+        UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
+        loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:loginNavigator animated:YES completion:nil];
+    }
 }
+
+
+
 
 #pragma mark - VPProductManager Delegate
 - (void)productManager:(VPProductManager *)manager didFetchProductsFromCategoryId:(NSArray *)products{

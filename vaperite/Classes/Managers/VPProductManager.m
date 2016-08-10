@@ -53,8 +53,8 @@ static NSString *kApiUser  = @"techverx";
 
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSString *message = @"testing";
         if (self.delegate) {
+            NSString *message = [self extractMessageFromTask:task andError:error];
             [self.delegate productManager:self didFailToFetchFeaturedProducts:message];
         }
     }];
@@ -76,8 +76,8 @@ static NSString *kApiUser  = @"techverx";
             
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSString *message = @"testing";
         if (self.delegate) {
+            NSString *message = [self extractMessageFromTask:task andError:error];
             [self.delegate productManager:self didFailToFetchRecommendedProducts:message];
         }
     }];
@@ -100,10 +100,11 @@ static NSString *kApiUser  = @"techverx";
             
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSString *message = @"testing";
         if (self.delegate) {
-            [self.delegate productManager:self didFailToFetchFeaturedProducts:message];
+            NSString *message = [self extractMessageFromTask:task andError:error];
+             [self.delegate productManager:self didFailToFetchProductDetails:message];
         }
+       
     }];
 
 }
@@ -125,32 +126,12 @@ static NSString *kApiUser  = @"techverx";
             
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSString *message = @"testing";
         if (self.delegate) {
-            [self.delegate productManager:self didFailToFetchFeaturedProducts:message];
+            NSString *message = [self extractMessageFromTask:task andError:error];
+            [self.delegate productManager:self didFailToFetchProductReviews:message];
         }
     }];
     
-    
-//    
-//    NSURL *url = [NSURL URLWithString:@"http://ec2-54-208-24-225.compute-1.amazonaws.com/customapi/index/getReview"];
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-//    [request setHTTPMethod:@"POST"];
-//    NSString *params = [NSString stringWithFormat:@"productid=%@&storeid=%@",productId, storeId ];
-//    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
-//    
-//    
-//    [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        NSString *strResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//        NSLog(@"%@", strResponse);
-//        
-//        NSArray *dict = [NSJSONSerialization JSONObjectWithData:[strResponse dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
-//        
-//        
-//        NSArray *reviews = [VPReviewsModel loadFromArray:dict];
-//        [self.delegate productManager:self didFetchProductReviews:reviews];
-//        
-//    }] resume];
 }
 
 - (void)fetchProductImageWithProductId:(NSString*)productId andSessionId:(NSString*)sessionId{
@@ -201,6 +182,10 @@ static NSString *kApiUser  = @"techverx";
         if (self.delegate) {
             [self.delegate productManager:self didFailToFetchProductsFromCategoryId:message];
         }
+        if (self.delegate) {
+            NSString *message = [self extractMessageFromTask:task andError:error];
+            [self.delegate productManager:self didFailToFetchProductRating:message];
+        }
     }];
  
 }
@@ -219,9 +204,11 @@ static NSString *kApiUser  = @"techverx";
             
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSString *message = @"testing";
+        
         if (self.delegate) {
+            NSString *message = [self extractMessageFromTask:task andError:error];
             [self.delegate productManager:self didFailToFetchProductsFromCategoryId:message];
+
         }
     }];
     
@@ -240,9 +227,11 @@ static NSString *kApiUser  = @"techverx";
             
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSString *message = @"testing";
+        
+        
         if (self.delegate) {
-            [self.delegate productManager:self didFailToFetchProductsFromCategoryId:message];
+            NSString *message = [self extractMessageFromTask:task andError:error];
+            [self.delegate productManager:self didFailToAddToFavourites:message];
         }
     }];
 }

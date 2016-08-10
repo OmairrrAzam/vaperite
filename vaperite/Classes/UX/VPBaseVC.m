@@ -8,7 +8,9 @@
 
 #import "VPBaseVC.h"
 #import <KVNProgress/KVNProgress.h>
-
+#import "VPProductModel.h"
+#import "VPFavoriteModel.h"
+#import "VPCartModel.h"
 
 #define kSessionid   @"vaperite.session_id"
 #define kStoreid     @"vaperite.store_id"
@@ -17,6 +19,7 @@
 @property (nonatomic) KVNProgressConfiguration *basicConfiguration;
 @property (nonatomic) KVNProgressConfiguration *customConfiguration;
 @property (strong, nonatomic) VPSessionManager *sessionManager;
+
 @end
 
 
@@ -89,18 +92,69 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 
 #pragma mark - Private Methods
 
+- (void)refreshCartAndFav{
+    self.userCart = [VPCartModel currentCart];
+    self.userFav  = [VPFavoriteModel currentFav];
+}
+
 -(void)changeViewThroughSlider:(NSString*)viewController{
-    //ask ECSlider to Change view
-    //so that we could access menu from this new view as well.
+
+    self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
+    self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:viewController];
+    [self.slidingViewController resetTopViewAnimated:YES];
+}
+
+-(void)changeViewWithoutSlider:(NSString*)viewController{
+    
     UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:viewController];
     loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:loginNavigator animated:YES completion:nil];
     
-//    self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
-//    self.slidingViewController.topViewController = [self.storyboard instantiateViewControllerWithIdentifier:viewController];
-//    [self.slidingViewController resetTopViewAnimated:YES];
-}
+    }
+- (void) addToFavorites:(VPProductModel*)selectedProduct{
+    if(self.loggedInUser){
+        BOOL productPresentInFav = [self.userFav productPresentInFav:selectedProduct];
+        
+        if(productPresentInFav){
+            NSMutableArray *favProducts = self.userFav.products;
+            int count = 0;
+            int foundIndex = -1;
+            for (VPProductModel* favProduct in favProducts) {
+                if (favProduct.id == selectedProduct.id) {
+                    foundIndex = count;
+                }
+                count++;
+            }
+            if (foundIndex >= 0) {
+                [favProducts removeObjectAtIndex:foundIndex];
+                self.userFav.products = favProducts;
+                [self.userFav save];
+                [self startAnimatingWithSuccessMsg:@"Item Removed from Favorites"];
+            }else{
+                [self startAnimatingWithSuccessMsg:@"Item Not Removed from Favorites"];
+            }
+            
+            
+        }else{
+            
+            [self.userFav.products addObject:selectedProduct];
+            
+            [self.userFav save];
+            
+            [self startAnimatingWithSuccessMsg:@"Added To Favorites"];
+        }
+        //userCart.products =
+        [self refreshCartAndFav];
+        
+        
+        
+    }else{
+        UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
+        loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:loginNavigator animated:YES completion:nil];
+    }
 
+}
 
 - (void)dismissMe {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -185,7 +239,7 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 }
 
 - (IBAction)cartButtonTapped:(id)sender {
-     [self changeViewThroughSlider:@"RightMenu"];
+     [self changeViewWithoutSlider:@"RightMenu"];
 //    [self.slidingViewController anchorTopViewToRightAnimated:YES];
 //    if ([self.slidingViewController currentTopViewPosition] == ECSlidingViewControllerTopViewPositionAnchoredRight) {
 //        [self.slidingViewController resetTopViewAnimated:YES];

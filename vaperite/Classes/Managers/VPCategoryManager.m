@@ -30,6 +30,11 @@
         if (self.delegate) {
             [self.delegate categoryManager:self didFailToLoadCategories:message];
         }
+        
+        if (self.delegate) {
+            NSString *message = [self extractMessageFromTask:task andError:error];
+            [self.delegate categoryManager:self didFailToLoadCategories:message];
+        }
     }];
     
 }

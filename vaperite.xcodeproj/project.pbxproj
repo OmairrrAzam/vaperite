@@ -19,6 +19,8 @@
 		180DDB3A1D1C093E00083967 /* MEZoomAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB361D1C093E00083967 /* MEZoomAnimationController.m */; };
 		180DDB431D1C242200083967 /* VPBaseUIButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB421D1C242200083967 /* VPBaseUIButton.m */; };
 		180EC9251D54C970007EE61F /* VPReviewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 180EC9241D54C970007EE61F /* VPReviewManager.m */; };
+		181D7A901D59D0D400F8A4F6 /* VPCartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D7A8F1D59D0D400F8A4F6 /* VPCartModel.m */; };
+		181D7A931D5A1B5200F8A4F6 /* VPFavoriteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D7A921D5A1B5200F8A4F6 /* VPFavoriteModel.m */; };
 		182DC7C51D26962200B049D6 /* VPGMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7C41D26962200B049D6 /* VPGMapVC.m */; };
 		182DC7C81D27AD3200B049D6 /* VPMapTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7C71D27AD3200B049D6 /* VPMapTableVC.m */; };
 		182DC7CB1D27B8D200B049D6 /* VPBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DC7CA1D27B8D200B049D6 /* VPBaseTableViewCell.m */; };
@@ -96,6 +98,10 @@
 		180DDB421D1C242200083967 /* VPBaseUIButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPBaseUIButton.m; path = Classes/UX/VPBaseUIButton.m; sourceTree = "<group>"; };
 		180EC9231D54C970007EE61F /* VPReviewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPReviewManager.h; sourceTree = "<group>"; };
 		180EC9241D54C970007EE61F /* VPReviewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPReviewManager.m; sourceTree = "<group>"; };
+		181D7A8E1D59D0D400F8A4F6 /* VPCartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPCartModel.h; path = Classes/VPCartModel.h; sourceTree = "<group>"; };
+		181D7A8F1D59D0D400F8A4F6 /* VPCartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPCartModel.m; path = Classes/VPCartModel.m; sourceTree = "<group>"; };
+		181D7A911D5A1B5200F8A4F6 /* VPFavoriteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPFavoriteModel.h; path = Classes/VPFavoriteModel.h; sourceTree = "<group>"; };
+		181D7A921D5A1B5200F8A4F6 /* VPFavoriteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPFavoriteModel.m; path = Classes/VPFavoriteModel.m; sourceTree = "<group>"; };
 		182DC7C31D26962200B049D6 /* VPGMapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPGMapVC.h; path = Classes/UX/VPGMapVC.h; sourceTree = "<group>"; };
 		182DC7C41D26962200B049D6 /* VPGMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPGMapVC.m; path = Classes/UX/VPGMapVC.m; sourceTree = "<group>"; };
 		182DC7C61D27AD3200B049D6 /* VPMapTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPMapTableVC.h; path = Classes/UX/VPMapTableVC.h; sourceTree = "<group>"; };
@@ -287,6 +293,10 @@
 				1896B3D71D4F4B5B00CBEB9B /* VPReviewsModel.m */,
 				18816A631D50BB32006E7522 /* VPCategoryModel.h */,
 				18816A641D50BB32006E7522 /* VPCategoryModel.m */,
+				181D7A8E1D59D0D400F8A4F6 /* VPCartModel.h */,
+				181D7A8F1D59D0D400F8A4F6 /* VPCartModel.m */,
+				181D7A911D5A1B5200F8A4F6 /* VPFavoriteModel.h */,
+				181D7A921D5A1B5200F8A4F6 /* VPFavoriteModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -649,12 +659,14 @@
 				18EB69A31D47381C0047BA7A /* VPUpdateProfileVC.m in Sources */,
 				183CD5ED1D40E2190067B0DC /* TPKeyboardAvoidingScrollView.m in Sources */,
 				18F887481D3695EF0086255A /* NSString+URLEncoding.m in Sources */,
+				181D7A931D5A1B5200F8A4F6 /* VPFavoriteModel.m in Sources */,
 				18EB69A71D4739510047BA7A /* VPUpdateBillingAddressVC.m in Sources */,
 				18EB698F1D4730AB0047BA7A /* VPProductCollectionViewCell.m in Sources */,
 				183CD5F51D4647860067B0DC /* VPProductsVC.m in Sources */,
 				18C73ACE1D33D5E400BEF533 /* VPMarkerModel.m in Sources */,
 				183CD5D91D3ECEA30067B0DC /* VPRightMenuVC.m in Sources */,
 				182DC7C51D26962200B049D6 /* VPGMapVC.m in Sources */,
+				181D7A901D59D0D400F8A4F6 /* VPCartModel.m in Sources */,
 				CE18E1461D39496600ABC710 /* VPAgeVC.m in Sources */,
 				18F3D7B31D1CB8C6009D8EE3 /* VPBaseTextField.m in Sources */,
 				18F3D7C91D20E550009D8EE3 /* VPUsersModel.m in Sources */,
@@ -785,14 +797,14 @@
 			baseConfigurationReference = 6954208BCF3AE6D358BC3B4A /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: aftabaig+jb@gmail.com (289P6JVBRZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: aftabaig+jb@gmail.com (289P6JVBRZ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: VAPERITE.COM LLC (CM2ZK5JF7X)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: VAPERITE.COM LLC (CM2ZK5JF7X)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = vaperite/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = developer.vaperite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.vaperite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "83e1a2b2-d4ff-4a0c-8479-03f9f16cb29d";
 				STAGING = YES;
 			};
 			name = Debug;
@@ -802,14 +814,14 @@
 			baseConfigurationReference = 8E1A2E89789860391325720C /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: aftabaig+jb@gmail.com (289P6JVBRZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: aftabaig+jb@gmail.com (289P6JVBRZ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: VAPERITE.COM LLC (CM2ZK5JF7X)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: VAPERITE.COM LLC (CM2ZK5JF7X)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = vaperite/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = developer.vaperite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.vaperite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "83e1a2b2-d4ff-4a0c-8479-03f9f16cb29d";
 				STAGING = NO;
 			};
 			name = Release;

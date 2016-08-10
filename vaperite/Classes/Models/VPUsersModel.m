@@ -10,6 +10,8 @@
 
 #import "VPUsersModel.h"
 #import "NSDictionary+Helper.h"
+#import "VPCartModel.h"
+
 
 
 @implementation VPUsersModel
@@ -60,6 +62,7 @@
     self.street      = [dictUser objectForKeyHandlingNull:@"street"];
     return self;
 }
+
 
 
 

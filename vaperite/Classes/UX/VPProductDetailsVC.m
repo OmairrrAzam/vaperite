@@ -14,12 +14,15 @@
 #import "VPReviewsModel.h"
 #import "UIImageView+AFNetworking.h"
 #import "VPAddReviewVC.h"
+#import "VPCartModel.h"
 
 @interface VPProductDetailsVC ()<UITableViewDelegate, UITableViewDataSource, VPProductManagerDelegate>
 
 
 @property (strong, nonatomic) VPProductManager *productManager;
 @property (nonatomic) int qty;
+
+@property (nonatomic) BOOL productPresentInCart;
 @property (strong, nonatomic) UIButton *btnStar1;
 @property (strong, nonatomic) UIButton *btnStar2;
 @property (strong, nonatomic) UIButton *btnStar3;
@@ -54,14 +57,17 @@
     }
     [self startAnimating];
     
+     self.userCart = [VPCartModel currentCart];
+
     [self.productManager fetchProductDetailsWithProductId:self.product.id andStoreId:self.currentStore.id];
-    self.qty = 1;
+    
     [self.tableView setBackgroundColor : [UIColor colorWithRed:203/255.0 green:227/255.0 blue:222/255.0 alpha:1]];
-    //self.tfCounter.text = @"1";
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
     // Dispose of any resources that can be recreated.
 }
 
@@ -115,6 +121,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    self.productPresentInCart = [self.userCart productPresentInCart:self.product];
+    
+    
+    
     static NSString *cellIdentifier;
     if (indexPath.section == 0) {
         cellIdentifier = @"PRODUCT_DETAIL_HEADER";
@@ -130,12 +140,15 @@
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
+   
     if (indexPath.section == 0){
         
         UILabel *lblName          = (UILabel *)[cell.contentView viewWithTag:2];
         UILabel *lblPrice         = (UILabel *)[cell.contentView viewWithTag:3];
         UIImageView *productImage = (UIImageView *)[cell.contentView viewWithTag:5];
+        UIButton *btnFav          = (UIButton*)[cell.contentView viewWithTag:6];
+        
+        
         
          self.btnStar1 = (UIButton *)[cell.contentView viewWithTag:51];
          self.btnStar2 = (UIButton *)[cell.contentView viewWithTag:52];
@@ -143,10 +156,15 @@
          self.btnStar4 = (UIButton *)[cell.contentView viewWithTag:54];
          self.btnStar5 = (UIButton *)[cell.contentView viewWithTag:55];
         
-        self.product.rating = @"3";
+         self.product.rating = @"3";
+        
+        
+        
         int value = [self.product.rating intValue];
         int ratingValue = 100/value;
         UIImage *filledStar = [UIImage imageNamed:@"yellow-star.png"];
+        UIImage *imgNFav    = [UIImage imageNamed:@"products-heart-icon.png"];
+        UIImage *imgFav     = [UIImage imageNamed:@"heart-icon.png"];
         
         if (ratingValue < 20) {
             [self.btnStar1 setImage:filledStar forState:UIControlStateNormal];
@@ -170,9 +188,18 @@
             [self.btnStar5 setImage:filledStar forState:UIControlStateNormal];
         }
         
+        if ([self.userFav productPresentInFav:self.product]) {
+            [btnFav setImage:imgFav forState:UIControlStateNormal];
+        }else{
+            [btnFav setImage:imgNFav forState:UIControlStateNormal];
+        }
         
         lblName.text       = self.product.name;
-        lblPrice.text      = [NSString stringWithFormat:@"$%@", self.product.price];
+        NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
+        double price = [self.product.price doubleValue];
+        [fmt setPositiveFormat:@"0.##"];
+        
+        lblPrice.text      = [NSString stringWithFormat:@"$%@", [fmt stringFromNumber:[NSNumber numberWithFloat:price]]];
         
         NSURL *url = [NSURL URLWithString: self.product.imgUrl];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -188,15 +215,21 @@
                                               
                                           } failure:nil];    }
     
-    if (indexPath.section == 1) {
-        UITextField *tfCounter = (UITextField *)[cell.contentView viewWithTag:1];
-        tfCounter.text = [NSString stringWithFormat:@"%d", self.qty];
-    }else if (indexPath.section == 2){
-        UITextView *tvDescription      = (UITextView *)[cell.contentView viewWithTag:10];
-        tvDescription.text             = self.product.desc;
-    }else if (indexPath.section == 3){
-        UILabel *lblReviewTitle     = (UILabel*)[cell.contentView viewWithTag:20];
-        UITextView *tvReviewDetail  = (UITextView*)[cell.contentView viewWithTag:21];
+        if (indexPath.section == 1) {
+            UITextField *tfCounter = (UITextField *)[cell.contentView viewWithTag:1];
+            UIButton *btnAddToCart = (UIButton *)[cell.contentView viewWithTag:2];
+            
+            if(self.productPresentInCart){
+                [btnAddToCart setTitle:@"Update Cart" forState:UIControlStateNormal];
+            }
+            
+            tfCounter.text = [NSString stringWithFormat:@"%d", self.product.cartQty];
+        }else if (indexPath.section == 2){
+            UITextView *tvDescription      = (UITextView *)[cell.contentView viewWithTag:10];
+            tvDescription.text             = self.product.desc;
+        }else if (indexPath.section == 3){
+            UILabel *lblReviewTitle     = (UILabel*)[cell.contentView viewWithTag:20];
+            UITextView *tvReviewDetail  = (UITextView*)[cell.contentView viewWithTag:21];
         
         VPReviewsModel *currentReview = [self.product.reviews objectAtIndex:indexPath.row];
         
@@ -292,15 +325,15 @@
 }
 
 - (IBAction)btnSubCount:(id)sender {
-    self.qty -= 1;
-    if (self.qty <=0) {
-        self.qty = 1;
+    self.product.cartQty -= 1;
+    if (self.product.cartQty <=0) {
+        self.product.cartQty = 1;
     }
     [self.tableView reloadData];
 }
 
 - (IBAction)btnAddCount:(id)sender {
-    self.qty += 1;
+    self.product.cartQty += 1;
     [self.tableView reloadData];
 }
 
@@ -343,31 +376,29 @@
 - (IBAction)addToCart_pressed:(id)sender {
     if(self.loggedInUser){
         
+        if(self.productPresentInCart){
+            [self.userCart updateProductInCart:self.product];
+            [self startAnimatingWithSuccessMsg:@"Cart Updated"];
+        }else{
+            [self.userCart.products addObject:self.product];
+            [self.userCart save];
+            [self startAnimatingWithSuccessMsg:@"Added To Cart"];
+        }
+        //userCart.products =
+        [self.tableView reloadData];
+        
     }else{
         UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
         loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         [self presentViewController:loginNavigator animated:YES completion:nil];
-    }
+   }
 }
 
 - (IBAction)btnFavourite_pressed:(id)sender {
     
-    if(self.loggedInUser){
-        if (!self.productManager) {
-            self.productManager = [[VPProductManager alloc]init];
-            self.productManager.delegate = self;
-        }
-        [self startAnimating];
-        
-        [self.productManager addToFavouriteWithCustomerId:self.loggedInUser.customer_id andProduct:self.product];
-    }else{
-        
-        UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
-        loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:loginNavigator animated:YES completion:nil];
-        
-    }
+    [self addToFavorites:self.product];
     
+    [self.tableView reloadData];
    
     
 }
@@ -377,12 +408,14 @@
 - (void)productManager:(VPProductManager *)manager didFetchProductDetails:(VPProductModel *)product{
     //[self stopAnimating];
     self.product = product;
+    self.product.cartQty = 1;
     //[self.tableView reloadData];
     
     [self.productManager fetchProductReviewswithProductId:self.product.id andStoreId:self.storeId];
 }
 
 - (void)productManager:(VPProductManager *)manager didFailToFetchProductDetails:(NSString *)message{
+    [self startAnimatingWithErrorMsg:message];
 }
 
 - (void)productManager:(VPProductManager *)manager didFetchProductReviews:(NSArray *)reviews{
@@ -394,6 +427,7 @@
 }
 
 - (void)productManager:(VPProductManager *)manager didFailToFetchProductReviews:(NSString *)message{
+    [self startAnimatingWithErrorMsg:message];
 }
 
 - (void)productManager:(VPProductManager *)manager didFetchProductImage:(NSString *)imgURL{
@@ -403,6 +437,7 @@
 }
 
 - (void)productManager:(VPProductManager *)manager didFailToFetchProductImage:(NSString *)message{
+    [self startAnimatingWithErrorMsg:message];
 }
 
 
@@ -426,13 +461,4 @@
 }
 
 
-
-//- (void)productManager:(VPProductManager *)manager didFetchProductRating:(NSString *)rating{
-//     [self stopAnimating];
-//     self.product.rating = rating;
-//    
-//}
-//- (void)productManager:(VPProductManager *)manager didFailToFetchProductRating:(NSString *)message{
-//    
-//}
 @end

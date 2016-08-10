@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface VPProductModel : NSObject
+@interface VPProductModel : NSObject<NSCoding>
 
 @property (strong, nonatomic) NSString *id;
 @property (strong, nonatomic) NSString *sku;
@@ -23,6 +23,8 @@
 @property (strong, nonatomic) NSString *price;
 @property (strong, nonatomic) NSString *imgUrl;
 @property (strong, nonatomic) NSString *rating;
+@property (nonatomic) int cartQty;
+
 
 + (NSArray *)loadFromArray:(NSArray *)arrProducts;
 - (id)initWithDictionary:(NSDictionary *)dictProduct;

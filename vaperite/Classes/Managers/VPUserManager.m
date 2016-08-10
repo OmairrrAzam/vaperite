@@ -23,8 +23,9 @@ static NSString *kApiUser  = @"techverx";
                 [self.delegate userManager:self didAuthenticateWithUser:user ];
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSString *message = @"testing";
+
         if (self.delegate) {
+            NSString *message = [self extractMessageFromTask:task andError:error];
             [self.delegate userManager:self didFailToAuthenticateWithMessage:message];
         }
     }];
@@ -140,9 +141,10 @@ static NSString *kApiUser  = @"techverx";
             
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSString *message = @"testing";
+        
         if (self.delegate) {
-            //[self.delegate productManager:self didFailToFetchProductsFromCategoryId:message];
+            NSString *message = [self extractMessageFromTask:task andError:error];
+            [self.delegate userManager:self didFailToFetchAddress:message];
         }
     }];
 
@@ -161,9 +163,9 @@ static NSString *kApiUser  = @"techverx";
             [self.delegate userManager:self didUpdateAddress:addressStr];
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSString *message = @"testing";
         if (self.delegate) {
-            //[self.delegate productManager:self didFailToFetchProductsFromCategoryId:message];
+            NSString *message = [self extractMessageFromTask:task andError:error];
+            [self.delegate userManager:self didFailToUpdateAddress:message];
         }
     }];
     
@@ -187,9 +189,9 @@ static NSString *kApiUser  = @"techverx";
             }
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSString *message = @"testing";
         if (self.delegate) {
-            //[self.delegate productManager:self didFailToFetchProductsFromCategoryId:message];
+            NSString *message = [self extractMessageFromTask:task andError:error];
+            [self.delegate userManager:self didFailToUpdatePassword:message];
         }
     }];
     

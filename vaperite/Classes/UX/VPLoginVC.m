@@ -125,7 +125,7 @@
     
 }
 - (void)userManager:(VPUserManager *)userManager didFailToAuthenticateWithMessage:(NSString *)message{
-    
+    [self startAnimatingWithErrorMsg:message];
 }
 
 #pragma mark - Memory Cleanup Methods 

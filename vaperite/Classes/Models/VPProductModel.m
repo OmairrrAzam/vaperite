@@ -49,9 +49,33 @@
     self.name              = [dictProduct objectForKeyHandlingNull:@"name"];
     self.price             = [dictProduct objectForKeyHandlingNull:@"price"];
     self.desc              = [dictProduct objectForKeyHandlingNull:@"description"];
-    self.rating              = [dictProduct objectForKeyHandlingNull:@"rating"];
+    self.rating            = [dictProduct objectForKeyHandlingNull:@"rating"];
     
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
+        self.id = [decoder decodeObjectForKey:@"id"];
+        self.imgUrl = [decoder decodeObjectForKey:@"imgUrl"];
+        self.name = [decoder decodeObjectForKey:@"name"];
+        self.price = [decoder decodeObjectForKey:@"price"];
+        self.desc = [decoder decodeObjectForKey:@"desc"];
+        self.rating = [decoder decodeObjectForKey:@"rating"];
+        self.cartQty = [decoder decodeIntForKey:@"qty"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeObject:self.id forKey:@"id"];
+    [encoder encodeObject:self.imgUrl forKey:@"imgUrl"];
+    [encoder encodeObject:self.name forKey:@"name"];
+    [encoder encodeObject:self.price forKey:@"price"];
+    [encoder encodeObject:self.desc forKey:@"desc"];
+    [encoder encodeObject:self.rating forKey:@"rating"];
+    [encoder encodeInt:self.cartQty forKey:@"qty"];
 }
 
 

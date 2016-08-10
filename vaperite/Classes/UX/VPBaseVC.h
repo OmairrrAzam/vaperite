@@ -12,6 +12,8 @@
 #import "VPUsersModel.h"
 #import "UIViewController+ECSlidingViewController.h"
 #import "VPMarkerModel.h"
+#import "VPProductModel.h"
+#import "VPFavoriteModel.h"
 
 @interface VPBaseVC : UIViewController <ECSlidingViewControllerDelegate,VPSessionManagerDelegate>
 
@@ -28,10 +30,13 @@
 @property (strong, nonatomic)  NSString *storeId;
 @property (strong, nonatomic)  VPUsersModel *loggedInUser;
 @property (strong, nonatomic)  VPMarkerModel *currentStore;
+@property (strong, nonatomic) VPCartModel *userCart;
+@property (strong, nonatomic) VPFavoriteModel *userFav;
 
 - (void) changeViewThroughSlider:(NSString*)viewController;
 - (void) dismissMe;
 - (void)startAnimatingWithSuccessMsg:(NSString*)msg;
+- (void) addToFavorites:(VPProductModel*)selectedProduct;
 - (void)startAnimatingWithErrorMsg:(NSString*)msg;
 - (void)sessionManager:(VPSessionManager *)sessionManager didFetchSession:(NSString*)sessionId;
 @end

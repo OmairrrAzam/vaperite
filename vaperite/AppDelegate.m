@@ -23,7 +23,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     //Gmap initialization
-    [GMSServices provideAPIKey:@"AIzaSyDU84AYMFzQeWEZWtIYkfHLwx2mXzw34IE"];
+    [GMSServices provideAPIKey:@"AIzaSyA43C2z1MgZLiqNA9E4Et32hdD2d3YTYCo"];
     
     
     

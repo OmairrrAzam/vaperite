@@ -8,7 +8,7 @@
 
 #import "VPBaseVC.h"
 
-@interface VPReviewsModel : VPBaseVC
+@interface VPReviewsModel : NSObject
 
 @property (strong, nonatomic) NSString *titl;
 @property (strong, nonatomic) NSString *desc;

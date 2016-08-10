@@ -8,6 +8,6 @@
 
 #import "VPBaseVC.h"
 
-@interface VPRightMenuVC : UIViewController
+@interface VPRightMenuVC : VPBaseVC
 
 @end

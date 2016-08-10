@@ -8,7 +8,7 @@
 
 #import "VPBaseVC.h"
 
-@interface VPCategoryModel : VPBaseVC
+@interface VPCategoryModel : NSObject
 @property (strong, nonatomic) NSString *id;
 @property (strong, nonatomic) NSString *parentId;
 @property (strong, nonatomic) NSString *name;

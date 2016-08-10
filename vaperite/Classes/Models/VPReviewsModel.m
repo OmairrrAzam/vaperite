@@ -14,17 +14,6 @@
 
 @implementation VPReviewsModel
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 + (NSArray *)loadFromArray:(NSArray *)arrReviews {
     NSMutableArray *reviews = [[NSMutableArray alloc] init];

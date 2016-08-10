@@ -98,6 +98,7 @@ NSMutableArray *categoriesImgArray;
 }
 
 - (void)categoryManager:(VPCategoryManager *)categoryManager didFailToLoadCategoriesFromParentId:(NSString *)message{
+    [self startAnimatingWithErrorMsg:message];
     
 }
 
