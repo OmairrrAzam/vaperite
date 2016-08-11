@@ -14,15 +14,16 @@
 @property (strong, nonatomic)VPUserManager *userManager;
 @property (strong, nonatomic)VPUsersModel *userAddress;
 
-@property (weak, nonatomic) IBOutlet NSString *FirstName;
-@property (weak, nonatomic) IBOutlet NSString *LastName;
-@property (weak, nonatomic) IBOutlet NSString *Email;
-@property (weak, nonatomic) IBOutlet NSString *Password;
+@property (strong, nonatomic)  NSString *FirstName;
+@property (strong, nonatomic)  NSString *LastName;
+@property (strong, nonatomic)  NSString *Email;
+@property (strong, nonatomic)  NSString *Password;
 
 @property (weak, nonatomic) IBOutlet UITextField *tfFirstName;
 @property (weak, nonatomic) IBOutlet UITextField *tfLastName;
 @property (weak, nonatomic) IBOutlet UITextField *tfEmail;
 @property (weak, nonatomic) IBOutlet UITextField *tfPassword;
+
 - (IBAction)btnUpdatePressed:(id)sender;
 @end
 
@@ -32,14 +33,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self startAnimating];
+
     if (!self.userManager){
         self.userManager = [[VPUserManager alloc]init];
         self.userManager.delegate = self;
     }
     [self populateFields];
-    [self.userManager fetchAddressFromCustomerId:self.loggedInUser.customer_id];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,17 +55,10 @@
 
 #pragma mark - VPUSerManagerDelegate Methods
 
-- (void)userManager:(VPUserManager *)userManager didFetchAddress:(VPUsersModel *)user{
-    self.userAddress = user;
-    [self populateFields];
-    [self stopAnimating];
-}
-- (void)userManager:(VPUserManager *)userManager didFailToFetchAddress:(NSString *)message{
-    [self stopAnimating];
-    [self startAnimatingWithErrorMsg:message];
-}
+
 
 - (void)userManager:(VPUserManager *)userManager didUpdatePassword:(NSString *)response{
+    
     [self startAnimatingWithSuccessMsg:response];
 }
 - (void)userManager:(VPUserManager *)userManager didFailToUpdatePassword:(NSString *)message{
@@ -78,10 +70,10 @@
 #pragma mark - IBActions
 
 - (IBAction)btnUpdatePressed:(id)sender {
-    self.Email = self.tfEmail.text;
+    self.Email     = self.tfEmail.text;
     self.FirstName = self.tfFirstName.text;
-    self.LastName = self.tfLastName.text;
-    self.Password = self.tfPassword.text;
+    self.LastName  = self.tfLastName.text;
+    self.Password  = self.tfPassword.text;
     
     if ([self validFields]) {
         

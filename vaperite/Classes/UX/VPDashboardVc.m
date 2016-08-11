@@ -8,7 +8,6 @@
 
 #import "VPDashboardVc.h"
 #import "QuartzCore/QuartzCore.h"
-
 #import "MEDynamicTransition.h"
 #import "METransitions.h"
 #import "VPTabsUISegmentedControl.h"
@@ -26,15 +25,12 @@
 #import "VPCategoriesVC.h"
 #import "VPFavoriteModel.h"
 #import "VPCartModel.h"
-
+#import "VPCollectionView.h"
 
 #define ORANGE_COLOR        [UIColor colorWithRed:0.921 green:0.411 blue:0.145 alpha:1.0]
 
 @interface VPDashboardVc ()< VPUserManagerDelegate,UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, VPProductManagerDelegate,VPCategoryManagerDelegate>
 
-
-@property (strong, nonatomic) VPCartModel *userCart;
-@property (strong, nonatomic) VPFavoriteModel *userFav;
 
 @property (strong, nonatomic) VPUserManager *userManager;
 @property (weak, nonatomic) UIViewController *currentViewController;
@@ -45,7 +41,7 @@
 @property (strong, nonatomic) VPCategoryManager *categoryManager;
 @property (strong, nonatomic) NSString *selectedTab;
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet VPCollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet VPBaseUIButton *btnFeatured;
 @property (weak, nonatomic) IBOutlet VPBaseUIButton *btnRecommended;
@@ -69,33 +65,24 @@
 @implementation VPDashboardVc
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
-    
     
     self.selectedTab = @"featured";
     self.productType = @"featured";
-    
+    [self configureCollectionView];
     
     if (!self.categoryManager) {
         self.categoryManager = [[VPCategoryManager alloc]init];
         self.categoryManager.delegate = self;
     }
     
-    
-    //[self fetchProducts];
-    
-   
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self fetchProducts];
-    [self refreshMemory];
     
+    [self fetchProducts];
 }
-
 
 - (void)fetchProducts {
     [self startAnimating];
@@ -130,32 +117,19 @@
 
 #pragma mark - Private Methods 
 
-- (void)refreshMemory{
-    self.userCart = [VPCartModel currentCart];
-    self.userFav  = [VPFavoriteModel currentFav];
+- (void)configureCollectionView {
+    self.flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    
+    [self.flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    [self.collectionView setCollectionViewLayout:self.flowLayout];
+    self.collectionView.bounces = YES;
+    [self.collectionView setShowsHorizontalScrollIndicator:NO];
+    [self.collectionView setShowsVerticalScrollIndicator:YES];
+    self.collectionView.layer.borderWidth = 1;
+    self.collectionView.layer.borderColor = [UIColor colorWithRed:203 green:226 blue:221 alpha:1].CGColor;
+    self.collectionView.contentSize = CGSizeMake(self.collectionView.contentSize.width, 1000);
 }
 
-- (void)cycleFromViewController:(UIViewController*) oldViewController
-               toViewController:(UIViewController*) newViewController {
-    [oldViewController willMoveToParentViewController:nil];
-    [self addChildViewController:newViewController];
-    [self addSubview:newViewController.view toView:self.containerView];
-    // TODO: Set the starting state of your constraints here
-    [newViewController.view layoutIfNeeded];
-    
-    // TODO: Set the ending state of your constraints here
-    
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         // only need to call layoutIfNeeded here
-                         [newViewController.view layoutIfNeeded];
-                     }
-                     completion:^(BOOL finished) {
-                         [oldViewController.view removeFromSuperview];
-                         [oldViewController removeFromParentViewController];
-                         [newViewController didMoveToParentViewController:self];
-                     }];
-}
 
 - (void)updateTabsColors{
     
@@ -240,35 +214,13 @@
 }
 
 - (IBAction)btnAddToCart:(id)sender {
-    if(self.loggedInUser){
-        
-        VPBaseUIButton *btn = (VPBaseUIButton*)sender;
-        
-        VPProductModel *selectedProduct = [self.products objectAtIndex:btn.index];
-        selectedProduct.cartQty = 1;
-        self.productPresentInCart = [self.userCart productPresentInCart:selectedProduct];
-        if(self.productPresentInCart){
-            [self startAnimatingWithSuccessMsg:@"Product Already Present in Cart"];
-        }else{
-            [self.userCart.products addObject:selectedProduct];
-            [self.userCart save];
-            [self startAnimatingWithSuccessMsg:@"Added To Cart"];
-        }
-        //userCart.products =
-        [self.tableView reloadData];
-        
-    }else{
-        UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
-        loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:loginNavigator animated:YES completion:nil];
-    }
-
-
+    VPBaseUIButton *btn = (VPBaseUIButton*)sender;
+    VPProductModel *selectedProduct = [self.products objectAtIndex:btn.index];
+    [self addToCart:selectedProduct];
+    [self.tableView reloadData];
 }
 
 - (IBAction)btnAddToFav:(id)sender {
-    
-    
     VPBaseUIButton *btn = (VPBaseUIButton*)sender;
     VPProductModel *selectedProduct = [self.products objectAtIndex:btn.index];
     [self addToFavorites:selectedProduct];
@@ -305,6 +257,7 @@
     }else if(indexPath.row == 1){
         height = 100;
     }else if (indexPath.row == 2){
+        
         if (self.loggedInUser){
             height = 600;
         }else{
@@ -313,12 +266,6 @@
     }
     return height;
 }
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    return 3;
-//}
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -370,20 +317,6 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-}
-
-- (void)configureCollectionView {
-    self.flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    [self.flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    [self.collectionView setCollectionViewLayout:self.flowLayout];
-    self.collectionView.bounces = YES;
-    [self.collectionView setShowsHorizontalScrollIndicator:NO];
-    [self.collectionView setShowsVerticalScrollIndicator:YES];
-    self.collectionView.layer.borderWidth = 1;
-    self.collectionView.layer.borderColor = [UIColor colorWithRed:203 green:226 blue:221 alpha:1].CGColor;
-}
-
 #pragma mark - UICollectionViewDataSource Methods
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -401,9 +334,9 @@
     VPProductModel *currentProduct = [self.products objectAtIndex:indexPath.row];
     
     VPProductCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    [cell.contentView.superview setClipsToBounds:NO];
+    //[cell.contentView.superview setClipsToBounds:NO];
     
-    cell.name.text  = currentProduct.sku;
+    cell.name.text  = currentProduct.name;
     cell.price.text = [NSString stringWithFormat:@"%@", currentProduct.price];
     
     NSString *urlString = currentProduct.imgUrl;
@@ -436,7 +369,7 @@
     UIImage *imgFav = [UIImage imageNamed:@"heart-icon.png"];
 
     VPBaseUIButton *addToCart = (VPBaseUIButton*)[cell viewWithTag:102];
-    VPBaseUIButton *addToFav = (VPBaseUIButton*)[cell viewWithTag:101];
+    VPBaseUIButton *addToFav  = (VPBaseUIButton*)[cell viewWithTag:101];
     
     BOOL presentInFav = [self.userFav productPresentInFav:currentProduct];
     if (presentInFav) {
@@ -453,15 +386,15 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath  {
-    UICollectionViewCell *datasetCell =[collectionView cellForItemAtIndexPath:indexPath];
-    datasetCell.backgroundColor = [UIColor blueColor]; // highlight selection
     self.selectedProduct = [self.products objectAtIndex:[indexPath row]];
-    
     [self performSegueWithIdentifier:@"product_detail_segue" sender:self];
-    
 }
 
+
+
 #pragma mark UICollectionViewDelegateFlowLayout Methods
+
+
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     CGSize mElementSize = CGSizeMake(125, 180);
@@ -479,6 +412,7 @@
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(10.0,30.0,0.0,30.0);  // top, left, bottom, right
 }
+
 
 
 #pragma mark - VPProductManagerDelegate Methods

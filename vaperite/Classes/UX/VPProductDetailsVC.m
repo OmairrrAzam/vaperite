@@ -246,12 +246,6 @@
    
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-//    if (section == 3) {
-//        return @"Reviews";
-//    }
-//    return @"";
-//}
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -262,11 +256,7 @@
 
     UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(15,0,300,44)];
     tempLabel.backgroundColor = [UIColor clearColor];
-    //tempLabel.shadowColor = [UIColor darkGrayColor];
-    //tempLabel.shadowOffset = CGSizeMake(0,2);
     tempLabel.textColor = [UIColor darkGrayColor]; //here you can change the text color of header.
-    //tempLabel.font = [UIFont fontWithName:@"Helvetica" size:fontSizeForHeaders];
-    //tempLabel.font = [UIFont boldSystemFontOfSize:fontSizeForHeaders];
     tempLabel.text = @"Reviews";
     
     [tempView addSubview:tempLabel];
@@ -278,6 +268,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     
     UIView *tempView;
+    
     if(section == 3){
         tempView = [[UIView alloc]initWithFrame:CGRectMake(0,200,300,244)];
         tempView.backgroundColor=[UIColor colorWithRed:203/255.0 green:227/255.0 blue:222/255.0 alpha:1];
@@ -291,6 +282,7 @@
         button.frame = CGRectMake(13.0, 10.0, 290.0, 36.0);
         [tempView addSubview:button];
     }
+    
     return tempView;
 }
 
@@ -314,9 +306,6 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
     }]];
-    /*[alertController addAction:[UIAlertAction actionWithTitle:@"Button 2" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-     // [self loadDropBox];
-     }]];*/
     
     dispatch_async(dispatch_get_main_queue(), ^ {
         [self presentViewController:alertController animated:YES completion:nil];
@@ -346,14 +335,8 @@
     if(self.loggedInUser){
      [self performSegueWithIdentifier:@"add_review_segue" sender:self];
     }else{
-        UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
-        loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:loginNavigator animated:YES completion:nil];
+        [self showLoginPage];
     }
-
-    //UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"AddReviewID"];
-    //loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    //[self presentViewController:loginNavigator animated:YES completion:nil];
 }
 
 - (IBAction)btnBack:(id)sender {
@@ -374,42 +357,20 @@
 }
 
 - (IBAction)addToCart_pressed:(id)sender {
-    if(self.loggedInUser){
-        
-        if(self.productPresentInCart){
-            [self.userCart updateProductInCart:self.product];
-            [self startAnimatingWithSuccessMsg:@"Cart Updated"];
-        }else{
-            [self.userCart.products addObject:self.product];
-            [self.userCart save];
-            [self startAnimatingWithSuccessMsg:@"Added To Cart"];
-        }
-        //userCart.products =
-        [self.tableView reloadData];
-        
-    }else{
-        UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
-        loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:loginNavigator animated:YES completion:nil];
-   }
+    [self addToCart:self.product];
+    [self.tableView reloadData];
 }
 
 - (IBAction)btnFavourite_pressed:(id)sender {
-    
     [self addToFavorites:self.product];
-    
     [self.tableView reloadData];
-   
-    
 }
 
 #pragma mark - ProductDetails Manager Delegates
 
 - (void)productManager:(VPProductManager *)manager didFetchProductDetails:(VPProductModel *)product{
-    //[self stopAnimating];
     self.product = product;
     self.product.cartQty = 1;
-    //[self.tableView reloadData];
     
     [self.productManager fetchProductReviewswithProductId:self.product.id andStoreId:self.storeId];
 }

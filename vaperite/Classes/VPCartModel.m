@@ -79,21 +79,16 @@
     return false;
 }
 
-//- (BOOL) decrementProductQty:(VPProductModel*)selectedProduct{
-//    for (VPProductModel* p in self.products) {
-//        if (p.id == selectedProduct.id) {
-//            p.cartQty = selectedProduct.cartQty;
-//            [self save];
-//            return true;
-//        }
-//    }
-//
-//    return false;
-//}
-//
-//- (BOOL) incrementProductQty:(VPProductModel*)selectedProduct{
-//    return false;
-//}
+- (BOOL) addProductInCart:(VPProductModel*)selectedProduct{
+    if (selectedProduct.cartQty <=0) {
+        selectedProduct.cartQty = 1;
+    }
+    [self.products addObject:selectedProduct];
+    [self save];
+
+    return true;
+}
+
 
 - (void) updateCalculations{
     

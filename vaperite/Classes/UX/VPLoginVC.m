@@ -117,13 +117,16 @@
 
 - (void)userManager:(VPUserManager *)userManager didAuthenticateWithUser:(VPUsersModel *)user{
     self.loggedInUser = user;
+    
     [user save];
     
     if(self.loggedInUser){
         [self dismissViewControllerAnimated:YES completion:nil];
+        [self startAnimatingWithSuccessMsg:@"Logged In Successfully"];
     }
     
 }
+
 - (void)userManager:(VPUserManager *)userManager didFailToAuthenticateWithMessage:(NSString *)message{
     [self startAnimatingWithErrorMsg:message];
 }

@@ -22,7 +22,6 @@
             [self.delegate reviewManager:self didAddReview:review];
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSString *message = @"testing";
         if (self.delegate) {
             [self.delegate reviewManager:self didFailToAddReview:error.localizedDescription];
         }

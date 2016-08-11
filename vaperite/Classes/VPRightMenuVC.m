@@ -67,38 +67,33 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (section == 0 || section == 2) {
-        return 1;
-    }else if (section == 1){
-        
-        return [self.products count];
-    }
-    return 1;
+    return [self.products count];
+   
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *cellIdentifier;
-    if (indexPath.section == 0){
-        cellIdentifier = @"cartHeader";
-        
-    }else if (indexPath.section == 1){
+//    if (indexPath.section == 0){
+//        cellIdentifier = @"cartHeader";
+//        
+//    }else if (indexPath.section == 1){
         cellIdentifier = @"rightMenuProductCell";
-    }else{
-        cellIdentifier = @"rightMenuCell";
-    }
+//    }else{
+//        cellIdentifier = @"rightMenuCell";
+//    }
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if(cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier ];
     }
     
-    if (indexPath.section == 1){
+    //if (indexPath.section == 1){
         UILabel *productName    = (UILabel *)[cell.contentView viewWithTag:10];
          UILabel *price         = (UILabel *)[cell.contentView viewWithTag:11];
          UILabel *qty           = (UILabel *)[cell.contentView viewWithTag:12];
@@ -122,7 +117,7 @@
         price.text           = [NSString stringWithFormat:@"Price: %@",currentProduct.price];
         qty.text             = [NSString stringWithFormat:@"%d",   currentProduct.cartQty];
         
-    }
+    //}
     
     return cell;
 }
@@ -148,29 +143,25 @@
 }
 
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    if (section == 0){
-        return 0;
-    }else if(section == 1){
-        return 3;
-    }
-    return 0;
-}
+//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//    if (section == 0){
+//        return 0;
+//    }else if(section == 1){
+//        return 3;
+//    }
+//    return 0;
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 0 ){
-        return 35;
-    }
+  
     return 100;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 1){
-        return 10;
-    }
+   
     return 0;
 }
 

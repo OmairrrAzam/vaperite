@@ -8,17 +8,21 @@
 
 #import "VPRegisterVC.h"
 #import "VPUsersModel.h"
+#import "VPUserManager.h"
 
-@interface VPRegisterVC ()
+@interface VPRegisterVC ()<VPUserManagerDelegate>
+
+@property (strong, nonatomic)  VPUserManager     *userManager;
+@property (strong, nonatomic)  NSString          *password;
 
 @property (weak, nonatomic) IBOutlet UITextField *tfFirstName;
 @property (weak, nonatomic) IBOutlet UITextField *tfLastName;
 @property (weak, nonatomic) IBOutlet UITextField *tfEmail;
 @property (weak, nonatomic) IBOutlet UITextField *tfPassword;
 @property (weak, nonatomic) IBOutlet UITextField *tfConfirmPassword;
-@property (weak, nonatomic) IBOutlet UIButton *btnRegister;
-- (IBAction)btnCancel:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton    *btnRegister;
 
+- (IBAction)btnCancel:(id)sender;
 - (IBAction)btnRegister_Pressed:(UIButton *)btnRegister;
 
 @end
@@ -40,7 +44,7 @@
     NSString *firstName = [self.tfFirstName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *lastName = [self.tfLastName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *email = [self.tfEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *password = [self.tfPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    self.password = [self.tfPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *confirm = [self.tfConfirmPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
     
@@ -64,20 +68,21 @@
         return nil;
     }
     
-    if (password.length == 0) {
+    if (self.password.length == 0) {
         [self showError:@"Password is required."];
         return nil;
     }
     
-    if (![password isEqualToString:confirm]) {
+    if (![self.password isEqualToString:confirm]) {
         [self showError:@"Password and Confirm password should match."];
         return nil;
     }
     
     VPUsersModel *user = [[VPUsersModel alloc] init];
-    user.firstName = firstName;
-    user.lastName = lastName;
-    user.email = email;
+    user.email         = email;
+    user.firstName     = firstName;
+    user.lastName      = lastName;
+    user.email         = email;
     //user.password = password;
     return user;
 }
@@ -89,9 +94,50 @@
 }
 
 - (IBAction)btnRegister_Pressed:(UIButton *)btnRegister {
+    
     VPUsersModel *user = [self validate];
+    
     if (user) {
+        [self startAnimatingWithCustomMsg:@"Registering New User"];
+        
+        
+        if (!self.userManager) {
+            self.userManager = [[VPUserManager alloc]init];
+            self.userManager.delegate = self;
+        }
+        
+        [self.userManager createUserFromStoreId:@"1" password:self.password user:user];
     }
+}
+
+#pragma mark - VPUserManagerDelegateMethods
+
+- (void)userManager:(VPUserManager *)userManager didCreateUser:(VPUsersModel *)user{
+    [self stopAnimating];
+    [self startAnimatingWithSuccessMsg:@"Loggin You In"];
+    [self.userManager authenticateWithEmail:user.email password:self.password pushToken:nil];
+    
+}
+
+- (void)userManager:(VPUserManager *)userManager didFailToCreateUser:(NSString *)message{
+    [self startAnimatingWithErrorMsg:message];
+}
+
+- (void)userManager:(VPUserManager *)userManager didAuthenticateWithUser:(VPUsersModel *)user{
+    [self startAnimatingWithSuccessMsg:@"You are now logged in!"];
+    
+    self.loggedInUser = user;
+    [user save];
+    
+    if(self.loggedInUser){
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self changeViewThroughSlider:@"Dashboard"];
+    }
+
+}
+
+- (void)userManager:(VPUserManager *)userManager didFailToAuthenticateWithMessage:(NSString *)message{
+    [self startAnimatingWithErrorMsg:message];
 }
 
 - (void)didReceiveMemoryWarning {

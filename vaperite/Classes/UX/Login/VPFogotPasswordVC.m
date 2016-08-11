@@ -7,9 +7,14 @@
 //
 
 #import "VPFogotPasswordVC.h"
+#import "VPUserManager.h"
 
-@interface VPFogotPasswordVC ()
+@interface VPFogotPasswordVC ()<VPUserManagerDelegate>
+
+@property (strong, nonatomic)  VPUserManager *userManager;
+
 @property (weak, nonatomic) IBOutlet UITextField *tfEmail;
+
 - (IBAction)btnCancel:(id)sender;
 
 @end
@@ -26,21 +31,55 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - Private Methods
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (VPUsersModel *)validate {
+    
+    NSString *email = [self.tfEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    
+    if (email.length == 0) {
+        [self showError:@"Email is required."];
+        return nil;
+    }
+    
+    if (![super validateEmail:email]) {
+        [self showError:@"Invalid email."];
+        return nil;
+    }
+    
+    
+    VPUsersModel *user = [[VPUsersModel alloc] init];
+    user.email         = email;
+    return user;
 }
-*/
+
 
 #pragma mark - IBActions
 
 - (IBAction)btnForgot:(UIButton *)sender {
+    VPUsersModel *user = [self validate];
+    if (user) {
+        if (!self.userManager) {
+            self.userManager = [[VPUserManager alloc]init];
+            self.userManager.delegate = self;
+        }
+        [self.userManager updatePasswordWithCustomerID:@"" firstName:@"" lastName:@"" email:user.email password:@""];
+    }
+    
 }
 - (IBAction)btnCancel:(id)sender {
     [[self navigationController] popViewControllerAnimated:YES];
 }
+
+#pragma mark - VPUserManagerDelegates
+
+- (void)userManager:(VPUserManager *)userManager didUpdatePassword:(NSString *)response{
+    [self startAnimatingWithSuccessMsg:@"You will recieve email with instrutions to reset your password"];
+}
+
+- (void)userManager:(VPUserManager *)userManager didFailToUpdatePassword:(NSString *)message{
+    [self startAnimatingWithErrorMsg:message];
+}
+
 @end

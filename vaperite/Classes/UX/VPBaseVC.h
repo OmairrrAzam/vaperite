@@ -35,8 +35,13 @@
 
 - (void) changeViewThroughSlider:(NSString*)viewController;
 - (void) dismissMe;
-- (void)startAnimatingWithSuccessMsg:(NSString*)msg;
+- (void)refreshUser;
+- (void) startAnimatingWithSuccessMsg:(NSString*)msg;
 - (void) addToFavorites:(VPProductModel*)selectedProduct;
-- (void)startAnimatingWithErrorMsg:(NSString*)msg;
-- (void)sessionManager:(VPSessionManager *)sessionManager didFetchSession:(NSString*)sessionId;
+- (void) addToCart:(VPProductModel*)selectedProduct;
+- (void) showLoginPage;
+- (void) refreshCartAndFav;
+- (void) startAnimatingWithErrorMsg:(NSString*)msg;
+- (void) startAnimatingWithCustomMsg:(NSString*)message;
+- (void) sessionManager:(VPSessionManager *)sessionManager didFetchSession:(NSString*)sessionId;
 @end

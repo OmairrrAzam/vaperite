@@ -11,6 +11,7 @@
 #import "VPProductModel.h"
 #import "VPFavoriteModel.h"
 #import "VPCartModel.h"
+#import "UIBarButtonItem+Badge.h"
 
 #define kSessionid   @"vaperite.session_id"
 #define kStoreid     @"vaperite.store_id"
@@ -36,12 +37,14 @@
     self.customConfiguration = [self customKVNProgressUIConfiguration];
     [KVNProgress setConfiguration:self.customConfiguration];
     
-    self.loggedInUser = [VPUsersModel currentUser];
+    [self refreshUser];
     self.currentStore = [VPMarkerModel currentStore];
     
     if (self.currentStore){
         self.navigationItem.rightBarButtonItem =[self cartButton];
         self.navigationItem.leftBarButtonItem  =[self menuButton];
+        [self updateNavBadge];
+        
     }
 
 }
@@ -50,9 +53,9 @@
     [super viewDidAppear:animated];
     // it has to be here so that variable is available and updated
     // on every view controller
-    self.loggedInUser = [VPUsersModel currentUser];
+    [self refreshUser];
     self.currentStore = [VPMarkerModel currentStore];
-    
+    [self updateNavBadge];
    // [self startAnimating];
 }
 
@@ -97,6 +100,16 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
     self.userFav  = [VPFavoriteModel currentFav];
 }
 
+- (void)refreshUser{
+    self.loggedInUser = [VPUsersModel currentUser];
+}
+
+-(void)updateNavBadge{
+    [self refreshCartAndFav];
+    NSString *badgeValue = [NSString stringWithFormat:@"%d", (int)[self.userCart.products count]];
+    self.navigationItem.rightBarButtonItem.badgeValue = badgeValue;
+}
+
 -(void)changeViewThroughSlider:(NSString*)viewController{
 
     self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
@@ -110,7 +123,8 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
     loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:loginNavigator animated:YES completion:nil];
     
-    }
+}
+
 - (void) addToFavorites:(VPProductModel*)selectedProduct{
     if(self.loggedInUser){
         BOOL productPresentInFav = [self.userFav productPresentInFav:selectedProduct];
@@ -130,6 +144,7 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
                 self.userFav.products = favProducts;
                 [self.userFav save];
                 [self startAnimatingWithSuccessMsg:@"Item Removed from Favorites"];
+                
             }else{
                 [self startAnimatingWithSuccessMsg:@"Item Not Removed from Favorites"];
             }
@@ -149,11 +164,40 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
         
         
     }else{
-        UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
-        loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:loginNavigator animated:YES completion:nil];
+        [self showLoginPage];
     }
 
+}
+
+- (void) addToCart:(VPProductModel*)selectedProduct{
+    if(self.loggedInUser){
+        
+        if([self.userCart productPresentInCart:selectedProduct]){
+            if ([self.userCart updateProductInCart:selectedProduct]){
+                [self startAnimatingWithSuccessMsg:@"Cart Updated"];
+            }else{
+                [self startAnimatingWithErrorMsg:@"Cart Not Updated"];
+            }
+        }else{
+            if ([self.userCart addProductInCart:selectedProduct]) {
+                [self updateNavBadge];
+                [self startAnimatingWithSuccessMsg:@"Added To Cart"];
+            }else{
+                [self startAnimatingWithSuccessMsg:@"Not Added To Cart"];
+            }
+            
+        }
+        
+    }else{
+        [self showLoginPage];
+    }
+
+}
+
+- (void) showLoginPage{
+    UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
+    loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:loginNavigator animated:YES completion:nil];
 }
 
 - (void)dismissMe {
@@ -199,6 +243,10 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 - (void)startAnimating {
     
       [KVNProgress showWithStatus:@"Loading..."];
+}
+
+- (void)startAnimatingWithCustomMsg:(NSString*)message {
+    [KVNProgress showWithStatus:message];
 }
 
 - (void)stopAnimating{

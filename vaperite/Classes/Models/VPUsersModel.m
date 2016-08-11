@@ -18,14 +18,14 @@
 
 + (VPUsersModel *)currentUser {
     
-    VPUsersModel *user = nil;
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *userId = [defaults objectForKey:kCustomerId];
+    NSData *data = [defaults objectForKey:@"user"];
     
-    if (userId ) {
-        user = [[VPUsersModel alloc] init];
-        user.customer_id             = userId;
+    VPUsersModel *user;
+    if (data) {
+        user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    }else{
+        
     }
     return user;
 }
@@ -40,17 +40,8 @@
     return users;
 }
 
--(void)save{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:self.customer_id forKey:kCustomerId];
-    [defaults synchronize];
-}
-
-
 - (id)initWithDictionary:(NSDictionary *)dictUser {
-    
     self = [super init];
-   
     
     self.firstName   = [dictUser objectForKeyHandlingNull:@"firstname"];
     self.lastName    = [dictUser objectForKeyHandlingNull:@"lastname"];
@@ -60,11 +51,41 @@
     self.city        = [dictUser objectForKeyHandlingNull:@"city"];
     self.postalcode  = [dictUser objectForKeyHandlingNull:@"postcode"];
     self.street      = [dictUser objectForKeyHandlingNull:@"street"];
+    self.state       = [dictUser objectForKeyHandlingNull:@"state"];
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    
+    if (self) {
+        self.firstName      = [decoder decodeObjectForKey:@"firstName"];
+        self.lastName       = [decoder decodeObjectForKey:@"lastName"];
+        self.customer_id    = [decoder decodeObjectForKey:@"customer_id"];
+        self.store_id       = [decoder decodeObjectForKey:@"store_id"];
+        self.city           = [decoder decodeObjectForKey:@"city"];
+        self.postalcode     = [decoder decodeObjectForKey:@"postalcode"];
+        self.street         = [decoder decodeObjectForKey:@"street"];
+        self.state          = [decoder decodeObjectForKey:@"state"];
+    }
+    return self;
+}
 
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeObject:self.firstName   forKey:@"firstName"];
+    [encoder encodeObject:self.lastName    forKey:@"lastName"];
+    [encoder encodeObject:self.customer_id forKey:@"customer_id"];
+    [encoder encodeObject:self.store_id    forKey:@"store_id"];
+    [encoder encodeObject:self.city        forKey:@"city"];
+    [encoder encodeObject:self.postalcode  forKey:@"postalcode"];
+    [encoder encodeObject:self.street      forKey:@"street"];
+    [encoder encodeObject:self.state       forKey:@"state"];
+}
 
-
+- (void)save {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self];
+    [defaults setObject:data forKey:@"user"];
+}
 
 @end

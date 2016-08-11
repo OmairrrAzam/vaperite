@@ -22,7 +22,6 @@
     return products;
 }
 
-
 - (id)initWithDictionary:(NSDictionary *)dictProduct {
     self = [super init];
 
@@ -57,12 +56,12 @@
 - (id)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
-        self.id = [decoder decodeObjectForKey:@"id"];
-        self.imgUrl = [decoder decodeObjectForKey:@"imgUrl"];
-        self.name = [decoder decodeObjectForKey:@"name"];
-        self.price = [decoder decodeObjectForKey:@"price"];
-        self.desc = [decoder decodeObjectForKey:@"desc"];
-        self.rating = [decoder decodeObjectForKey:@"rating"];
+        self.id      = [decoder decodeObjectForKey:@"id"];
+        self.imgUrl  = [decoder decodeObjectForKey:@"imgUrl"];
+        self.name    = [decoder decodeObjectForKey:@"name"];
+        self.price   = [decoder decodeObjectForKey:@"price"];
+        self.desc    = [decoder decodeObjectForKey:@"desc"];
+        self.rating  = [decoder decodeObjectForKey:@"rating"];
         self.cartQty = [decoder decodeIntForKey:@"qty"];
     }
     return self;

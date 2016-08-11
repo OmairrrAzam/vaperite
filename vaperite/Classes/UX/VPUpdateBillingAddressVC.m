@@ -14,15 +14,16 @@
 @property (strong, nonatomic)VPUserManager *userManager;
 @property (strong, nonatomic)VPUsersModel *userAddress;
 
-@property (weak, nonatomic) NSString *street;
-@property (weak, nonatomic) NSString *city;
-@property (weak, nonatomic) NSString *state;
-@property (weak, nonatomic) NSString *postal;
+@property (strong, nonatomic) NSString *street;
+@property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSString *state;
+@property (strong, nonatomic) NSString *postal;
 
 @property (weak, nonatomic) IBOutlet UITextField *tfStreet;
 @property (weak, nonatomic) IBOutlet UITextField *tfCity;
 @property (weak, nonatomic) IBOutlet UITextField *tfState;
 @property (weak, nonatomic) IBOutlet UITextField *tfPostal;
+
 - (IBAction)btnUpdate_pressed:(id)sender;
 
 @end
@@ -31,6 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     if (!self.userManager){
         self.userManager = [[VPUserManager alloc]init];
@@ -38,7 +40,7 @@
     }
     [self startAnimating];
     [self.userManager fetchAddressFromCustomerId:self.loggedInUser.customer_id];
-   
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,18 +48,31 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Private Methods
+
 - (void)populateFields{
-    self.tfStreet.text     = self.userAddress.street;
-    self.tfCity.text       = self.userAddress.city;
-    self.tfPostal.text     = self.userAddress.postalcode;
-    self.tfState.text      = self.userAddress.state;
-    
+    self.tfStreet.text     = self.loggedInUser.street;
+    self.tfCity.text       = self.loggedInUser.city;
+    self.tfPostal.text     = self.loggedInUser.postalcode;
+    self.tfState.text      = self.loggedInUser.state;
 }
 
-- (void)userManager:(VPUserManager *)userManager didUpdateAddress:(NSString *)response{
+- (void)mapToLoggedInUser:(VPUsersModel*)user{
+    self.loggedInUser.street      = user.street;
+    self.loggedInUser.city        = user.city;
+    self.loggedInUser.state       = user.state;
+    self.loggedInUser.postalcode  = user.postalcode;
+}
+
+#pragma mark - VPUserManagerDelegateMethods
+
+- (void)userManager:(VPUserManager *)userManager didUpdateAddress:(VPUsersModel *)user{
+    [self mapToLoggedInUser:user];
+    [self.loggedInUser save];
+    [self refreshUser];
     [self stopAnimating];
-    [self startAnimatingWithSuccessMsg:response];
-    
+    [self startAnimatingWithSuccessMsg:@"Address Updated"];
+    [self populateFields];
 }
 
 - (void)userManager:(VPUserManager *)userManager didFailToUpdateAddress:(NSString *)message{
@@ -65,17 +80,22 @@
     [self startAnimatingWithErrorMsg:message];
 }
 
-
 - (void)userManager:(VPUserManager *)userManager didFetchAddress:(VPUsersModel *)user{
-    self.userAddress = user;
+    
+    [self mapToLoggedInUser:user];
+    [self.loggedInUser save];
+    [self refreshUser];
     [self populateFields];
     [self stopAnimating];
     
 }
+
 - (void)userManager:(VPUserManager *)userManager didFailToFetchAddress:(NSString *)message{
     [self stopAnimating];
     [self startAnimatingWithErrorMsg:message];
 }
+
+#pragma mark - IBActions
 
 - (IBAction)btnUpdate_pressed:(id)sender {
     
@@ -88,7 +108,7 @@
         return;
     }
     
-    [self.userManager updateAddressWithCustomerID:self.loggedInUser.customer_id  firstName:@"hardcoded coz of nil" lastName:@"hardcoded coz of nil"    streetAddress:self.street  city:self.city postalCode:@"12312"];
+    [self.userManager updateAddressWithCustomerID:self.loggedInUser.customer_id  firstName:@"hardcoded coz of nil" lastName:@"hardcoded coz of nil" streetAddress:self.street  city:self.city postalCode:@"12312"];
     
         
 }
@@ -99,6 +119,7 @@
         [self startAnimatingWithErrorMsg:@"Please Enter all fields"];
         return false;
     }
+    
     return true;
 }
 @end

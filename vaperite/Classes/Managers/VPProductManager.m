@@ -54,8 +54,7 @@ static NSString *kApiUser  = @"techverx";
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (self.delegate) {
-            NSString *message = [self extractMessageFromTask:task andError:error];
-            [self.delegate productManager:self didFailToFetchFeaturedProducts:message];
+            [self.delegate productManager:self didFailToFetchFeaturedProducts:error.localizedDescription];
         }
     }];
     
@@ -77,8 +76,7 @@ static NSString *kApiUser  = @"techverx";
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (self.delegate) {
-            NSString *message = [self extractMessageFromTask:task andError:error];
-            [self.delegate productManager:self didFailToFetchRecommendedProducts:message];
+            [self.delegate productManager:self didFailToFetchRecommendedProducts:error.localizedDescription];
         }
     }];
     
@@ -101,8 +99,7 @@ static NSString *kApiUser  = @"techverx";
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (self.delegate) {
-            NSString *message = [self extractMessageFromTask:task andError:error];
-             [self.delegate productManager:self didFailToFetchProductDetails:message];
+             [self.delegate productManager:self didFailToFetchProductDetails:error.localizedDescription];
         }
        
     }];
@@ -127,8 +124,7 @@ static NSString *kApiUser  = @"techverx";
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (self.delegate) {
-            NSString *message = [self extractMessageFromTask:task andError:error];
-            [self.delegate productManager:self didFailToFetchProductReviews:message];
+            [self.delegate productManager:self didFailToFetchProductReviews:error.localizedDescription];
         }
     }];
     
@@ -206,8 +202,7 @@ static NSString *kApiUser  = @"techverx";
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
         if (self.delegate) {
-            NSString *message = [self extractMessageFromTask:task andError:error];
-            [self.delegate productManager:self didFailToFetchProductsFromCategoryId:message];
+            [self.delegate productManager:self didFailToFetchProductsFromCategoryId:error.localizedDescription];
 
         }
     }];
@@ -228,10 +223,8 @@ static NSString *kApiUser  = @"techverx";
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
-        
         if (self.delegate) {
-            NSString *message = [self extractMessageFromTask:task andError:error];
-            [self.delegate productManager:self didFailToAddToFavourites:message];
+            [self.delegate productManager:self didFailToAddToFavourites:error.localizedDescription];
         }
     }];
 }

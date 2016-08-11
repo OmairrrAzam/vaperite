@@ -18,27 +18,30 @@ static NSString *kApiUser  = @"techverx";
     
     [manager POST:@"authenticate" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         if (self.delegate) {
+            NSString *status  = [responseObject objectForKey:@"success"];
+            
+            if ([status boolValue] == 1){
                 NSDictionary *dictUser = [responseObject objectForKey:@"data"];
                 VPUsersModel *user = [[VPUsersModel alloc] initWithDictionary:dictUser];
                 [self.delegate userManager:self didAuthenticateWithUser:user ];
+                
+            }else{
+                NSString *msg = [responseObject objectForKey:@"data"];
+                [self.delegate userManager:self didFailToAuthenticateWithMessage:msg];
+            }
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
 
         if (self.delegate) {
-            NSString *message = [self extractMessageFromTask:task andError:error];
-            [self.delegate userManager:self didFailToAuthenticateWithMessage:message];
+            [self.delegate userManager:self didFailToAuthenticateWithMessage:error.localizedDescription];
         }
     }];
 }
-
-
 
 - (void)getCartFromSession:(NSString*)sessionId andCartid:(NSString*)cartId{
     
     NSURLSession *session = [NSURLSession sharedSession];
     
-    
-    //NSString *path = @"customapi/index/getAwardedProducts/";
     NSURL *url = [NSURL URLWithString:@"https://ec2-54-208-24-225.compute-1.amazonaws.com/customapi/index/getCart"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
@@ -63,40 +66,38 @@ static NSString *kApiUser  = @"techverx";
     
 }
 
-- (void)createUserFromStoreId:(NSString*)storeId session:(NSString*)sessionId email:(NSString*)email password:(NSString*)password firstname:(NSString*)fname lastname:(NSString*)lname{
+- (void)createUserFromStoreId:(NSString*)storeId password:(NSString*)password user:(VPUsersModel*)u{
     
-    NSURLSession *session = [NSURLSession sharedSession];
+    NSDictionary *params = @{@"email": u.email, @"password": password, @"apikey": @"techverx", @"apiuser":@"techverx", @"storeid":storeId, @"fn": u.firstName, @"ln": u.lastName};
     
+    VPSessionManager *manager = [VPSessionManager sharedManager];
     
-    //NSString *path = @"customapi/index/getAwardedProducts/";
-    NSURL *url = [NSURL URLWithString:@"https://ec2-54-208-24-225.compute-1.amazonaws.com/customapi/index/createCustomer"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"POST"];
-    NSString *params = [NSString stringWithFormat:@"storeid=%@&session=%@&email=%@&password=%@&fn%@&ln%@",storeId,sessionId, email,password,fname,lname ];
-    
-    
-    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    
-    [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    [manager POST:@"createCustomer" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (self.delegate) {
+            
+            NSString *status  = [responseObject objectForKey:@"success"];
+            
+            if ([status boolValue] == 1){
+                [self.delegate userManager:self didCreateUser:u];
+            }else{
+                NSString *msg = [responseObject objectForKey:@"data"];
+                [self.delegate userManager:self didFailToCreateUser:msg];
+            }
+
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
-        NSString *strResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", strResponse);
+        if (self.delegate) {
+            NSString *message = [self extractMessageFromTask:task andError:error];
+            [self.delegate userManager:self didFailToCreateUser:message];
+        }
         
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:[strResponse dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
-        
-        VPUsersModel *user = [[VPUsersModel alloc]initWithDictionary:dict];
-        [self.delegate userManager:self didCreateUser:user];
-        
-    }] resume];
-    
+    }];
 }
 
 - (void)getCustomerInfoFromCustomerId:(NSString*)customerId andSession:(NSString*)sessionId{
     NSURLSession *session = [NSURLSession sharedSession];
     
-    
-    //NSString *path = @"customapi/index/getAwardedProducts/";
     NSURL *url = [NSURL URLWithString:@"https://ec2-54-208-24-225.compute-1.amazonaws.com/customapi/index/getCustomerInfo"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
@@ -104,7 +105,6 @@ static NSString *kApiUser  = @"techverx";
     
     
     [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
-    
     
     [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -138,13 +138,11 @@ static NSString *kApiUser  = @"techverx";
                 [self.delegate userManager:self didFailToFetchAddress:msg];
             }
           
-            
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
         if (self.delegate) {
-            NSString *message = [self extractMessageFromTask:task andError:error];
-            [self.delegate userManager:self didFailToFetchAddress:message];
+            [self.delegate userManager:self didFailToFetchAddress:error.localizedDescription];
         }
     }];
 
@@ -158,14 +156,23 @@ static NSString *kApiUser  = @"techverx";
     
     [manager POST:@"addCustomerAddress" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         if (self.delegate) {
-            NSString *addressStr = [responseObject objectForKey:@"data"];
             
-            [self.delegate userManager:self didUpdateAddress:addressStr];
+            NSString  *status  = [responseObject objectForKey:@"success"];
+            
+            if ([status boolValue] == 1){
+                NSDictionary *address = [responseObject objectForKey:@"data"];
+                VPUsersModel *user    = [[VPUsersModel alloc]initWithDictionary:address];
+                
+                [self.delegate userManager:self didUpdateAddress:user];
+            }else{
+                NSString *msg = [responseObject objectForKey:@"data"];
+                [self.delegate userManager:self didFailToFetchAddress:msg];
+            }
+            
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (self.delegate) {
-            NSString *message = [self extractMessageFromTask:task andError:error];
-            [self.delegate userManager:self didFailToUpdateAddress:message];
+            [self.delegate userManager:self didFailToUpdateAddress:error.localizedDescription];
         }
     }];
     
@@ -182,6 +189,7 @@ static NSString *kApiUser  = @"techverx";
         if (self.delegate) {
              NSString *msg = [responseObject objectForKey:@"data"];
              NSString *status = [responseObject objectForKey:@"status"];
+            
             if ([status boolValue] == 1){
                 [self.delegate userManager:self didUpdatePassword:msg];
             }else{
@@ -190,8 +198,7 @@ static NSString *kApiUser  = @"techverx";
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         if (self.delegate) {
-            NSString *message = [self extractMessageFromTask:task andError:error];
-            [self.delegate userManager:self didFailToUpdatePassword:message];
+            [self.delegate userManager:self didFailToUpdatePassword:error.localizedDescription];
         }
     }];
     
@@ -199,9 +206,8 @@ static NSString *kApiUser  = @"techverx";
 
 - (void)addReviewFromSession:(NSString*)sessionId storeId:(NSString*)storeId productId:(NSString*)productId customerId:(NSString*)customerId title:(NSString*)title detail:(NSString*)detail nickName:(NSString*)nickName{
     
-     NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSession *session = [NSURLSession sharedSession];
     
-    //NSString *path = @"customapi/index/getAwardedProducts/";
     NSURL *url = [NSURL URLWithString:@"https://ec2-54-208-24-225.compute-1.amazonaws.com/customapi/index/addReview"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];

@@ -20,6 +20,7 @@
 + (void)clearCurrentCart;
 - (BOOL) productPresentInCart:(VPProductModel*)product;
 - (BOOL) updateProductInCart:(VPProductModel*)product;
+- (BOOL) addProductInCart:(VPProductModel*)selectedProduct;
 - (void) updateCalculations;
 - (void)save;
 

@@ -13,6 +13,7 @@
 #import "VPCategoriesVC.h"
 #import "VPBaseNavigationController.h"
 #import "VPUsersModel.h"
+#import "VPBaseUIButton.h"
 
 @interface VPSliderMenuVC () <UITableViewDataSource, UITableViewDelegate, VPCategoryManagerDelegate>
 @property (strong,nonatomic) NSArray *menuItems;
@@ -20,7 +21,8 @@
 @property (nonatomic, strong) NSMutableArray *visibleRowsPerSection;
 @property (nonatomic, strong) VPCategoryManager *categoryManager;
 
-
+@property (weak, nonatomic) IBOutlet VPBaseUIButton *btnLogout;
+- (IBAction)btnLogout_Pressed:(id)sender;
 
 @end
 
@@ -32,8 +34,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
+    if (!self.loggedInUser) {
+        self.btnLogout.hidden = YES;
+    }else{
+        self.btnLogout.hidden = NO;
+    }
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -44,7 +49,14 @@
     [super viewDidAppear:animated];
     [self stopAnimating];
     [self loadCellDescriptors];
+    
+    if (!self.loggedInUser) {
+        self.btnLogout.hidden = YES;
+    }else{
+        self.btnLogout.hidden = NO;
+    }
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -204,6 +216,10 @@
     [self.categoryManager loadCategoriesWithSessionId:self.sessionId];
 }
 
-
-
+- (IBAction)btnLogout_Pressed:(id)sender {
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    [self startAnimatingWithSuccessMsg:@"You Have Successfully Logged Out"];
+    [self changeViewThroughSlider:@"Main"];
+}
 @end
