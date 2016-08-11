@@ -55,12 +55,11 @@
 
 #pragma mark - VPUSerManagerDelegate Methods
 
-
-
 - (void)userManager:(VPUserManager *)userManager didUpdatePassword:(NSString *)response{
     
     [self startAnimatingWithSuccessMsg:response];
 }
+
 - (void)userManager:(VPUserManager *)userManager didFailToUpdatePassword:(NSString *)message{
     [self stopAnimating];
     [self startAnimatingWithErrorMsg:message];
