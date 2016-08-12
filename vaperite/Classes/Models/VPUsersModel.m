@@ -52,6 +52,10 @@
     self.postalcode  = [dictUser objectForKeyHandlingNull:@"postcode"];
     self.street      = [dictUser objectForKeyHandlingNull:@"street"];
     self.state       = [dictUser objectForKeyHandlingNull:@"state"];
+    
+    if (!self.firstName) {
+        self.firstName = @"";
+    }
     return self;
 }
 

@@ -21,6 +21,10 @@
 @property (nonatomic, strong) NSMutableArray *visibleRowsPerSection;
 @property (nonatomic, strong) VPCategoryManager *categoryManager;
 
+@property (weak, nonatomic) IBOutlet UILabel *lblUserName;
+@property (weak, nonatomic) IBOutlet UIImageView *ivUserDp;
+
+
 @property (weak, nonatomic) IBOutlet VPBaseUIButton *btnLogout;
 - (IBAction)btnLogout_Pressed:(id)sender;
 
@@ -52,7 +56,9 @@
     
     if (!self.loggedInUser) {
         self.btnLogout.hidden = YES;
+        self.lblUserName.text = @"";
     }else{
+        self.lblUserName.text = self.loggedInUser.firstName;
         self.btnLogout.hidden = NO;
     }
 }
