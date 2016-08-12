@@ -32,20 +32,24 @@
 @interface VPDashboardVc ()< VPUserManagerDelegate,UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, VPProductManagerDelegate,VPCategoryManagerDelegate>
 
 
-@property (strong, nonatomic) VPUserManager *userManager;
-@property (weak, nonatomic) UIViewController *currentViewController;
+
+
 @property (strong, nonatomic) VPProductModel *selectedProduct;
-@property (strong, nonatomic) NSArray *products;
-@property (strong, nonatomic) NSArray *allCategories;
-@property (strong, nonatomic) VPProductManager *productManager;
-@property (strong, nonatomic) VPCategoryManager *categoryManager;
+
+@property (strong, nonatomic) NSArray  *products;
+@property (strong, nonatomic) NSArray  *allCategories;
 @property (strong, nonatomic) NSString *selectedTab;
 
+@property (strong, nonatomic) VPProductManager  *productManager;
+@property (strong, nonatomic) VPCategoryManager *categoryManager;
+@property (strong, nonatomic) VPUserManager     *userManager;
+
 @property (weak, nonatomic) IBOutlet VPCollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet VPBaseUIButton *btnFeatured;
-@property (weak, nonatomic) IBOutlet VPBaseUIButton *btnRecommended;
-@property (weak, nonatomic) IBOutlet VPBaseUIButton *btnAward;
+@property (weak, nonatomic) IBOutlet UITableView      *tableView;
+@property (weak, nonatomic) IBOutlet VPBaseUIButton   *btnFeatured;
+@property (weak, nonatomic) IBOutlet VPBaseUIButton   *btnRecommended;
+@property (weak, nonatomic) IBOutlet VPBaseUIButton   *btnAward;
+
 @property (nonatomic, strong) IBOutlet UICollectionViewFlowLayout *flowLayout;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (nonatomic) BOOL productPresentInCart;
@@ -69,7 +73,7 @@
     
     self.selectedTab = @"featured";
     self.productType = @"featured";
-    [self configureCollectionView];
+    //[self configureCollectionView];
     
     if (!self.categoryManager) {
         self.categoryManager = [[VPCategoryManager alloc]init];
@@ -121,13 +125,13 @@
     self.flowLayout = [[UICollectionViewFlowLayout alloc] init];
     
     [self.flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    [self.collectionView setCollectionViewLayout:self.flowLayout];
+    //[self.collectionView setCollectionViewLayout:self.flowLayout];
     self.collectionView.bounces = YES;
     [self.collectionView setShowsHorizontalScrollIndicator:NO];
     [self.collectionView setShowsVerticalScrollIndicator:YES];
     self.collectionView.layer.borderWidth = 1;
     self.collectionView.layer.borderColor = [UIColor colorWithRed:203 green:226 blue:221 alpha:1].CGColor;
-    self.collectionView.contentSize = CGSizeMake(self.collectionView.contentSize.width, 1000);
+    self.collectionView.contentSize       = CGSizeMake(self.collectionView.contentSize.width, 1000);
 }
 
 
@@ -308,8 +312,9 @@
     }
     else if (indexPath.row == 2){
         if ([self.selectedTab isEqualToString:@"featured"] || [self.selectedTab isEqualToString:@"recommended"]) {
-             UICollectionView *productCollectionView=(UICollectionView *)[cell viewWithTag:10];
-            [productCollectionView reloadData];
+            self.collectionView = (VPCollectionView *)[cell viewWithTag:10];
+            [self configureCollectionView];
+            [self.collectionView reloadData];
         }
     }
     
@@ -324,17 +329,27 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    
-    return [self.products count];
+    //added extra two cells
+    //because collection view was hiding two cells at bottom
+    return [self.products count]+2 ;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *identifier = @"Cell";
-    
-    VPProductModel *currentProduct = [self.products objectAtIndex:indexPath.row];
+    static NSString *seperatorIdentifier = @"bottom_seperator";
     
     VPProductCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    //[cell.contentView.superview setClipsToBounds:NO];
+
+    // this if is because collection view hides bottom two products
+    // I added extra two cells
+    if (indexPath.row >= [self.products count]) {
+        
+        VPProductCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:seperatorIdentifier forIndexPath:indexPath];
+        return cell;
+    }
+    VPProductModel *currentProduct = [self.products objectAtIndex:indexPath.row];
+    [cell.contentView.superview setClipsToBounds:NO];
     
     cell.name.text  = currentProduct.name;
     cell.price.text = [NSString stringWithFormat:@"%@", currentProduct.price];
@@ -406,7 +421,7 @@
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 20.0;
+    return 40.0;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
