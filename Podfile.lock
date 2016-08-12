@@ -23,6 +23,9 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - CHTCollectionViewWaterfallLayout (0.9.4):
+    - CHTCollectionViewWaterfallLayout/ObjC (= 0.9.4)
+  - CHTCollectionViewWaterfallLayout/ObjC (0.9.4)
   - ECSlidingViewController (2.0.3)
   - GoogleMaps (1.13.2)
   - KVNProgress (2.3)
@@ -32,6 +35,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworkActivityLogger
   - AFNetworking
+  - CHTCollectionViewWaterfallLayout
   - ECSlidingViewController (~> 2.0.3)
   - GoogleMaps
   - KVNProgress
@@ -41,6 +45,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworkActivityLogger: 121486778117d53b3ab1c61d264b88081d0c3eee
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  CHTCollectionViewWaterfallLayout: db74be9135826d285f45ff163fd090e57c99fc50
   ECSlidingViewController: 6485c14f23b4487e9946535421ca8f111f86cc53
   GoogleMaps: b20a103ff307f58392e603cf142e59d7e30374c1
   KVNProgress: d0459bfa4dca0379cdba5c038326ea34e9fc2df9

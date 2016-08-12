@@ -20,16 +20,16 @@
 
 @property (strong, nonatomic) VPProductModel *selectedProduct;
 @property (strong, nonatomic) NSArray *products;
-
+@property (strong, nonatomic) VPProductManager *productManager;
+@property (weak, nonatomic)   IBOutlet UITableView *tableView;
+@property (weak, nonatomic)   IBOutlet UIView *ivContainer;
 
 - (IBAction)btnAddFav:(id)sender;
 - (IBAction)btnAddCart:(id)sender;
+- (IBAction)btnBack_Pressed:(id)sender;
 
-@property (strong, nonatomic) VPCartModel *userCart;
-@property (strong, nonatomic) VPFavoriteModel *userFav;
-@property (strong, nonatomic) VPProductManager *productManager;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIView *ivContainer;
+
+
 
 @end
 
@@ -78,25 +78,6 @@ NSMutableArray *productPrices;
     return 1;
 }
 
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    return 3;
-//}
-
-//- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 0)];
-//    [headerView setBackgroundColor:[UIColor clearColor]];
-//    
-//    return headerView;
-//}
-//
-//- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-//{
-//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 0)];
-//    [headerView setBackgroundColor:[UIColor clearColor]];
-//    
-//    return headerView;
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -162,71 +143,40 @@ NSMutableArray *productPrices;
     NSIndexPath *indexPath          = [self.tableView indexPathForRowAtPoint:buttonPosition];
     VPProductModel *selectedProduct = [self.products objectAtIndex:indexPath.section];
    
-    if(self.loggedInUser){
-        BOOL productPresentInFav = [self.userFav productPresentInFav:selectedProduct];
-        
-        if(productPresentInFav){
-            
-            [self startAnimatingWithSuccessMsg:@"Already Present in Favorites"];
-        }else{
-            
-            [self.userFav.products addObject:selectedProduct];
-            
-            [self.userFav save];
-            
-            [self startAnimatingWithSuccessMsg:@"Added To Favorites"];
-        }
-        //userCart.products =
-        
-        [self.tableView reloadData];
-        
-    }else{
-        UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
-        loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:loginNavigator animated:YES completion:nil];
-    }
-
+    [self addToFavorites:selectedProduct];
+    [self.tableView reloadData];
 }
 
 - (IBAction)btnAddCart:(id)sender {
     
-    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    CGPoint buttonPosition  = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath  = [self.tableView indexPathForRowAtPoint:buttonPosition];
     VPProductModel *product = [self.products objectAtIndex:indexPath.section];
-    product.cartQty = 1;
-    
-    if(self.loggedInUser){
-        BOOL productPresentInCart = [self.userCart productPresentInCart:product];
-        if(productPresentInCart){
-            [self.userCart updateProductInCart:product];
-            [self startAnimatingWithSuccessMsg:@"Cart Updated"];
-        }else{
-            [self.userCart.products addObject:product];
-            [self.userCart save];
-            [self startAnimatingWithSuccessMsg:@"Added To Cart"];
-        }
-        //userCart.products =
-        [self.tableView reloadData];
-        
-    }else{
-        UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
-        loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:loginNavigator animated:YES completion:nil];
-    }
+    [self addToCart:product];
+    [self.tableView reloadData];
 }
 
-
+- (IBAction)btnBack_Pressed:(id)sender {
+    [[self navigationController] popViewControllerAnimated:YES];
+}
 
 
 #pragma mark - VPProductManager Delegate
 - (void)productManager:(VPProductManager *)manager didFetchProductsFromCategoryId:(NSArray *)products{
     [self stopAnimating];
     self.products = products;
+    
+    if ([self.products count] == 0) {
+        [self startAnimatingWithCustomMsg:@"No Products Found"];
+    }
+    
     [self.tableView reloadData];
     
 }
+
 - (void)productManager:(VPProductManager *)manager didFailToFetchProductsFromCategoryId:(NSString *)message{
-    
+    [self startAnimatingWithErrorMsg:message];
 }
+
 
 @end

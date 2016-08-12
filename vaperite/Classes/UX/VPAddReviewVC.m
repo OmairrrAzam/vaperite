@@ -13,11 +13,11 @@
 
 @interface VPAddReviewVC ()<UITextViewDelegate, UITextFieldDelegate, VPReviewManagerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIView *ratingView;
+@property (weak, nonatomic) IBOutlet UIView      *ratingView;
 @property (weak, nonatomic) IBOutlet UITextField *tfName;
 @property (weak, nonatomic) IBOutlet UITextField *tfSubject;
-@property (weak, nonatomic) IBOutlet UITextView *tvReview;
-@property (weak, nonatomic) IBOutlet UILabel *lblRating;
+@property (weak, nonatomic) IBOutlet UITextView  *tvReview;
+@property (weak, nonatomic) IBOutlet UILabel     *lblRating;
 
 @property (weak, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *containerView;
 

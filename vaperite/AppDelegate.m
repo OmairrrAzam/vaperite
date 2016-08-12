@@ -42,12 +42,7 @@
     
     // oauth initialization
     
-    [[NXOAuth2AccountStore sharedStore] setClientID:@"6e1d10e6193b08ecd310c227d7b158c3"
-                                             secret:@"1e8b98d07d01ded22a3062d5f5aca59e"
-                                   authorizationURL:[NSURL URLWithString:@"www.vaperite.com/oauth/authorize"]
-                                           tokenURL:[NSURL URLWithString:@"www.vaperite.com/oauth/token"]
-                                        redirectURL:[NSURL URLWithString:@"myapp://callback"]
-                                     forAccountType:@"Magento"];
+    
     
     
     [[AFNetworkActivityLogger sharedLogger] setLevel:AFLoggerLevelInfo];

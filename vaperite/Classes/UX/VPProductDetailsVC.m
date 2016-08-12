@@ -74,7 +74,6 @@
 #pragma mark - Private Method
 
 
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -123,8 +122,6 @@
     
     self.productPresentInCart = [self.userCart productPresentInCart:self.product];
     
-    
-    
     static NSString *cellIdentifier;
     if (indexPath.section == 0) {
         cellIdentifier = @"PRODUCT_DETAIL_HEADER";
@@ -157,8 +154,6 @@
          self.btnStar5 = (UIButton *)[cell.contentView viewWithTag:55];
         
          self.product.rating = @"3";
-        
-        
         
         int value = [self.product.rating intValue];
         int ratingValue = 100/value;
@@ -242,10 +237,6 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-   
-}
-
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -268,8 +259,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     
     UIView *tempView;
-    
-    if(section == 3){
+        if(section == 3){
         tempView = [[UIView alloc]initWithFrame:CGRectMake(0,200,300,244)];
         tempView.backgroundColor=[UIColor colorWithRed:203/255.0 green:227/255.0 blue:222/255.0 alpha:1];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -279,14 +269,43 @@
         UIImage *newImage = [UIImage imageNamed:@"plus18-button.png"];
         [button setBackgroundImage:newImage forState:UIControlStateNormal];
         
-        button.frame = CGRectMake(13.0, 10.0, 290.0, 36.0);
-        [tempView addSubview:button];
+        button.frame = CGRectMake(13.0, 10.0, 300, 36.0);
+            
+            button.translatesAutoresizingMaskIntoConstraints = NO;
+           
+            NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:button
+                                                                            attribute:NSLayoutAttributeTop
+                                                                            relatedBy:NSLayoutRelationEqual
+                                                                               toItem:tempView
+                                                                            attribute:NSLayoutAttributeTop
+                                                                           multiplier:1.0
+                                                                             constant:10];
+            NSLayoutConstraint *leadConstraint = [NSLayoutConstraint constraintWithItem:button
+                                                                             attribute:NSLayoutAttributeLeading
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:tempView
+                                                                             attribute:NSLayoutAttributeLeading
+                                                                            multiplier:1.0
+                                                                              constant:10];
+            NSLayoutConstraint *trailConstraint = [NSLayoutConstraint constraintWithItem:button
+                                                                             attribute:NSLayoutAttributeTrailing
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:tempView
+                                                                             attribute:NSLayoutAttributeTrailing
+                                                                            multiplier:1.0
+                                                                              constant:-10];
+           
+            [tempView addSubview:button];
+            [tempView addConstraint:topConstraint];
+            [tempView addConstraint:leadConstraint];
+            [tempView addConstraint:trailConstraint];
     }
     
     return tempView;
 }
 
 #pragma  mark - IBActions
+
 - (IBAction)btnOptions:(id)sender {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Categories" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     
@@ -326,11 +345,6 @@
     [self.tableView reloadData];
 }
 
-- (IBAction)btn1star_pressed:(id)sender {
-    
-}
-
-
 - (IBAction)addReview:(id)sender{
     if(self.loggedInUser){
      [self performSegueWithIdentifier:@"add_review_segue" sender:self];
@@ -344,17 +358,6 @@
     [[self navigationController] popViewControllerAnimated:YES];
 }
 
-- (IBAction)btn2star_pressed:(id)sender {
-}
-
-- (IBAction)btn3star_pressed:(id)sender {
-}
-
-- (IBAction)btn4star_pressed:(id)sender {
-}
-
-- (IBAction)btn5star_pressed:(id)sender {
-}
 
 - (IBAction)addToCart_pressed:(id)sender {
     [self addToCart:self.product];

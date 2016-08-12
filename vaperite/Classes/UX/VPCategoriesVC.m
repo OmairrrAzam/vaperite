@@ -83,16 +83,25 @@ NSMutableArray *categoriesImgArray;
     return cell;
 }
 
-#pragma mark - VPCategoryDelegate Methods
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.selectedCategory = [self.allSubCategories objectAtIndex:indexPath.section];
     [self performSegueWithIdentifier:@"categoryProductView" sender:self];
 }
 
+#pragma mark - VPCategoryDelegate Methods
+
+
 - (void)categoryManager:(VPCategoryManager *)categoryManager didLoadCategoriesFromParentId:(NSArray *)categories{
     self.allSubCategories = categories;
-    [self stopAnimating];
+    int count = (int)[self.allSubCategories count];
+    
+    if ( count == 0) {
+        [self startAnimatingWithErrorMsg:@"No Subcategories found."];
+    }else{
+        [self stopAnimating];
+    }
+    
+    //[self stopAnimating];
     [self.tableview reloadData];
     
 }
