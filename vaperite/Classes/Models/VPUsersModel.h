@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class VPCartModel;
+@class VPRegionModel;
 
 @interface VPUsersModel : NSObject <NSCoding>
 
@@ -22,6 +23,9 @@
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
 @property (strong, nonatomic) NSString *postalcode;
+@property (strong, nonatomic) VPRegionModel *region;
+
+
 @property (strong, nonatomic) VPCartModel *cart;
 
 

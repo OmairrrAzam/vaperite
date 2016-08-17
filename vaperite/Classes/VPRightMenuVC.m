@@ -11,8 +11,11 @@
 #import "VPCartModel.h"
 #import "VPProductModel.h"
 #import "UIImageView+AFNetworking.h"
+#import "VPUserManager.h"
+#import "VPRegionModel.h"
+#import "VPBaseNavigationController.h"
 
-@interface VPRightMenuVC ()<UITableViewDataSource, UITableViewDelegate>
+@interface VPRightMenuVC ()<UITableViewDataSource, UITableViewDelegate, VPUserManagerDelegate>
 
 @property (strong, nonatomic)  NSMutableArray *products;
 @property (weak, nonatomic) IBOutlet UIButton *btnCheckout;
@@ -21,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *lblCartSubTotal;
 @property (weak, nonatomic) IBOutlet UILabel *lblCartItem;
+@property (strong, nonatomic)  VPUserManager *userManager;
 
 
 - (IBAction)btnDismiss:(id)sender;
@@ -183,6 +187,33 @@
 }
 
 - (IBAction)btnCheckout_pressed:(id)sender {
+    if (!self.loggedInUser) {
+        [self showLoginPage];
+        return;
+    }
+    
+    if ([self.userCart.products count] <= 0) {
+        [self startAnimatingWithErrorMsg:@"Add Items to cart"];
+        return;
+    }
+    
+    [self startAnimating];
+    
+    if (!self.loggedInUser.street || !self.loggedInUser.firstName || !self.loggedInUser.lastName || !self.loggedInUser.city ||!self.loggedInUser.postalcode || !self.loggedInUser.region.regionId) {
+        
+        [self startAnimatingWithErrorMsg:@"Complete Basic information first"];
+        [self dismissMe];
+        [self changeViewThroughSlider:@"myProfile"];
+        
+        return;
+    }
+    
+    if (!self.userManager) {
+        self.userManager = [[VPUserManager alloc]init];
+        self.userManager.delegate = self;
+    }
+    
+    [self.userManager createOrder:self.loggedInUser andProducts:self.userCart.products];
 }
 
 - (IBAction)btnMoreShopping_pressed:(id)sender {
@@ -214,6 +245,20 @@
     [self dismissMe];
     [self changeViewThroughSlider:@"Dashboard"];
 }
+
+#pragma mark - VPUserManagerDelegateMethods
+
+
+- (void)userManager:(VPUserManager *)userManager didCreateOrder:(NSString *)response{
+    [self startAnimatingWithSuccessMsg:response];
+    [VPCartModel clearCurrentCart];
+    [self dismissMe];
+}
+
+- (void)userManager:(VPUserManager *)userManager didFailToCreateOrder:(NSString *)message{
+    [self startAnimatingWithErrorMsg:message];
+}
+
 
 
 @end

@@ -23,13 +23,11 @@
 @property (strong, nonatomic) VPProductManager *productManager;
 @property (weak, nonatomic)   IBOutlet UITableView *tableView;
 @property (weak, nonatomic)   IBOutlet UIView *ivContainer;
+@property (weak, nonatomic) IBOutlet UIButton *btnBack;
 
 - (IBAction)btnAddFav:(id)sender;
 - (IBAction)btnAddCart:(id)sender;
 - (IBAction)btnBack_Pressed:(id)sender;
-
-
-
 
 @end
 
@@ -41,9 +39,7 @@ NSMutableArray *productPrices;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    productNames  = [[NSMutableArray alloc]initWithObjects:@"Product1",@"product2", nil];
-    productImages = [[NSMutableArray alloc]initWithObjects:@"vaperite_atlanta",@"vaperite_atlanta", nil];
-    productPrices = [[NSMutableArray alloc]initWithObjects:@"$100",@"$200", nil];
+  
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
@@ -58,10 +54,21 @@ NSMutableArray *productPrices;
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self.productManager fetchProductsFromCategoryId:self.categoryId];
-    self.userCart = [VPCartModel currentCart];
-    self.userFav  = [VPFavoriteModel currentFav];
-    [self startAnimating];
+    if (self.favoritesShow) {
+        self.products = self.userFav.products;
+        
+        if ([self.products count] == 0) {
+            [self startAnimatingWithErrorMsg:@"No products present in favorites"];
+        }
+         self.btnBack.hidden = TRUE;
+        [self.tableView reloadData];
+    }else{
+        self.btnBack.hidden = FALSE;
+        [self.productManager fetchProductsFromCategoryId:self.categoryId];
+        self.userCart = [VPCartModel currentCart];
+        self.userFav  = [VPFavoriteModel currentFav];
+        [self startAnimating];
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -144,16 +151,20 @@ NSMutableArray *productPrices;
     VPProductModel *selectedProduct = [self.products objectAtIndex:indexPath.section];
    
     [self addToFavorites:selectedProduct];
+    
+    if (self.favoritesShow) {
+        self.products = self.userFav.products;
+    }
     [self.tableView reloadData];
 }
 
 - (IBAction)btnAddCart:(id)sender {
-    
     CGPoint buttonPosition  = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath  = [self.tableView indexPathForRowAtPoint:buttonPosition];
-    VPProductModel *product = [self.products objectAtIndex:indexPath.section];
-    [self addToCart:product];
-    [self.tableView reloadData];
+    self.selectedProduct    = [self.products objectAtIndex:indexPath.section];
+    //fetch details
+    [self startAnimating];
+    [self.productManager fetchProductDetailsWithProductId:self.selectedProduct.id andStoreId:self.currentStore.id];
 }
 
 - (IBAction)btnBack_Pressed:(id)sender {
@@ -167,9 +178,8 @@ NSMutableArray *productPrices;
     self.products = products;
     
     if ([self.products count] == 0) {
-        [self startAnimatingWithCustomMsg:@"No Products Found"];
+        [self startAnimatingWithErrorMsg:@"No Products Found"];
     }
-    
     [self.tableView reloadData];
     
 }
@@ -178,5 +188,18 @@ NSMutableArray *productPrices;
     [self startAnimatingWithErrorMsg:message];
 }
 
+
+- (void)productManager:(VPProductManager *)manager didFetchProductDetails:(VPProductModel *)product{
+    self.selectedProduct = product;
+    self.selectedProduct.cartQty = 1;
+    [self stopAnimating];
+    [self addToCart:self.selectedProduct];
+    [self.tableView reloadData];
+}
+
+- (void)productManager:(VPProductManager *)manager didFailToFetchProductDetails:(NSString *)message{
+    [self startAnimatingWithErrorMsg:message];
+    [self.productManager fetchProductDetailsWithProductId:self.selectedProduct.id andStoreId:self.currentStore.id];
+}
 
 @end

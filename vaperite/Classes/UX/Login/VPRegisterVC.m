@@ -114,7 +114,8 @@
 
 - (void)userManager:(VPUserManager *)userManager didCreateUser:(VPUsersModel *)user{
     [self stopAnimating];
-    [self startAnimatingWithSuccessMsg:@"Loggin You In"];
+    
+    [self startAnimatingWithSuccessMsg:@"Logging You In"];
     [self.userManager authenticateWithEmail:user.email password:self.password pushToken:nil];
     
 }
@@ -128,7 +129,7 @@
     
     self.loggedInUser = user;
     [user save];
-    
+    [self refreshUser];
     if(self.loggedInUser){
         [self dismissViewControllerAnimated:YES completion:nil];
         [self changeViewThroughSlider:@"Dashboard"];

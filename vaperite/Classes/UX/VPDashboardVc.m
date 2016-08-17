@@ -32,8 +32,6 @@
 @interface VPDashboardVc ()< VPUserManagerDelegate,UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, VPProductManagerDelegate,VPCategoryManagerDelegate>
 
 
-
-
 @property (strong, nonatomic) VPProductModel *selectedProduct;
 
 @property (strong, nonatomic) NSArray  *products;
@@ -43,6 +41,7 @@
 @property (strong, nonatomic) VPProductManager  *productManager;
 @property (strong, nonatomic) VPCategoryManager *categoryManager;
 @property (strong, nonatomic) VPUserManager     *userManager;
+
 
 @property (weak, nonatomic) IBOutlet VPCollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UITableView      *tableView;
@@ -54,11 +53,11 @@
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (nonatomic) BOOL productPresentInCart;
 
-- (IBAction)btnLogin_Pressed:(VPBaseUIButton *)btnLogin;
-- (IBAction)btnRegister_Pressed:(VPBaseUIButton *)btnRegister;
-- (IBAction)btnFeatured_Pressed:(VPBaseUIButton *)btnFeatured;
+- (IBAction)btnLogin_Pressed      :(VPBaseUIButton *)btnLogin;
+- (IBAction)btnRegister_Pressed   :(VPBaseUIButton *)btnRegister;
+- (IBAction)btnFeatured_Pressed   :(VPBaseUIButton *)btnFeatured;
 - (IBAction)btnRecommended_Pressed:(VPBaseUIButton *)btnRecommended;
-- (IBAction)btnAward_Pressed:(VPBaseUIButton *)btnAward;
+- (IBAction)btnAward_Pressed      :(VPBaseUIButton *)btnAward;
 
 
 - (IBAction)btnAddToCart:(id)sender;
@@ -80,22 +79,19 @@
         self.categoryManager.delegate = self;
     }
     
+    if (!self.productManager) {
+        self.productManager = [[VPProductManager alloc]init];
+        self.productManager.delegate = self;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
     [self fetchProducts];
 }
 
 - (void)fetchProducts {
     [self startAnimating];
-    
-    
-    if (!self.productManager) {
-        self.productManager = [[VPProductManager alloc]init];
-        self.productManager.delegate = self;
-    }
     
     if ([self.productType isEqualToString:@"featured"]){
         [self.productManager fetchFeaturedProductsWithSessionId:self.sessionId];
@@ -107,15 +103,11 @@
         //if it is directed from there.
         [self.productManager fetchProductsFromCategoryId:self.productType ];
     }
-    
 }
 
 - (void)fetchRecommendedProducts {
     [self startAnimating];
-    if (!self.productManager) {
-        self.productManager = [[VPProductManager alloc]init];
-        self.productManager.delegate = self;
-    }
+   
     [self.productManager fetchFeaturedProductsWithSessionId:self.sessionId];
 }
 
@@ -219,14 +211,17 @@
 
 - (IBAction)btnAddToCart:(id)sender {
     VPBaseUIButton *btn = (VPBaseUIButton*)sender;
-    VPProductModel *selectedProduct = [self.products objectAtIndex:btn.index];
-    [self addToCart:selectedProduct];
-    [self.tableView reloadData];
+    self.selectedProduct = [self.products objectAtIndex:btn.index];
+    
+    [self startAnimating];
+    [self.productManager fetchProductDetailsWithProductId:self.selectedProduct.id andStoreId:self.currentStore.id];
+    
 }
 
 - (IBAction)btnAddToFav:(id)sender {
     VPBaseUIButton *btn = (VPBaseUIButton*)sender;
     VPProductModel *selectedProduct = [self.products objectAtIndex:btn.index];
+    
     [self addToFavorites:selectedProduct];
     [self.tableView reloadData];
     [self.collectionView reloadData];
@@ -454,7 +449,18 @@
     [self startAnimatingWithErrorMsg:message];
 }
 
+- (void)productManager:(VPProductManager *)manager didFetchProductDetails:(VPProductModel *)product{
+    self.selectedProduct = product;
+    self.selectedProduct.cartQty = 1;
+    [self stopAnimating];
+    [self addToCart:self.selectedProduct];
+    [self.tableView reloadData];
+}
 
+- (void)productManager:(VPProductManager *)manager didFailToFetchProductDetails:(NSString *)message{
+    [self startAnimatingWithErrorMsg:message];
+    [self.productManager fetchProductDetailsWithProductId:self.selectedProduct.id andStoreId:self.currentStore.id];
+}
 
 #pragma mark - VPCategoryManagerDelegate Methods
 

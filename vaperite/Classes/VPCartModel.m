@@ -56,7 +56,7 @@
 - (BOOL) productPresentInCart:(VPProductModel*)product{
     
     for (VPProductModel* p in self.products) {
-        if (p.id == product.id) {
+        if ([p.id isEqualToString:product.id]) {
             return true;
         }
     }
@@ -67,7 +67,7 @@
 - (BOOL) updateProductInCart:(VPProductModel*)product{
     
     for (VPProductModel* p in self.products) {
-        if (p.id == product.id) {
+        if ([p.id isEqualToString:product.id]) {
             if (product.cartQty <=0) {
                 product.cartQty = 1;
             }
@@ -80,7 +80,7 @@
 }
 
 - (BOOL) addProductInCart:(VPProductModel*)selectedProduct{
-    if (selectedProduct.cartQty <=0) {
+    if (selectedProduct.cartQty <= 0) {
         selectedProduct.cartQty = 1;
     }
     [self.products addObject:selectedProduct];
@@ -102,6 +102,17 @@
     }
 
     [self save];
+}
+
+- (VPProductModel*) getCartProduct:(NSString*)productId{
+    VPProductModel *foundProduct;
+    for (VPProductModel* p in self.products) {
+        if ([p.id isEqualToString:productId]) {
+            foundProduct = p;
+            
+        }
+    }
+    return foundProduct;
 }
 
 

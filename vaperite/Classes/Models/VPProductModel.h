@@ -14,16 +14,20 @@
 @property (strong, nonatomic) NSString *sku;
 @property (strong, nonatomic) NSString *set;
 @property (strong, nonatomic) NSString *type;
-@property (strong, nonatomic) NSArray *categoryIds;
-@property (strong, nonatomic) NSArray *websiteIds;
-@property (strong, nonatomic) NSArray *reviews;
+@property (strong, nonatomic) NSArray  *categoryIds;
+@property (strong, nonatomic) NSArray  *websiteIds;
+@property (strong, nonatomic) NSArray  *reviews;
+@property (strong, nonatomic) NSDictionary  *doses;
 @property (strong, nonatomic) NSString *desc;
 @property (strong, nonatomic) NSString *shortDescription;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *price;
 @property (strong, nonatomic) NSString *imgUrl;
 @property (strong, nonatomic) NSString *rating;
+@property (nonatomic) int cartStrength;
+@property (strong,nonatomic) NSString *cartStrengthValue;
 @property (nonatomic) int cartQty;
+@property (nonatomic) NSString *stockQty;
 
 
 + (NSArray *)loadFromArray:(NSArray *)arrProducts;

@@ -31,7 +31,6 @@
     
     [super viewDidLoad];
     
-    
     self.basicConfiguration = [KVNProgressConfiguration defaultConfiguration];
 
     self.customConfiguration = [self customKVNProgressUIConfiguration];
@@ -95,6 +94,38 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 
 #pragma mark - Private Methods
 
+- (void)showProductStrengthsWithTitle:(NSString*)title andProduct:(VPProductModel*)product andTargetButton:(UIButton*)btn{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    for (NSString *key in product.doses) {
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:[product.doses objectForKey:key]
+                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                                                                //self.selectedDose = key;
+                                                                product.cartStrength = [key intValue];
+                                                                product.cartStrengthValue = [product.doses objectForKey:key];
+                                                                if (btn) {
+                                                                    [btn  setTitle:[product.doses objectForKey:key] forState:UIControlStateNormal];
+                                                                }
+                                                                
+                                                              
+                                                                
+                                                            }]];
+        
+    }
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                        style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                            //[self startAnimating];
+                                                            
+                                                            
+                                                        }]];
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [self presentViewController:alertController animated:YES completion:nil];
+    });
+
+}
+
 - (void)refreshCartAndFav{
     self.userCart = [VPCartModel currentCart];
     self.userFav  = [VPFavoriteModel currentFav];
@@ -131,22 +162,24 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
         
         if(productPresentInFav){
             NSMutableArray *favProducts = self.userFav.products;
+            
             int count = 0;
             int foundIndex = -1;
             for (VPProductModel* favProduct in favProducts) {
-                if (favProduct.id == selectedProduct.id) {
+                if ([favProduct.id isEqualToString:favProduct.id]) {
                     foundIndex = count;
                 }
                 count++;
             }
-            if (foundIndex >= 0) {
+            
+            if ([self.userFav productPresentInFav:selectedProduct]) {
                 [favProducts removeObjectAtIndex:foundIndex];
                 self.userFav.products = favProducts;
                 [self.userFav save];
                 [self startAnimatingWithSuccessMsg:@"Item Removed from Favorites"];
                 
             }else{
-                [self startAnimatingWithSuccessMsg:@"Item Not Removed from Favorites"];
+                [self startAnimatingWithErrorMsg:@"Item Not Removed from Favorites"];
             }
             
             
@@ -171,6 +204,11 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 
 - (void) addToCart:(VPProductModel*)selectedProduct{
     if(self.loggedInUser){
+        if ([selectedProduct.stockQty intValue] <= 0) {
+            [self startAnimatingWithErrorMsg:@"Product out of stock"];
+            return;
+        }
+        
         
         if([self.userCart productPresentInCart:selectedProduct]){
             if ([self.userCart updateProductInCart:selectedProduct]){
@@ -179,11 +217,49 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
                 [self startAnimatingWithErrorMsg:@"Cart Not Updated"];
             }
         }else{
-            if ([self.userCart addProductInCart:selectedProduct]) {
-                [self updateNavBadge];
-                [self startAnimatingWithSuccessMsg:@"Added To Cart"];
+            
+            if (selectedProduct.doses && !selectedProduct.cartStrength) {
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Strength Options" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+                
+                for (NSString *key in selectedProduct.doses) {
+                    
+                    [alertController addAction:[UIAlertAction actionWithTitle:[selectedProduct.doses objectForKey:key]
+                                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                                                                            //self.selectedDose = key;
+                                                                            selectedProduct.cartStrength = [key intValue];
+                                                                            selectedProduct.cartStrengthValue = [selectedProduct.doses objectForKey:key];
+                                                                            
+                                                                            if ([self.userCart addProductInCart:selectedProduct]) {
+                                                                                [self updateNavBadge];
+                                                                                [self startAnimatingWithSuccessMsg:@"Added To Cart"];
+                                                                                [self refreshCartAndFav];
+                                                                            }else{
+                                                                                [self startAnimatingWithSuccessMsg:@"Not Added To Cart"];
+                                                                            }
+                                                                            
+                                                                            
+                                                                            
+                                                                        }]];
+                    
+                }
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                                    style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                        //[self startAnimating];
+                                                                        
+                                                                        
+                                                                    }]];
+                dispatch_async(dispatch_get_main_queue(), ^ {
+                    [self presentViewController:alertController animated:YES completion:nil];
+                });
             }else{
-                [self startAnimatingWithSuccessMsg:@"Not Added To Cart"];
+            
+                if ([self.userCart addProductInCart:selectedProduct]) {
+                    [self updateNavBadge];
+                    [self startAnimatingWithSuccessMsg:@"Added To Cart"];
+                }else{
+                    [self startAnimatingWithSuccessMsg:@"Not Added To Cart"];
+                }
             }
             
         }
@@ -211,14 +287,14 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
     // See the documentation of KVNProgressConfiguration
     configuration.statusColor = [UIColor blackColor];
     //configuration.statusFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:15.0f];
-    configuration.circleStrokeForegroundColor = [UIColor blueColor];
+    configuration.circleStrokeForegroundColor = [UIColor orangeColor];
     configuration.circleStrokeBackgroundColor = [UIColor colorWithWhite:1.0f alpha:0.3f];
     configuration.circleFillBackgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f];
-    configuration.backgroundFillColor = [UIColor colorWithRed:0.173f green:0.263f blue:0.856f alpha:0.9f];
+    configuration.backgroundFillColor = [UIColor colorWithRed:1.0f green:0.8f blue:0.4f alpha:0.5f];
     //configuration.backgroundTintColor = [UIColor colorWithRed:0.173f green:0.263f blue:0.856f alpha:0.4f];
-    configuration.successColor = [UIColor whiteColor];
-    configuration.errorColor = [UIColor whiteColor];
-    configuration.stopColor = [UIColor whiteColor];
+    configuration.successColor = [UIColor orangeColor];
+    configuration.errorColor = [UIColor orangeColor];
+    configuration.stopColor = [UIColor orangeColor];
     configuration.circleSize = 110.0f;
     configuration.lineWidth = 1.0f;
     configuration.showStop = YES;

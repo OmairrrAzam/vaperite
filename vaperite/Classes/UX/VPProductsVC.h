@@ -10,4 +10,5 @@
 
 @interface VPProductsVC : VPBaseVC
 @property (weak, nonatomic) NSString   *categoryId;
+@property (nonatomic) BOOL favoritesShow;
 @end

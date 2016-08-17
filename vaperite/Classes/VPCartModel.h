@@ -22,6 +22,7 @@
 - (BOOL) updateProductInCart:(VPProductModel*)product;
 - (BOOL) addProductInCart:(VPProductModel*)selectedProduct;
 - (void) updateCalculations;
+- (VPProductModel*) getCartProduct:(NSString*)productId;
 - (void)save;
 
 @end

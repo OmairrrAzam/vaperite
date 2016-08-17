@@ -86,8 +86,8 @@ NSArray *timess;
     cell.lblDistance.text   = [NSString stringWithFormat:@"%i Km",(int)location.distantFromCurrentLocation.intValue];
     cell.lblTime.text       = location.timings;
     cell.backgroundColor    = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:248/255.0 alpha:1];
+    cell.lblAddress.text    = location.address;
     
-
     if (selectedLocation != nil) {
         if (selectedLocation.id == location.id) {
             cell.backgroundColor = [UIColor  colorWithRed:210/255.0 green:190/255.0 blue:29/255.0 alpha:1];

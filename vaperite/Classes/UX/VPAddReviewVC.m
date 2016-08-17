@@ -203,26 +203,26 @@
 }
 
 - (IBAction)btn1star_pressed:(id)sender{
-    self.reviewRating = @"20";
+    self.reviewRating = @"1";
     [self updateStars:@"1"];
     
 }
 - (IBAction)btn2star_pressed:(id)sender{
-    self.reviewRating = @"40";
+    self.reviewRating = @"2";
     [self updateStars:@"2"];
 
 }
 - (IBAction)btn3star_pressed:(id)sender{
-    self.reviewRating = @"60";
+    self.reviewRating = @"3";
     [self updateStars:@"3"];
 }
 - (IBAction)btn4star_pressed:(id)sender{
-    self.reviewRating = @"80";
+    self.reviewRating = @"4";
     [self updateStars:@"4"];
 
 }
 - (IBAction)btn5star_pressed:(id)sender{
-    self.reviewRating = @"100";
+    self.reviewRating = @"5";
     [self updateStars:@"5"];
 
 }

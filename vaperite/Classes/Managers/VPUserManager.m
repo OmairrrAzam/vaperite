@@ -5,6 +5,7 @@
 #import "VPUsersModel.h"
 #import "VPReviewsModel.h"
 #import "VPUsersModel.h"
+#import "VPRegionModel.h"
 
 static NSString *kBaseUrl  = @"http://ec2-54-208-24-225.compute-1.amazonaws.com/";
 static NSString *kApiKey   = @"techverx";
@@ -23,6 +24,7 @@ static NSString *kApiUser  = @"techverx";
             if ([status boolValue] == 1){
                 NSDictionary *dictUser = [responseObject objectForKey:@"data"];
                 VPUsersModel *user = [[VPUsersModel alloc] initWithDictionary:dictUser];
+                
                 [self.delegate userManager:self didAuthenticateWithUser:user ];
                 
             }else{
@@ -78,7 +80,11 @@ static NSString *kApiUser  = @"techverx";
             NSString *status  = [responseObject objectForKey:@"success"];
             
             if ([status boolValue] == 1){
-                [self.delegate userManager:self didCreateUser:u];
+                NSDictionary *userDict = [responseObject objectForKey:@"data"];
+                
+                VPUsersModel *user = [[VPUsersModel alloc]initWithDictionary:userDict];
+                
+                [self.delegate userManager:self didCreateUser:user];
             }else{
                 NSString *msg = [responseObject objectForKey:@"data"];
                 [self.delegate userManager:self didFailToCreateUser:msg];
@@ -148,9 +154,9 @@ static NSString *kApiUser  = @"techverx";
 
 }
 
--(void) updateAddressWithCustomerID:(NSString*)customerId firstName:(NSString*)fn  lastName:(NSString*)ln streetAddress:(NSString*)street city:(NSString*)city postalCode:(NSString*)postal{
+-(void) updateAddressWithCustomerID:(NSString*)customerId firstName:(NSString*)fn  lastName:(NSString*)ln streetAddress:(NSString*)street city:(NSString*)city postalCode:(NSString*)postal region:(NSString*)regionid{
     
-    NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx",@"customerid":customerId, @"billing_flag":@"1",@"shipping_flag":@"1",@"fn":fn, @"ln":ln, @"street_address":street, @"city":city, @"post_code":postal, @"country_code": @"US", @"phone":@"123"};
+    NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx",@"customerid":customerId, @"billing_flag":@"1",@"shipping_flag":@"1",@"fn":fn, @"ln":ln, @"street_address":street, @"city":city, @"post_code":postal, @"country_code": @"US", @"phone":@"123", @"regionid":regionid};
     
     VPSessionManager *manager = [VPSessionManager sharedManager];
     
@@ -188,11 +194,13 @@ static NSString *kApiUser  = @"techverx";
     [manager POST:@"updateCustomerProfile" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         if (self.delegate) {
              NSString *msg = [responseObject objectForKey:@"data"];
-             NSString *status = [responseObject objectForKey:@"status"];
+             NSString *status = [responseObject objectForKey:@"success"];
             
             if ([status boolValue] == 1){
+                
                 [self.delegate userManager:self didUpdatePassword:msg];
             }else{
+                
                 [self.delegate userManager:self didFailToUpdatePassword:msg];
             }
         }
@@ -203,6 +211,35 @@ static NSString *kApiUser  = @"techverx";
     }];
     
 }
+
+- (void) forgotPassword:(NSString*)email {
+    
+    NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx",@"email":email};
+    
+    VPSessionManager *manager = [VPSessionManager sharedManager];
+    
+    [manager POST:@"forgortPassword" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (self.delegate) {
+            
+            NSString *msg = [responseObject objectForKey:@"data"];
+            NSString *status = [responseObject objectForKey:@"success"];
+            
+            if ([status boolValue] == 1){
+                
+                [self.delegate userManager:self didForgotPassword:msg];
+            }else{
+                
+                [self.delegate userManager:self didFailToForgotPassword:msg];
+            }
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        if (self.delegate) {
+            [self.delegate userManager:self didFailToForgotPassword:error.localizedDescription];
+        }
+    }];
+    
+}
+
 
 - (void)addReviewFromSession:(NSString*)sessionId storeId:(NSString*)storeId productId:(NSString*)productId customerId:(NSString*)customerId title:(NSString*)title detail:(NSString*)detail nickName:(NSString*)nickName{
     
@@ -230,4 +267,43 @@ static NSString *kApiUser  = @"techverx";
     }] resume];
 
 }
+
+- (void) createOrder:(VPUsersModel*)u andProducts:(NSArray*)products{
+    
+    NSMutableDictionary *jsonProducts = [[NSMutableDictionary alloc] init];
+    
+    for (VPProductModel *product in products) {
+        [jsonProducts setObject:[NSString stringWithFormat:@"%d",product.cartQty] forKey:product.id];
+    }
+
+    NSData * jsonData = [NSJSONSerialization  dataWithJSONObject:jsonProducts options:0 error:nil];
+    NSString * myString = [[NSString alloc] initWithData:jsonData   encoding:NSUTF8StringEncoding];
+    
+    NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx",@"email":u.email, @"storeid":@"1",@"firstname":u.firstName, @"lastname":u.lastName, @"street_address":u.street, @"city":u.city, @"postcode":u.postalcode, @"phone":@"123", @"regionid":u.region.regionId, @"product_hash":myString};
+    
+    
+    VPSessionManager *manager = [VPSessionManager sharedManager];
+    
+    [manager POST:@"createOrder" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        if (self.delegate) {
+            
+            NSString *msg = [responseObject objectForKey:@"data"];
+            NSString *status = [responseObject objectForKey:@"success"];
+            
+            if ([status boolValue] == 1){
+                
+                [self.delegate userManager:self didCreateOrder:@"Order Created Successfully.."];
+            }else{
+                
+                [self.delegate userManager:self didFailToCreateOrder:msg];
+            }
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+        if (self.delegate) {
+            [self.delegate userManager:self didFailToCreateOrder:error.localizedDescription];
+        }
+    }];
+}
+
 @end

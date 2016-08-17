@@ -59,12 +59,13 @@
 
 - (IBAction)btnForgot:(UIButton *)sender {
     VPUsersModel *user = [self validate];
+    [self startAnimating];
     if (user) {
         if (!self.userManager) {
             self.userManager = [[VPUserManager alloc]init];
             self.userManager.delegate = self;
         }
-        [self.userManager updatePasswordWithCustomerID:@"" firstName:@"" lastName:@"" email:user.email password:@""];
+        [self.userManager forgotPassword:user.email];
     }
     
 }
@@ -74,12 +75,15 @@
 
 #pragma mark - VPUserManagerDelegates
 
-- (void)userManager:(VPUserManager *)userManager didUpdatePassword:(NSString *)response{
+
+- (void)userManager:(VPUserManager *)userManager didForgotPassword:(NSString *)response{
     [self startAnimatingWithSuccessMsg:@"You will recieve email with instrutions to reset your password"];
+    [self dismissMe];
 }
 
-- (void)userManager:(VPUserManager *)userManager didFailToUpdatePassword:(NSString *)message{
+- (void)userManager:(VPUserManager *)userManager didFailToForgotPassword:(NSString *)message{
     [self startAnimatingWithErrorMsg:message];
 }
+
 
 @end

@@ -3,6 +3,8 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>address</key>
+		<string>9425 Hwy 92 Suite 124 Woodstock, GA 30188 </string>
 		<key>id</key>
 		<string>1</string>
 		<key>title</key>
@@ -21,6 +23,8 @@
 		<string>vaperite_woodstock</string>
 	</dict>
 	<dict>
+		<key>address</key>
+		<string>2350 Cheshire Bridge Road Suite 101  Atlanta, GA 30324</string>
 		<key>id</key>
 		<string>4</string>
 		<key>title</key>
@@ -39,6 +43,8 @@
 		<string>vaperite_atlanta</string>
 	</dict>
 	<dict>
+		<key>address</key>
+		<string>10900 Medlock Bridge Road Suite 301 Johns Creek, GA 30097</string>
 		<key>id</key>
 		<string>5</string>
 		<key>title</key>

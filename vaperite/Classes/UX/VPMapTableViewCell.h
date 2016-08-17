@@ -14,5 +14,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblCellNo;
 @property (weak, nonatomic) IBOutlet UILabel *lblTime;
 @property (weak, nonatomic) IBOutlet UILabel *lblDistance;
-
+@property (weak, nonatomic) IBOutlet UILabel *lblAddress;
 @end

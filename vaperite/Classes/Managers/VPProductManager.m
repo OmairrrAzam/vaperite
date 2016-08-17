@@ -5,6 +5,7 @@
 #import "VPProductModel.h"
 #import "VPMarkerModel.h"
 #import "VPReviewsModel.h"
+#import "VPRegionModel.h"
 
 static NSString *kBaseUrl  = @"http://ec2-54-208-24-225.compute-1.amazonaws.com/";
 static NSString *kApiKey   = @"techverx";
@@ -39,6 +40,7 @@ static NSString *kApiUser  = @"techverx";
     }] resume];
 
 }
+
 - (void)fetchFeaturedProductsWithSessionId:(NSString*)sessionId {
     NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx"};
     VPSessionManager *manager = [VPSessionManager sharedManager];
@@ -79,8 +81,6 @@ static NSString *kApiUser  = @"techverx";
             [self.delegate productManager:self didFailToFetchRecommendedProducts:error.localizedDescription];
         }
     }];
-    
-
 }
 
 - (void)fetchProductDetailsWithProductId:(NSString*)productId andStoreId:(NSString*)storeId{
@@ -101,9 +101,7 @@ static NSString *kApiUser  = @"techverx";
         if (self.delegate) {
              [self.delegate productManager:self didFailToFetchProductDetails:error.localizedDescription];
         }
-       
     }];
-
 }
 
 - (void)fetchProductReviewswithProductId:(NSString*)productId andStoreId:(NSString*)storeId{
@@ -228,6 +226,8 @@ static NSString *kApiUser  = @"techverx";
         }
     }];
 }
+
+
 
 
 @end

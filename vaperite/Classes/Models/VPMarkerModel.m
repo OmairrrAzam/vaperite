@@ -55,6 +55,7 @@ MKRouteStep *lastStep;
     self.contactNumber      = [dictMarker objectForKeyHandlingNull:@"contactNumber"];
     self.timings            = [dictMarker objectForKeyHandlingNull:@"timings"];
     self.imgName            = [dictMarker objectForKeyHandlingNull:@"imageName"];
+    self.address            = [dictMarker objectForKeyHandlingNull:@"address"];
     self.position           = CLLocationCoordinate2DMake([latitude floatValue],[longitude floatValue]);
     
     return self;

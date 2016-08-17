@@ -13,6 +13,8 @@
 		1805FFA91D1B11450005E8AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1805FFA71D1B11450005E8AD /* LaunchScreen.storyboard */; };
 		1805FFC01D1B37780005E8AD /* VPSliderMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1805FFBF1D1B37780005E8AD /* VPSliderMenuVC.m */; };
 		1805FFC31D1B37A40005E8AD /* VPECSliderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1805FFC21D1B37A40005E8AD /* VPECSliderVC.m */; };
+		1809B98A1D61E71F0023DBE1 /* VPRegionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1809B9891D61E71F0023DBE1 /* VPRegionManager.m */; };
+		1809B98D1D61EB550023DBE1 /* VPRegionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1809B98C1D61EB550023DBE1 /* VPRegionModel.m */; };
 		180DDB371D1C093E00083967 /* MEDynamicTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB301D1C093E00083967 /* MEDynamicTransition.m */; };
 		180DDB381D1C093E00083967 /* MEFoldAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB321D1C093E00083967 /* MEFoldAnimationController.m */; };
 		180DDB391D1C093E00083967 /* METransitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 180DDB341D1C093E00083967 /* METransitions.m */; };
@@ -89,6 +91,10 @@
 		1805FFBF1D1B37780005E8AD /* VPSliderMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPSliderMenuVC.m; path = Classes/UX/VPSliderMenuVC.m; sourceTree = "<group>"; };
 		1805FFC11D1B37A40005E8AD /* VPECSliderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPECSliderVC.h; path = Classes/UX/VPECSliderVC.h; sourceTree = "<group>"; };
 		1805FFC21D1B37A40005E8AD /* VPECSliderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPECSliderVC.m; path = Classes/UX/VPECSliderVC.m; sourceTree = "<group>"; };
+		1809B9881D61E71F0023DBE1 /* VPRegionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPRegionManager.h; sourceTree = "<group>"; };
+		1809B9891D61E71F0023DBE1 /* VPRegionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPRegionManager.m; sourceTree = "<group>"; };
+		1809B98B1D61EB550023DBE1 /* VPRegionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPRegionModel.h; path = Classes/Models/VPRegionModel.h; sourceTree = "<group>"; };
+		1809B98C1D61EB550023DBE1 /* VPRegionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPRegionModel.m; path = Classes/Models/VPRegionModel.m; sourceTree = "<group>"; };
 		180DDB2F1D1C093E00083967 /* MEDynamicTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEDynamicTransition.h; sourceTree = "<group>"; };
 		180DDB301D1C093E00083967 /* MEDynamicTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEDynamicTransition.m; sourceTree = "<group>"; };
 		180DDB311D1C093E00083967 /* MEFoldAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEFoldAnimationController.h; sourceTree = "<group>"; };
@@ -310,6 +316,8 @@
 				181D7A8F1D59D0D400F8A4F6 /* VPCartModel.m */,
 				181D7A911D5A1B5200F8A4F6 /* VPFavoriteModel.h */,
 				181D7A921D5A1B5200F8A4F6 /* VPFavoriteModel.m */,
+				1809B98B1D61EB550023DBE1 /* VPRegionModel.h */,
+				1809B98C1D61EB550023DBE1 /* VPRegionModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -483,6 +491,8 @@
 				18F3D7B81D1CFDB8009D8EE3 /* VPSessionManager.m */,
 				18816A661D50C2FE006E7522 /* VPCategoryManager.h */,
 				18816A671D50C2FE006E7522 /* VPCategoryManager.m */,
+				1809B9881D61E71F0023DBE1 /* VPRegionManager.h */,
+				1809B9891D61E71F0023DBE1 /* VPRegionManager.m */,
 			);
 			name = Managers;
 			path = Classes/Managers;
@@ -663,6 +673,7 @@
 				18EB698B1D4730AB0047BA7A /* TestViewController.m in Sources */,
 				18F3D7BD1D1CFFFB009D8EE3 /* NSDictionary+Helper.m in Sources */,
 				18EB697E1D471DF60047BA7A /* VPProfileVc.m in Sources */,
+				1809B98A1D61E71F0023DBE1 /* VPRegionManager.m in Sources */,
 				180DDB381D1C093E00083967 /* MEFoldAnimationController.m in Sources */,
 				183CD5DC1D3F995E0067B0DC /* VPProductDetailTableViewCell.m in Sources */,
 				1896B3D81D4F4B5B00CBEB9B /* VPReviewsModel.m in Sources */,
@@ -689,6 +700,7 @@
 				18F887451D3692980086255A /* VPUserManager.m in Sources */,
 				18F3D7C01D1D00E8009D8EE3 /* VPBaseVC.m in Sources */,
 				1805FF9B1D1B11440005E8AD /* main.m in Sources */,
+				1809B98D1D61EB550023DBE1 /* VPRegionModel.m in Sources */,
 				18F3D7B91D1CFDB8009D8EE3 /* VPBaseManager.m in Sources */,
 				18E91B9A1D5B5E2F00EAA6EF /* UIBarButtonItem+Badge.m in Sources */,
 				182DC7C81D27AD3200B049D6 /* VPMapTableVC.m in Sources */,

@@ -50,6 +50,14 @@
 
 #pragma mark - Private Methods
 
+- (void)mapToLoggedInUser:(VPUsersModel*)user{
+    self.loggedInUser.street      = user.street;
+    self.loggedInUser.city        = user.city;
+    self.loggedInUser.state       = user.state;
+    self.loggedInUser.postalcode  = user.postalcode;
+    self.loggedInUser.region      = user.region;
+}
+
 - (BOOL)validate {
     
     self.username = [self.tfUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -82,6 +90,7 @@
             self.userManager = [[VPUserManager alloc]init];
             self.userManager.delegate = self;
         }
+        [self startAnimating];
         [self.userManager authenticateWithEmail:self.username password:self.password pushToken:@""];
     }
 }
@@ -118,18 +127,34 @@
 - (void)userManager:(VPUserManager *)userManager didAuthenticateWithUser:(VPUsersModel *)user{
     self.loggedInUser = user;
     
-    [user save];
+    [self mapToLoggedInUser:user];
+    [self.loggedInUser save];
+    [self refreshUser];
     
     if(self.loggedInUser){
         [self dismissViewControllerAnimated:YES completion:nil];
         [self startAnimatingWithSuccessMsg:@"Logged In Successfully"];
     }
     
+    [self.userManager fetchAddressFromCustomerId:self.loggedInUser.customer_id];
+    
 }
 
 - (void)userManager:(VPUserManager *)userManager didFailToAuthenticateWithMessage:(NSString *)message{
     [self startAnimatingWithErrorMsg:message];
 }
+
+
+- (void)userManager:(VPUserManager *)userManager didFetchAddress:(VPUsersModel *)user{
+    
+}
+
+- (void)userManager:(VPUserManager *)userManager didFailToFetchAddress:(NSString *)message{
+    [self stopAnimating];
+    //[self startAnimatingWithErrorMsg:message];
+    
+}
+
 
 #pragma mark - Memory Cleanup Methods 
 

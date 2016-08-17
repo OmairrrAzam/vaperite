@@ -26,8 +26,9 @@
 
 - (id)initWithDictionary:(NSDictionary *)dictReview {
     self = [super init];
-    self.titl =  [dictReview objectForKey:@"title"] ;
-    self.desc =  [dictReview objectForKey:@"detail"];
+    self.titl   =  [dictReview objectForKey:@"title"] ;
+    self.desc   =  [dictReview objectForKey:@"detail"];
+    self.rating =  [dictReview objectForKey:@"rating"];
     return self;
 }
 

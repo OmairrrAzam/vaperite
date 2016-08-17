@@ -147,6 +147,30 @@
 		</dict>
 		<dict>
 			<key>viewController</key>
+			<string>navVPProducts</string>
+			<key>isChild</key>
+			<false/>
+			<key>ivIcon</key>
+			<string>menu-favourite-icon</string>
+			<key>isExpandable</key>
+			<false/>
+			<key>isExpanded</key>
+			<false/>
+			<key>isVisible</key>
+			<true/>
+			<key>value</key>
+			<string>Favorites</string>
+			<key>primaryTitle</key>
+			<string>Off = Single, On = Married</string>
+			<key>secondaryTitle</key>
+			<string></string>
+			<key>cellIdentifier</key>
+			<string>idCellSwitch</string>
+			<key>additionalRows</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>viewController</key>
 			<string>Main</string>
 			<key>isChild</key>
 			<false/>

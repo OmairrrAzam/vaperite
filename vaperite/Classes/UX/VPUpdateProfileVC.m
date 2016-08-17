@@ -38,6 +38,7 @@
         self.userManager = [[VPUserManager alloc]init];
         self.userManager.delegate = self;
     }
+    
     [self populateFields];
 }
 
@@ -47,6 +48,7 @@
 }
 
 - (void)populateFields{
+    
     self.tfEmail.text     = self.loggedInUser.email;
     self.tfFirstName.text = self.loggedInUser.firstName;
     self.tfLastName.text  = self.loggedInUser.lastName;
@@ -74,6 +76,7 @@
     self.LastName  = self.tfLastName.text;
     self.Password  = self.tfPassword.text;
     
+    [self startAnimating];
     if ([self validFields]) {
         
         [self.userManager updatePasswordWithCustomerID:self.loggedInUser.customer_id firstName:self.FirstName lastName:self.LastName email:self.Email password:self.Password];
@@ -85,8 +88,13 @@
     if ([self.Email isEqualToString:@""] || [self.FirstName isEqualToString:@""] || [self.LastName isEqualToString:@""] || [self.Password isEqualToString:@""]) {
         [self startAnimatingWithErrorMsg:@"Please Enter all Fields"];
         return false;
-    }else{
-        return true;
     }
+    
+    if (self.Password.length < 8) {
+        [self startAnimatingWithErrorMsg:@"Password length must be atleaast 8 characters"];
+        return false;
+    }
+    return true;
+    
 }
 @end

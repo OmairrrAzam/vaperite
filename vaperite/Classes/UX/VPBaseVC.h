@@ -44,4 +44,6 @@
 - (void) startAnimatingWithErrorMsg:(NSString*)msg;
 - (void) startAnimatingWithCustomMsg:(NSString*)message;
 - (void) sessionManager:(VPSessionManager *)sessionManager didFetchSession:(NSString*)sessionId;
+- (void)showProductStrengthsWithTitle:(NSString*)title andProduct:(VPProductModel*)product andTargetButton:(UIButton*)btn;
+-(void)updateNavBadge;
 @end

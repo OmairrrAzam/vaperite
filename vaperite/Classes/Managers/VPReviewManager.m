@@ -13,7 +13,7 @@
 
 - (void)addReview:(VPReviewsModel *)review {
     
-    NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx", @"storeid":review.storeId, @"productid": review.productId, @"customerid": review.customerId, @"title": review.titl, @"detail": review.desc, @"nickname": review.nickName, @"rating":@"1" };
+    NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx", @"storeid":review.storeId, @"productid": review.productId, @"customerid": review.customerId, @"title": review.titl, @"detail": review.desc, @"nickname": review.nickName, @"rating":review.rating };
     
     VPSessionManager *manager = [VPSessionManager sharedManager];
     

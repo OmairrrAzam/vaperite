@@ -36,6 +36,12 @@
 - (void)userManager:(VPUserManager *)userManager didUpdatePassword:(NSString *)response;
 - (void)userManager:(VPUserManager *)userManager didFailToUpdatePassword:(NSString *)message;
 
+- (void)userManager:(VPUserManager *)userManager didCreateOrder:(NSString *)response;
+- (void)userManager:(VPUserManager *)userManager didFailToCreateOrder:(NSString *)message;
+
+- (void)userManager:(VPUserManager *)userManager didForgotPassword:(NSString *)response;
+- (void)userManager:(VPUserManager *)userManager didFailToForgotPassword:(NSString *)message;
+
 @end
 
 @interface VPUserManager : VPBaseManager
@@ -54,7 +60,11 @@
 
 - (void) fetchAddressFromCustomerId:(NSString*)cutomerId;
 
-- (void) updateAddressWithCustomerID:(NSString*)customerId firstName:(NSString*)fn  lastName:(NSString*)ln streetAddress:(NSString*)street city:(NSString*)city postalCode:(NSString*)postal;
+- (void) updateAddressWithCustomerID:(NSString*)customerId firstName:(NSString*)fn  lastName:(NSString*)ln streetAddress:(NSString*)street city:(NSString*)city postalCode:(NSString*)postal region:(NSString*)regionid;
 
 - (void) updatePasswordWithCustomerID:(NSString*)customerId firstName:(NSString*)fn  lastName:(NSString*)ln email:(NSString*)email password:(NSString*)password;
+
+- (void) createOrder:(VPUsersModel*)u andProducts:(NSArray*)products;
+
+- (void) forgotPassword:(NSString*)email;
 @end

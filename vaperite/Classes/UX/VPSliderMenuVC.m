@@ -14,6 +14,8 @@
 #import "VPBaseNavigationController.h"
 #import "VPUsersModel.h"
 #import "VPBaseUIButton.h"
+#import "VPProductsVC.h"
+
 
 @interface VPSliderMenuVC () <UITableViewDataSource, UITableViewDelegate, VPCategoryManagerDelegate>
 @property (strong,nonatomic) NSArray *menuItems;
@@ -193,11 +195,21 @@
     }else{
         
         NSString  *id = [actualElement objectForKey:@"id"];
+        NSString  *viewController = [actualElement objectForKey:@"viewController"];
+        
         if (id){
             
             VPBaseNavigationController *nav = (VPBaseNavigationController*)[self.storyboard instantiateViewControllerWithIdentifier:[actualElement objectForKey:@"viewController"]];
             VPCategoriesVC *rootController = (VPCategoriesVC *)[nav.viewControllers objectAtIndex: 0];
             rootController.parentId = id;
+            self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
+            self.slidingViewController.topViewController = nav;
+            [self.slidingViewController resetTopViewAnimated:YES];
+            
+        }else if ([viewController isEqualToString:@"navVPProducts"]){
+            VPBaseNavigationController *nav = (VPBaseNavigationController*)[self.storyboard instantiateViewControllerWithIdentifier:[actualElement objectForKey:@"viewController"]];
+            VPProductsVC *rootController = (VPProductsVC *)[nav.viewControllers objectAtIndex: 0];
+            rootController.favoritesShow = TRUE;
             self.slidingViewController.topViewController.view.layer.transform = CATransform3DMakeScale(1, 1, 1);
             self.slidingViewController.topViewController = nav;
             [self.slidingViewController resetTopViewAnimated:YES];
@@ -223,9 +235,32 @@
 }
 
 - (IBAction)btnLogout_Pressed:(id)sender {
-    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-    [self startAnimatingWithSuccessMsg:@"You Have Successfully Logged Out"];
-    [self changeViewThroughSlider:@"Main"];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Cart and Favourites Information will be lost" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    
+        
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Do Logout"
+                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                                                                
+                                                                //[self startAnimating];
+                                                                NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+                                                                [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+                                                                [self startAnimatingWithSuccessMsg:@"You Have Successfully Logged Out"];
+                                                                [self changeViewThroughSlider:@"Main"];
+                                                                
+                                                            }]];
+        
+   
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                        style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                           
+                                                            
+                                                        }]];
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [self presentViewController:alertController animated:YES completion:nil];
+    });
+
+   
 }
 @end

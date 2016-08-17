@@ -36,7 +36,7 @@
     self.desc              = [dictProduct objectForKeyHandlingNull:@"description"];
     self.shortDescription  = [dictProduct objectForKeyHandlingNull:@"short_description"];
     self.rating            = [dictProduct objectForKeyHandlingNull:@"rating"];
-
+    self.stockQty          = [dictProduct objectForKeyHandlingNull:@"qty"];
     return self;
 }
 
@@ -49,6 +49,15 @@
     self.price             = [dictProduct objectForKeyHandlingNull:@"price"];
     self.desc              = [dictProduct objectForKeyHandlingNull:@"description"];
     self.rating            = [dictProduct objectForKeyHandlingNull:@"rating"];
+    
+    NSDictionary *attributes  = [dictProduct objectForKey:@"product_attributes"];
+    
+    if (attributes != (NSDictionary*)[NSNull null]) {
+        self.doses = [attributes objectForKeyHandlingNull:@"Nicotine Strength"];
+    }
+    
+    
+   // NSString *temp = [self.doses object];
     
     return self;
 }
@@ -63,6 +72,8 @@
         self.desc    = [decoder decodeObjectForKey:@"desc"];
         self.rating  = [decoder decodeObjectForKey:@"rating"];
         self.cartQty = [decoder decodeIntForKey:@"qty"];
+        self.cartStrength = [decoder decodeIntForKey:@"cart_strength_id"];
+        self.cartStrengthValue = [decoder decodeObjectForKey:@"cart_strength_value"];
     }
     return self;
 }
@@ -75,9 +86,18 @@
     [encoder encodeObject:self.desc forKey:@"desc"];
     [encoder encodeObject:self.rating forKey:@"rating"];
     [encoder encodeInt:self.cartQty forKey:@"qty"];
+    [encoder encodeInt:self.cartStrength   forKey:@"cart_strength_id"];
+    [encoder encodeObject:self.cartStrengthValue forKey:@"cart_strength_value"];
 }
 
-
+//- (NSDictionary *)toDictionary {
+//    
+//    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+//   
+//    [dictionary setObject:self.id forKey:@"company_name"];
+//    [dictionary setObject:self.firstName forKey:@"first_name"];
+//        return outerDictionary;
+//}
 
 
 @end

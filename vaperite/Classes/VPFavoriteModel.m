@@ -60,7 +60,7 @@
 - (BOOL) productPresentInFav:(VPProductModel*)product{
     
     for (VPProductModel* p in self.products) {
-        if (p.id == product.id) {
+        if ([p.id isEqualToString:product.id]) {
             return true;
         }
     }

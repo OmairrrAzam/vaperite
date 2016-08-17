@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSString *timings;
 @property (strong, nonatomic) NSString *contactNumber;
 @property (strong, nonatomic) NSString *imgName;
+@property (strong, nonatomic) NSString *address;
 
 + (NSArray *)loadFromArray:(NSArray *)arrMarkers;
 + (VPMarkerModel *)currentStore;
