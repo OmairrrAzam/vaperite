@@ -94,7 +94,7 @@ static NSString *kApiUser  = @"techverx";
             
             VPProductModel *details = [[VPProductModel alloc]initWithDetailsDictionary:dictDetails];
             
-             [self.delegate productManager:self didFetchProductDetails:details];
+            [self.delegate productManager:self didFetchProductDetails:details];
             
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {

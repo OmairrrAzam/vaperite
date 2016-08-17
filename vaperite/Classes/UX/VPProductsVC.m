@@ -162,9 +162,10 @@ NSMutableArray *productPrices;
     CGPoint buttonPosition  = [sender convertPoint:CGPointZero toView:self.tableView];
     NSIndexPath *indexPath  = [self.tableView indexPathForRowAtPoint:buttonPosition];
     self.selectedProduct    = [self.products objectAtIndex:indexPath.section];
+    [self performSegueWithIdentifier:@"product_details" sender:self];
     //fetch details
-    [self startAnimating];
-    [self.productManager fetchProductDetailsWithProductId:self.selectedProduct.id andStoreId:self.currentStore.id];
+    //[self startAnimating];
+   // [self.productManager fetchProductDetailsWithProductId:self.selectedProduct.id andStoreId:self.currentStore.id];
 }
 
 - (IBAction)btnBack_Pressed:(id)sender {

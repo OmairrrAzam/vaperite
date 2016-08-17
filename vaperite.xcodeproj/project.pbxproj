@@ -38,6 +38,7 @@
 		183CD5EE1D40E2190067B0DC /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5E91D40E2190067B0DC /* TPKeyboardAvoidingTableView.m */; };
 		183CD5EF1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5EB1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		183CD5F51D4647860067B0DC /* VPProductsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CD5F41D4647860067B0DC /* VPProductsVC.m */; };
+		1847F0211D647A4000E0CF6D /* VPProductOptionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1847F0201D647A4000E0CF6D /* VPProductOptionsModel.m */; };
 		184ABA7F1D5C9F8300DC1CD0 /* VPCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184ABA7E1D5C9F8300DC1CD0 /* VPCollectionView.m */; };
 		184D28971D4BAFCD00A83BF9 /* constants.plist in Resources */ = {isa = PBXBuildFile; fileRef = 184D28961D4BAFCD00A83BF9 /* constants.plist */; };
 		18816A651D50BB32006E7522 /* VPCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18816A641D50BB32006E7522 /* VPCategoryModel.m */; };
@@ -141,6 +142,8 @@
 		183CD5EB1D40E2190067B0DC /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		183CD5F31D4647860067B0DC /* VPProductsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPProductsVC.h; path = Classes/UX/VPProductsVC.h; sourceTree = "<group>"; };
 		183CD5F41D4647860067B0DC /* VPProductsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPProductsVC.m; path = Classes/UX/VPProductsVC.m; sourceTree = "<group>"; };
+		1847F01F1D647A4000E0CF6D /* VPProductOptionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPProductOptionsModel.h; path = Classes/Models/VPProductOptionsModel.h; sourceTree = "<group>"; };
+		1847F0201D647A4000E0CF6D /* VPProductOptionsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPProductOptionsModel.m; path = Classes/Models/VPProductOptionsModel.m; sourceTree = "<group>"; };
 		184ABA7D1D5C9F8300DC1CD0 /* VPCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPCollectionView.h; path = Classes/UX/VPCollectionView.h; sourceTree = "<group>"; };
 		184ABA7E1D5C9F8300DC1CD0 /* VPCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPCollectionView.m; path = Classes/UX/VPCollectionView.m; sourceTree = "<group>"; };
 		184D28961D4BAFCD00A83BF9 /* constants.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = constants.plist; path = Classes/constants.plist; sourceTree = "<group>"; };
@@ -318,6 +321,8 @@
 				181D7A921D5A1B5200F8A4F6 /* VPFavoriteModel.m */,
 				1809B98B1D61EB550023DBE1 /* VPRegionModel.h */,
 				1809B98C1D61EB550023DBE1 /* VPRegionModel.m */,
+				1847F01F1D647A4000E0CF6D /* VPProductOptionsModel.h */,
+				1847F0201D647A4000E0CF6D /* VPProductOptionsModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -676,6 +681,7 @@
 				1809B98A1D61E71F0023DBE1 /* VPRegionManager.m in Sources */,
 				180DDB381D1C093E00083967 /* MEFoldAnimationController.m in Sources */,
 				183CD5DC1D3F995E0067B0DC /* VPProductDetailTableViewCell.m in Sources */,
+				1847F0211D647A4000E0CF6D /* VPProductOptionsModel.m in Sources */,
 				1896B3D81D4F4B5B00CBEB9B /* VPReviewsModel.m in Sources */,
 				180DDB391D1C093E00083967 /* METransitions.m in Sources */,
 				182DC7CE1D27B9CA00B049D6 /* VPMapTableViewCell.m in Sources */,

@@ -14,6 +14,7 @@
 #import "VPUserManager.h"
 #import "VPRegionModel.h"
 #import "VPBaseNavigationController.h"
+#import "VPProductOptionsModel.h"
 
 @interface VPRightMenuVC ()<UITableViewDataSource, UITableViewDelegate, VPUserManagerDelegate>
 
@@ -87,7 +88,7 @@
 //        cellIdentifier = @"cartHeader";
 //        
 //    }else if (indexPath.section == 1){
-        cellIdentifier = @"rightMenuProductCell";
+    cellIdentifier = @"rightMenuProductCell";
 //    }else{
 //        cellIdentifier = @"rightMenuCell";
 //    }
@@ -98,18 +99,17 @@
     }
     
     //if (indexPath.section == 1){
-        UILabel *productName    = (UILabel *)[cell.contentView viewWithTag:10];
-         UILabel *price         = (UILabel *)[cell.contentView viewWithTag:11];
-         UILabel *qty           = (UILabel *)[cell.contentView viewWithTag:12];
-         UIImageView *ivPicture = (UIImageView *)[cell.contentView viewWithTag:13];
+    UILabel *productName    = (UILabel *)[cell.contentView viewWithTag:10];
+    UILabel *price         = (UILabel *)[cell.contentView viewWithTag:11];
+    UILabel *qty           = (UILabel *)[cell.contentView viewWithTag:12];
+    UIImageView *ivPicture = (UIImageView *)[cell.contentView viewWithTag:13];
         
-        VPProductModel *currentProduct = [self.products objectAtIndex:indexPath.row];
-
+    VPProductModel *currentProduct = [self.products objectAtIndex:indexPath.row];
         
-        NSURL *url = [NSURL URLWithString: currentProduct.imgUrl];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        __weak UIImageView *weakImg = ivPicture;
-        [weakImg setImageWithURLRequest:request
+    NSURL *url = [NSURL URLWithString: currentProduct.imgUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    __weak UIImageView *weakImg = ivPicture;
+    [weakImg setImageWithURLRequest:request
                        placeholderImage:nil
                                 success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                     ivPicture.image = image;
@@ -117,9 +117,9 @@
                                     
                                 } failure:nil];
         
-        productName.text     = currentProduct.name;
-        price.text           = [NSString stringWithFormat:@"Price: %@",currentProduct.price];
-        qty.text             = [NSString stringWithFormat:@"%d",   currentProduct.cartQty];
+    productName.text     = currentProduct.name;
+    price.text           = [NSString stringWithFormat:@"Price: %@",currentProduct.price];
+    qty.text             = [NSString stringWithFormat:@"%d",   currentProduct.cartQty];
         
     //}
     

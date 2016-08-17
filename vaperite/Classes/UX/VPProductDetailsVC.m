@@ -15,6 +15,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "VPAddReviewVC.h"
 #import "VPCartModel.h"
+#import "VPProductOptionsModel.h"
 
 @interface VPProductDetailsVC ()<UITableViewDelegate, UITableViewDataSource, VPProductManagerDelegate>
 
@@ -22,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblReviewsCount;
 @property (strong, nonatomic) VPProductManager *productManager;
 @property (nonatomic) int qty;
-
+@property (weak,nonatomic) UIButton *btnSelectedOption;
 @property (strong, nonatomic) NSString *selectedDose;
 @property (nonatomic) BOOL productPresentInCart;
 @property (strong, nonatomic) UIButton *btnStar1;
@@ -73,6 +74,7 @@
     [super viewDidAppear:animated];
     
     [self startAnimating];
+    
     [self.productManager fetchProductDetailsWithProductId:self.product.id andStoreId:self.currentStore.id];
 
 }
@@ -84,94 +86,59 @@
 
 #pragma mark - Private Method
 
-- (void) addToCart:(VPProductModel*)selectedProduct{
+
+
+- (void) showProductOptionPicker:(NSString*)optionIndex{
+    VPProductOptionsModel *option = [self.product.options objectAtIndex:[optionIndex intValue]];
     
-    if ([selectedProduct.stockQty intValue] <= 0) {
-        [self startAnimatingWithErrorMsg:@"Product out of stock"];
-        return;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:option.title message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    for (NSString *key in option.values) {
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:[option.values objectForKey:key]
+                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                                                                option.pickedId = key;
+                                                                option.pickedValue = [option.values objectForKey:key];
+                                                                //[self.btnSelectedOption setTitle:[option.values objectForKey:key] forState:UIControlStateNormal];
+                                                                [self.tableView reloadData];
+                                                                //self.selectedDose = key;
+                                                                //self.product.cartStrength = [key intValue];
+                                                                //[self.btnDoses  setTitle:[option.values objectForKey:key] forState:UIControlStateNormal];
+                                                            }]];
+        
     }
     
-    if(self.loggedInUser){
-        
-        if([self.userCart productPresentInCart:selectedProduct]){
-            if ([self.userCart updateProductInCart:selectedProduct]){
-                [self startAnimatingWithSuccessMsg:@"Cart Updated"];
-            }else{
-                [self startAnimatingWithErrorMsg:@"Cart Not Updated"];
-            }
-        }else{
-            
-            if (selectedProduct.doses && !selectedProduct.cartStrength) {
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Strength Options" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
-                
-                for (NSString *key in selectedProduct.doses) {
-                    
-                    [alertController addAction:[UIAlertAction actionWithTitle:[selectedProduct.doses objectForKey:key]
-                                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-                                                                            //self.selectedDose = key;
-                                                                            selectedProduct.cartStrength = [key intValue];
-                                                                            selectedProduct.cartStrengthValue = [selectedProduct.doses objectForKey:key];
-                                                                            
-                                                                            if ([self.userCart addProductInCart:selectedProduct]) {
-                                                                                [self updateNavBadge];
-                                                                                [self startAnimatingWithSuccessMsg:@"Added To Cart"];
-                                                                                [self refreshCartAndFav];
-                                                                                [self.tableView reloadData];
-                                                                            }else{
-                                                                                [self startAnimatingWithSuccessMsg:@"Not Added To Cart"];
-                                                                            }
-                                                                            
-                                                                            
-                                                                            
-                                                                        }]];
-                    
-                }
-                
-                [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                                    style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                                        //[self startAnimating];
-                                                                        
-                                                                        
-                                                                    }]];
-                dispatch_async(dispatch_get_main_queue(), ^ {
-                    [self presentViewController:alertController animated:YES completion:nil];
-                });
-            }else{
-                
-                if ([self.userCart addProductInCart:selectedProduct]) {
-                    [self updateNavBadge];
-                    [self startAnimatingWithSuccessMsg:@"Added To Cart"];
-                }else{
-                    [self startAnimatingWithSuccessMsg:@"Not Added To Cart"];
-                }
-            }
-            
-        }
-        
-    }else{
-        [self showLoginPage];
-    }
-    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                        style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                            //[self startAnimating];
+                                                            
+                                                            
+                                                        }]];
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [self presentViewController:alertController animated:YES completion:nil];
+    });
 }
+
+
 
 
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3 + [self.product.reviews count] ;
+    return 4 + [self.product.reviews count] ;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    if (section == 3) {
-//        return [self.product.reviews count];
-//    }
+    if (section == 1) {
+        return [self.product.options count];
+    }
     return 1;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 3){
+    if (section == 4){
         return 50;
     }
     return 10;
@@ -179,7 +146,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (section == 3 + [self.product.reviews count] -1){
+    if (section == 4 + [self.product.reviews count] - 1){
         return 70;
     }
     return 0;
@@ -188,12 +155,14 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0){
-        return 300;
-    }else if(indexPath.section == 1){
-        return 150;
+        return 200;
+    }else if(indexPath.section == 1) {
+        return 100;
     }else if(indexPath.section == 2){
+        return 150;
+    }else if(indexPath.section == 3){
         return 140;
-    }else if(indexPath.section >= 3){
+    }else if(indexPath.section >= 4){
         return 200;
     }
 
@@ -202,19 +171,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    self.productPresentInCart = [self.userCart productPresentInCart:self.product];
     
     static NSString *cellIdentifier;
     if (indexPath.section == 0) {
         cellIdentifier = @"PRODUCT_DETAIL_HEADER";
     }
     else if(indexPath.section == 1) {
-        cellIdentifier = @"PRODUCT_COUNTER";
+        cellIdentifier = @"OPTIONS_SECTION";
     }
     else if(indexPath.section == 2) {
+        cellIdentifier = @"PRODUCT_COUNTER";
+    }
+    else if(indexPath.section == 3) {
         cellIdentifier = @"PRODUCT_DESCRIPTION";
     }
-    else if(indexPath.section >= 3){
+    else if(indexPath.section >= 4){
         cellIdentifier = @"PRODUCT_REVIEWS";
     }
     
@@ -226,29 +197,32 @@
         UILabel *lblPrice         = (UILabel *)[cell.contentView viewWithTag:3];
         UIImageView *productImage = (UIImageView *)[cell.contentView viewWithTag:5];
         UIButton *btnFav          = (UIButton*)[cell.contentView viewWithTag:6];
-        self.btnDoses             = (UIButton*)[cell.contentView viewWithTag:10];
-        UIView *viewItemStrength  = (UIView*)[cell.contentView viewWithTag:200];
-         UILabel *lblReviewsCount = (UILabel *)[cell.contentView viewWithTag:16];
-         UILabel *lblStockCount   = (UILabel *)[cell.contentView viewWithTag:499];
+        UIView   *viewItemStrength  = (UIView*)[cell.contentView viewWithTag:200];
+        UILabel  *lblReviewsCount  = (UILabel *)[cell.contentView viewWithTag:16];
+        UILabel  *lblStockCount    = (UILabel *)[cell.contentView viewWithTag:499];
         
-        lblStockCount.text = [NSString stringWithFormat:@"Products in stock (%d)",[self.product.stockQty intValue]];
-        
-        if(!self.product.doses || [self.product.doses count] == 0){
-            viewItemStrength.hidden = YES;
+        if ([self.product.inStock boolValue]) {
+            lblStockCount.text = [NSString stringWithFormat:@"In stock"];
         }else{
-            viewItemStrength.hidden = NO;
+            lblStockCount.text = [NSString stringWithFormat:@"Not In stock"];
         }
         
-         self.btnStar1 = (UIButton *)[cell.contentView viewWithTag:51];
-         self.btnStar2 = (UIButton *)[cell.contentView viewWithTag:52];
-         self.btnStar3 = (UIButton *)[cell.contentView viewWithTag:53];
-         self.btnStar4 = (UIButton *)[cell.contentView viewWithTag:54];
-         self.btnStar5 = (UIButton *)[cell.contentView viewWithTag:55];
+        
+//        if(!self.product.doses || [self.product.doses count] == 0){
+//            viewItemStrength.hidden = YES;
+//        }else{
+//            viewItemStrength.hidden = NO;
+//        }
+        
+        self.btnStar1 = (UIButton *)[cell.contentView viewWithTag:51];
+        self.btnStar2 = (UIButton *)[cell.contentView viewWithTag:52];
+        self.btnStar3 = (UIButton *)[cell.contentView viewWithTag:53];
+        self.btnStar4 = (UIButton *)[cell.contentView viewWithTag:54];
+        self.btnStar5 = (UIButton *)[cell.contentView viewWithTag:55];
         
         
         lblReviewsCount.text = [NSString stringWithFormat:@"(%d) Reviews", (int)[self.product.reviews count] ];
-//        int value = [self.product.rating intValue];
-//        int ratingValue = 100/value;
+
         UIImage *filledStar = [UIImage imageNamed:@"yellow-star.png"];
         UIImage *imgNFav    = [UIImage imageNamed:@"products-heart-icon.png"];
         UIImage *imgFav     = [UIImage imageNamed:@"heart-icon.png"];
@@ -305,6 +279,23 @@
                                           } failure:nil];    }
     
         if (indexPath.section == 1) {
+            VPProductOptionsModel *currentOption = [self.product.options objectAtIndex:indexPath.row];
+            if (currentOption) {
+                UITextField *tfOption = (UITextField*)[cell.contentView viewWithTag:10];
+                
+               tfOption.placeholder = currentOption.title;
+                
+                if(currentOption.pickedId){
+                    //can come here after cart validation enforcement
+                    tfOption.text = currentOption.pickedValue;
+
+                }else{
+                    tfOption.text = currentOption.title;
+                }
+            }
+        }
+    
+        if (indexPath.section == 2) {
             UITextField *tfCounter = (UITextField *)[cell.contentView viewWithTag:1];
             UIButton *btnAddToCart = (UIButton *)[cell.contentView viewWithTag:2];
             
@@ -320,21 +311,20 @@
                 
             }else{
                 [btnAddToCart  setTitle:@"Add to Cart"   forState:UIControlStateNormal];
-                [self.btnDoses setTitle:@"Pick Strength" forState:UIControlStateNormal];
+                //[self.btnDoses setTitle:@"Pick Strength" forState:UIControlStateNormal];
             }
             
             tfCounter.text = [NSString stringWithFormat:@"%d", self.product.cartQty];
-        }else if (indexPath.section == 2){
+            
+        }else if (indexPath.section == 3){
             UITextView *tvDescription      = (UITextView *)[cell.contentView viewWithTag:10];
             tvDescription.text             = self.product.desc;
-        }else if (indexPath.section >= 3){
+        }else if (indexPath.section >= 4){
             UILabel    *lblReviewTitle     = (UILabel*)[cell.contentView viewWithTag:20];
             UITextView *tvReviewDetail     = (UITextView*)[cell.contentView viewWithTag:21];
             UILabel    *lblReviewRating     = (UILabel*)[cell.contentView viewWithTag:500];
             
-            
-            
-            VPReviewsModel *currentReview = [self.product.reviews objectAtIndex:indexPath.section - 3];
+            VPReviewsModel *currentReview = [self.product.reviews objectAtIndex:indexPath.section - 4];
             
             lblReviewTitle.text  = currentReview.titl;
             tvReviewDetail.text  = currentReview.desc;
@@ -382,7 +372,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *tempView;
-    if(section == 3){
+    if(section == 4){
     tempView = [[UIView alloc]initWithFrame:CGRectMake(0,200,300,244)];
     tempView.backgroundColor=[UIColor colorWithRed:203/255.0 green:227/255.0 blue:222/255.0 alpha:1];
 
@@ -400,7 +390,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     
     UIView *tempView;
-        if(section == 3 + [self.product.reviews count] - 1){
+        if(section == 4 + [self.product.reviews count] - 1){
         tempView = [[UIView alloc]initWithFrame:CGRectMake(0,200,300,244)];
         tempView.backgroundColor=[UIColor colorWithRed:203/255.0 green:227/255.0 blue:222/255.0 alpha:1];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -448,30 +438,17 @@
 #pragma  mark - IBActions
 
 - (IBAction)btnOptions:(id)sender {
-    [self showProductStrengthsWithTitle:@"Pick Strength" andProduct:self.product andTargetButton:self.btnDoses];
-//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Pick Strength" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
-//    
-//    for (NSString *key in self.product.doses) {
-//        
-//        [alertController addAction:[UIAlertAction actionWithTitle:[self.product.doses objectForKey:key]
-//                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-//                                                                //self.selectedDose = key;
-//                                                                self.product.cartStrength = [key intValue];
-//                                                                [self.btnDoses  setTitle:[self.product.doses objectForKey:key] forState:UIControlStateNormal];
-//                                                            }]];
-//        
-//    }
-//    
-//    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
-//                                                        style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-//                                                            //[self startAnimating];
-//                                                            
-//                                                            
-//                                                        }]];
-//    dispatch_async(dispatch_get_main_queue(), ^ {
-//        [self presentViewController:alertController animated:YES completion:nil];
-//    });
-//
+    //[self showProductStrengthsWithTitle:@"Pick Strength" andProduct:self.product andTargetButton:self.btnDoses];
+    //[self showProductOptionPicker:<#(VPProductOptionsModel *)#>]
+    CGPoint buttonPosition  = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath  = [self.tableView indexPathForRowAtPoint:buttonPosition];
+   
+    self.btnSelectedOption =(UIButton*)sender;
+    [self showProductOptionPicker:[NSString stringWithFormat:@"%d",(int)indexPath.row]];
+    
+    
+  
+
 }
 
 - (IBAction)btnSubCount:(id)sender {
@@ -502,7 +479,13 @@
 
 
 - (IBAction)addToCart_pressed:(id)sender {
-    [self addToCart:self.product];
+    //VPProductOptionsModel *f1 = [self.product.options objectAtIndex:0];
+    
+    int response = [self addToCart:self.product];
+    
+    if (response > -1) {
+        [self showProductOptionPicker:[NSString stringWithFormat:@"%d",response]];
+    }
     
     [self.tableView reloadData];
 }
@@ -518,6 +501,12 @@
     self.product = product;
     self.product.cartQty = 1;
     
+    self.productPresentInCart = [self.userCart productPresentInCart:self.product];
+    
+    if (self.productPresentInCart) {
+        self.product = [self.userCart getCartProduct:self.product.id];
+    }
+    
     [self.productManager fetchProductReviewswithProductId:self.product.id andStoreId:self.storeId];
 }
 
@@ -529,6 +518,7 @@
 - (void)productManager:(VPProductManager *)manager didFetchProductReviews:(NSArray *)reviews{
     self.product.reviews = reviews;
     [self stopAnimating];
+    
     [self.tableView reloadData];
     //[self.productManager fetchProductImageWithProductId:self.product.id andSessionId:self.sessionId];
 }

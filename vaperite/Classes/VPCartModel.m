@@ -8,6 +8,7 @@
 
 #import "VPCartModel.h"
 #import "VPProductModel.h"
+#import "VPProductOptionsModel.h"
 
 @implementation VPCartModel
 
@@ -80,6 +81,7 @@
 }
 
 - (BOOL) addProductInCart:(VPProductModel*)selectedProduct{
+    
     if (selectedProduct.cartQty <= 0) {
         selectedProduct.cartQty = 1;
     }

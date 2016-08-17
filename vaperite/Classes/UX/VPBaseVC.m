@@ -94,37 +94,37 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 
 #pragma mark - Private Methods
 
-- (void)showProductStrengthsWithTitle:(NSString*)title andProduct:(VPProductModel*)product andTargetButton:(UIButton*)btn{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    for (NSString *key in product.doses) {
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:[product.doses objectForKey:key]
-                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-                                                                //self.selectedDose = key;
-                                                                product.cartStrength = [key intValue];
-                                                                product.cartStrengthValue = [product.doses objectForKey:key];
-                                                                if (btn) {
-                                                                    [btn  setTitle:[product.doses objectForKey:key] forState:UIControlStateNormal];
-                                                                }
-                                                                
-                                                              
-                                                                
-                                                            }]];
-        
-    }
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                        style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                            //[self startAnimating];
-                                                            
-                                                            
-                                                        }]];
-    dispatch_async(dispatch_get_main_queue(), ^ {
-        [self presentViewController:alertController animated:YES completion:nil];
-    });
-
-}
+//- (void)showProductStrengthsWithTitle:(NSString*)title andProduct:(VPProductModel*)product andTargetButton:(UIButton*)btn{
+//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+//    
+//    for (NSString *key in product.doses) {
+//        
+//        [alertController addAction:[UIAlertAction actionWithTitle:[product.doses objectForKey:key]
+//                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+//                                                                //self.selectedDose = key;
+//                                                                product.cartStrength = [key intValue];
+//                                                                product.cartStrengthValue = [product.doses objectForKey:key];
+//                                                                if (btn) {
+//                                                                    [btn  setTitle:[product.doses objectForKey:key] forState:UIControlStateNormal];
+//                                                                }
+//                                                                
+//                                                              
+//                                                                
+//                                                            }]];
+//        
+//    }
+//    
+//    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+//                                                        style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+//                                                            //[self startAnimating];
+//                                                            
+//                                                            
+//                                                        }]];
+//    dispatch_async(dispatch_get_main_queue(), ^ {
+//        [self presentViewController:alertController animated:YES completion:nil];
+//    });
+//
+//}
 
 - (void)refreshCartAndFav{
     self.userCart = [VPCartModel currentCart];
@@ -202,13 +202,22 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
 
 }
 
-- (void) addToCart:(VPProductModel*)selectedProduct{
+
+- (int) addToCart:(VPProductModel*)selectedProduct{
+    
+    if (![selectedProduct.inStock boolValue]) {
+        [self startAnimatingWithErrorMsg:@"Product out of stock"];
+        return -2;
+    }
+    
+    int validationResponse = [selectedProduct validateForCart];
+    
+    if (validationResponse > -1) {
+        //[self showProductOptionPicker:[NSString stringWithFormat:@"%d",validationResponse]];
+        return validationResponse;
+    }
+    
     if(self.loggedInUser){
-        if ([selectedProduct.stockQty intValue] <= 0) {
-            [self startAnimatingWithErrorMsg:@"Product out of stock"];
-            return;
-        }
-        
         
         if([self.userCart productPresentInCart:selectedProduct]){
             if ([self.userCart updateProductInCart:selectedProduct]){
@@ -217,59 +226,20 @@ static void dispatch_main_after(NSTimeInterval delay, void (^block)(void))
                 [self startAnimatingWithErrorMsg:@"Cart Not Updated"];
             }
         }else{
-            
-            if (selectedProduct.doses && !selectedProduct.cartStrength) {
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Strength Options" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
-                
-                for (NSString *key in selectedProduct.doses) {
-                    
-                    [alertController addAction:[UIAlertAction actionWithTitle:[selectedProduct.doses objectForKey:key]
-                                                                        style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-                                                                            //self.selectedDose = key;
-                                                                            selectedProduct.cartStrength = [key intValue];
-                                                                            selectedProduct.cartStrengthValue = [selectedProduct.doses objectForKey:key];
-                                                                            
-                                                                            if ([self.userCart addProductInCart:selectedProduct]) {
-                                                                                [self updateNavBadge];
-                                                                                [self startAnimatingWithSuccessMsg:@"Added To Cart"];
-                                                                                [self refreshCartAndFav];
-                                                                            }else{
-                                                                                [self startAnimatingWithSuccessMsg:@"Not Added To Cart"];
-                                                                            }
-                                                                            
-                                                                            
-                                                                            
-                                                                        }]];
-                    
-                }
-                
-                [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                                    style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                                        //[self startAnimating];
-                                                                        
-                                                                        
-                                                                    }]];
-                dispatch_async(dispatch_get_main_queue(), ^ {
-                    [self presentViewController:alertController animated:YES completion:nil];
-                });
+            if ([self.userCart addProductInCart:selectedProduct]) {
+                [self updateNavBadge];
+                [self startAnimatingWithSuccessMsg:@"Added To Cart"];
             }else{
-            
-                if ([self.userCart addProductInCart:selectedProduct]) {
-                    [self updateNavBadge];
-                    [self startAnimatingWithSuccessMsg:@"Added To Cart"];
-                }else{
-                    [self startAnimatingWithSuccessMsg:@"Not Added To Cart"];
-                }
+                [self startAnimatingWithSuccessMsg:@"Not Added To Cart"];
             }
-            
         }
         
     }else{
         [self showLoginPage];
     }
-
+    //all ok
+    return -1;
 }
-
 - (void) showLoginPage{
     UINavigationController *loginNavigator = [self.storyboard instantiateViewControllerWithIdentifier:@"LOGIN_NAVIGATOR"];
     loginNavigator.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;

@@ -6,6 +6,7 @@
 #import "VPReviewsModel.h"
 #import "VPUsersModel.h"
 #import "VPRegionModel.h"
+#import "VPProductOptionsModel.h"
 
 static NSString *kBaseUrl  = @"http://ec2-54-208-24-225.compute-1.amazonaws.com/";
 static NSString *kApiKey   = @"techverx";
@@ -270,13 +271,67 @@ static NSString *kApiUser  = @"techverx";
 
 - (void) createOrder:(VPUsersModel*)u andProducts:(NSArray*)products{
     
-    NSMutableDictionary *jsonProducts = [[NSMutableDictionary alloc] init];
+    
+    NSMutableArray *jsonProductsArray = [[NSMutableArray alloc] init];
+    
+    
+    
+    
+   // NSMutableArray *jsonArrayOptionCustom =  [[NSMutableArray alloc] init];
+   // NSMutableArray *jsonArrayOptionDefault = [[NSMutableArray alloc] init];
+    
+    BOOL customOptionPresent  = false;
+    BOOL defaultOptionPresent = false;
     
     for (VPProductModel *product in products) {
-        [jsonProducts setObject:[NSString stringWithFormat:@"%d",product.cartQty] forKey:product.id];
+         NSMutableDictionary *jsonProducts = [[NSMutableDictionary alloc] init];
+        [jsonProducts setObject:product.id forKey:@"id"];
+        [jsonProducts setObject:[NSString stringWithFormat:@"%d",product.cartQty] forKey:@"quantity"];
+        
+        if (product.options && [product.options count]) {
+            
+             NSMutableDictionary *dictOption = [[NSMutableDictionary alloc] init];
+            for(VPProductOptionsModel *option in product.options){
+                
+               
+                
+                if ([option.type isEqualToString: @"default"]) {
+                    defaultOptionPresent = true;
+                    [dictOption setObject:option.pickedId forKey:option.title];
+                    
+                }else if ([option.type isEqualToString: @"custom"]){
+                    customOptionPresent = true;
+                    [dictOption setObject:option.pickedId forKey:option.id];
+                    
+                }
+            }
+            
+            if (defaultOptionPresent) {
+                [jsonProducts setObject:dictOption forKey:@"configurable"];
+                defaultOptionPresent = false;
+                //[jsonArrayOptionDefault addObject:dictOption];
+            }
+            
+            if (customOptionPresent) {
+                [jsonProducts setObject:dictOption forKey:@"options"];
+                defaultOptionPresent = false;
+                //[jsonArrayOptionCustom addObject:dictOption];
+            }
+        }
+        
+        [jsonProductsArray addObject:jsonProducts];
+        
+    }
+    
+    if (defaultOptionPresent) {
+        //[jsonProducts setObject:jsonArrayOptionDefault forKey:@"configurable"];
+    }
+    
+    if (customOptionPresent) {
+        //[jsonProducts setObject:jsonArrayOptionCustom forKey:@"options"];
     }
 
-    NSData * jsonData = [NSJSONSerialization  dataWithJSONObject:jsonProducts options:0 error:nil];
+    NSData * jsonData = [NSJSONSerialization  dataWithJSONObject:jsonProductsArray options:0 error:nil];
     NSString * myString = [[NSString alloc] initWithData:jsonData   encoding:NSUTF8StringEncoding];
     
     NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx",@"email":u.email, @"storeid":@"1",@"firstname":u.firstName, @"lastname":u.lastName, @"street_address":u.street, @"city":u.city, @"postcode":u.postalcode, @"phone":@"123", @"regionid":u.region.regionId, @"product_hash":myString};
@@ -291,10 +346,8 @@ static NSString *kApiUser  = @"techverx";
             NSString *status = [responseObject objectForKey:@"success"];
             
             if ([status boolValue] == 1){
-                
                 [self.delegate userManager:self didCreateOrder:@"Order Created Successfully.."];
             }else{
-                
                 [self.delegate userManager:self didFailToCreateOrder:msg];
             }
         }

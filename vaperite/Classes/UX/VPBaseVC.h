@@ -38,12 +38,12 @@
 - (void)refreshUser;
 - (void) startAnimatingWithSuccessMsg:(NSString*)msg;
 - (void) addToFavorites:(VPProductModel*)selectedProduct;
-- (void) addToCart:(VPProductModel*)selectedProduct;
+- (int) addToCart:(VPProductModel*)selectedProduct;
 - (void) showLoginPage;
 - (void) refreshCartAndFav;
 - (void) startAnimatingWithErrorMsg:(NSString*)msg;
 - (void) startAnimatingWithCustomMsg:(NSString*)message;
 - (void) sessionManager:(VPSessionManager *)sessionManager didFetchSession:(NSString*)sessionId;
-- (void)showProductStrengthsWithTitle:(NSString*)title andProduct:(VPProductModel*)product andTargetButton:(UIButton*)btn;
+- (void) showProductStrengthsWithTitle:(NSString*)title andProduct:(VPProductModel*)product andTargetButton:(UIButton*)btn;
 -(void)updateNavBadge;
 @end

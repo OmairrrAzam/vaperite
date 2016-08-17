@@ -26,13 +26,7 @@ NSMutableArray *categoriesImgArray;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self startAnimating];
-    categoriesArray = [NSMutableArray arrayWithObjects:@"THE G.O.A.T E-Liquid",
-                                                       @"PREMIUM LIQUID",
-                                                       @"HIPSTER VAPE CO",@"COIL REPLACEMENTS",nil];
-    
-    categoriesImgArray = [NSMutableArray arrayWithObjects:@"the-g.o.a",
-                       @"premium-liquid",
-                       @"hipster-vape-co",@"coil-replacements",nil];
+  
     
     if (!self.categoryManager) {
         self.categoryManager = [[VPCategoryManager alloc]init];
@@ -72,11 +66,17 @@ NSMutableArray *categoriesImgArray;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier ];
     }
     
-    
     UILabel *lblName = (UILabel *)[cell.contentView viewWithTag:20];
     lblName.text = [NSString stringWithFormat:@"%@", selectedCategory.name];
+    NSString *bgImageName = @"";
     
-    UIImage *bgImage = [UIImage imageNamed:[categoriesImgArray objectAtIndex:0]];
+    if ([self.parentId isEqualToString:@"9"]) {
+        bgImageName = @"coil-replacements";
+    }else if([self.parentId isEqualToString:@"97"]){
+        bgImageName = @"premium-liquid";
+    }
+    
+    UIImage *bgImage = [UIImage imageNamed:bgImageName];
     UIImageView *bgCategory = (UIImageView *)[cell.contentView viewWithTag:21];
     bgCategory.image = bgImage;
 

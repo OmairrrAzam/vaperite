@@ -26,6 +26,7 @@
 #import "VPFavoriteModel.h"
 #import "VPCartModel.h"
 #import "VPCollectionView.h"
+#import "VPProductOptionsModel.h"
 
 #define ORANGE_COLOR        [UIColor colorWithRed:0.921 green:0.411 blue:0.145 alpha:1.0]
 
@@ -112,6 +113,53 @@
 }
 
 #pragma mark - Private Methods 
+
+- (void) showProductOptionPicker:(NSString*)optionIndex{
+    
+    int maxOptions = (int)[self.selectedProduct.options count] ;
+    
+    VPProductOptionsModel *option = [self.selectedProduct.options objectAtIndex:[optionIndex intValue]];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:option.title message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    
+    for (NSString *key in option.values) {
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:[option.values objectForKey:key]
+                                                            style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                                                                option.pickedId = key;
+                                                                option.pickedValue = [option.values objectForKey:key];
+                                                                
+                                                                int nextOptionIndex = [optionIndex intValue] + 1;
+                                                                
+                                                                if (nextOptionIndex < maxOptions) {
+                                                                    [self showProductOptionPicker:[NSString stringWithFormat:@"%d",nextOptionIndex]];
+                                                                }else{
+                                                                   int response = [self addToCart:self.selectedProduct];
+                                                                    
+                                                                    int res = response;
+                                                                }
+                                                                
+                                                                
+                                                                //[self.collectionView reloadData];
+                                                                //self.selectedDose = key;
+                                                                //self.product.cartStrength = [key intValue];
+                                                                //[self.btnDoses  setTitle:[option.values objectForKey:key] forState:UIControlStateNormal];
+                                                            }]];
+        
+    }
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                        style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                            //[self startAnimating];
+                                                            
+                                                            
+                                                        }]];
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [self presentViewController:alertController animated:YES completion:nil];
+    });
+}
+
 
 - (void)configureCollectionView {
     self.flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -212,9 +260,9 @@
 - (IBAction)btnAddToCart:(id)sender {
     VPBaseUIButton *btn = (VPBaseUIButton*)sender;
     self.selectedProduct = [self.products objectAtIndex:btn.index];
-    
-    [self startAnimating];
-    [self.productManager fetchProductDetailsWithProductId:self.selectedProduct.id andStoreId:self.currentStore.id];
+    [self performSegueWithIdentifier:@"product_detail_segue" sender:self];
+    //[self startAnimating];
+    //[self.productManager fetchProductDetailsWithProductId:self.selectedProduct.id andStoreId:self.currentStore.id];
     
 }
 
@@ -453,7 +501,8 @@
     self.selectedProduct = product;
     self.selectedProduct.cartQty = 1;
     [self stopAnimating];
-    [self addToCart:self.selectedProduct];
+   
+    [self performSegueWithIdentifier:@"product_detail_segue" sender:self];
     [self.tableView reloadData];
 }
 

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface VPProductModel : NSObject<NSCoding>
 
 @property (strong, nonatomic) NSString *id;
@@ -17,7 +18,7 @@
 @property (strong, nonatomic) NSArray  *categoryIds;
 @property (strong, nonatomic) NSArray  *websiteIds;
 @property (strong, nonatomic) NSArray  *reviews;
-@property (strong, nonatomic) NSDictionary  *doses;
+//@property (strong, nonatomic) NSDictionary  *doses;
 @property (strong, nonatomic) NSString *desc;
 @property (strong, nonatomic) NSString *shortDescription;
 @property (strong, nonatomic) NSString *name;
@@ -27,10 +28,13 @@
 @property (nonatomic) int cartStrength;
 @property (strong,nonatomic) NSString *cartStrengthValue;
 @property (nonatomic) int cartQty;
-@property (nonatomic) NSString *stockQty;
+@property (strong,nonatomic) NSString *stockQty;
+@property (strong ,nonatomic) NSString *inStock;
+@property (strong,nonatomic) NSMutableArray *options;
 
 
 + (NSArray *)loadFromArray:(NSArray *)arrProducts;
 - (id)initWithDictionary:(NSDictionary *)dictProduct;
 - (id)initWithDetailsDictionary:(NSDictionary *)dictProduct;
+- (int)validateForCart;
 @end

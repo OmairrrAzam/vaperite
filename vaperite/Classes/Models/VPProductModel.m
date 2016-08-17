@@ -8,6 +8,7 @@
 
 #import "VPProductModel.h"
 #import "NSDictionary+Helper.h"
+#import "VPProductOptionsModel.h"
 
 @implementation VPProductModel
 
@@ -37,6 +38,8 @@
     self.shortDescription  = [dictProduct objectForKeyHandlingNull:@"short_description"];
     self.rating            = [dictProduct objectForKeyHandlingNull:@"rating"];
     self.stockQty          = [dictProduct objectForKeyHandlingNull:@"qty"];
+    self.inStock           = [dictProduct objectForKeyHandlingNull:@"in_stock"];
+        
     return self;
 }
 
@@ -49,12 +52,62 @@
     self.price             = [dictProduct objectForKeyHandlingNull:@"price"];
     self.desc              = [dictProduct objectForKeyHandlingNull:@"description"];
     self.rating            = [dictProduct objectForKeyHandlingNull:@"rating"];
+    self.inStock           = [dictProduct objectForKeyHandlingNull:@"in_stock"];
+    self.options           = [[NSMutableArray alloc]init];
     
-    NSDictionary *attributes  = [dictProduct objectForKey:@"product_attributes"];
+    NSDictionary *attributes         = [dictProduct objectForKey:@"product_attributes"];
+    NSDictionary *custom_attributes  = [dictProduct objectForKey:@"product_custom_options"];
     
-    if (attributes != (NSDictionary*)[NSNull null]) {
-        self.doses = [attributes objectForKeyHandlingNull:@"Nicotine Strength"];
+    if(attributes != (NSDictionary*)[NSNull null]){
+        
+     
+     for (NSString *key in attributes) {
+        NSString *optionKey = [attributes objectForKey:key];
+        
+        if([optionKey isKindOfClass:[NSString class]])
+        {
+             NSDictionary *optionValue = [attributes objectForKey:optionKey];
+            
+            VPProductOptionsModel *option = [[VPProductOptionsModel alloc]init];
+            option.values = optionValue;
+            option.id = key;
+            option.title = optionKey;
+            option.type = @"default";
+            [self.options addObject:option];
+            
+        }
+        
     }
+    }
+    
+    //for custom options
+    if(custom_attributes != (NSDictionary*)[NSNull null]){
+
+        for (NSString *key in custom_attributes) {
+            NSString *optionKey = [custom_attributes objectForKey:key];
+            
+            if([optionKey isKindOfClass:[NSString class]])
+            {
+                NSDictionary *optionValue = [custom_attributes objectForKey:optionKey];
+                
+                if(optionValue != (NSDictionary*)[NSNull null]){
+                VPProductOptionsModel *option = [[VPProductOptionsModel alloc]init];
+                option.values = optionValue;
+                option.id = key;
+                option.title = optionKey;
+                option.type = @"custom";
+                [self.options addObject:option];
+                }
+                
+            }
+            
+        }
+    }
+
+
+//    if (attributes != (NSDictionary*)[NSNull null]) {
+//        self.doses = [attributes objectForKeyHandlingNull:@"Nicotine Strength"];
+//    }
     
     
    // NSString *temp = [self.doses object];
@@ -72,13 +125,16 @@
         self.desc    = [decoder decodeObjectForKey:@"desc"];
         self.rating  = [decoder decodeObjectForKey:@"rating"];
         self.cartQty = [decoder decodeIntForKey:@"qty"];
-        self.cartStrength = [decoder decodeIntForKey:@"cart_strength_id"];
+        self.cartStrength      = [decoder decodeIntForKey:@"cart_strength_id"];
         self.cartStrengthValue = [decoder decodeObjectForKey:@"cart_strength_value"];
+        self.options  = [decoder decodeObjectForKey:@"options"];
+        self.inStock  = [decoder decodeObjectForKey:@"in_stock"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
+    
     [encoder encodeObject:self.id forKey:@"id"];
     [encoder encodeObject:self.imgUrl forKey:@"imgUrl"];
     [encoder encodeObject:self.name forKey:@"name"];
@@ -88,16 +144,22 @@
     [encoder encodeInt:self.cartQty forKey:@"qty"];
     [encoder encodeInt:self.cartStrength   forKey:@"cart_strength_id"];
     [encoder encodeObject:self.cartStrengthValue forKey:@"cart_strength_value"];
+    [encoder encodeObject:self.options forKey:@"options"];
+    [encoder encodeObject:self.inStock forKey:@"in_stock"];
 }
 
-//- (NSDictionary *)toDictionary {
-//    
-//    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
-//   
-//    [dictionary setObject:self.id forKey:@"company_name"];
-//    [dictionary setObject:self.firstName forKey:@"first_name"];
-//        return outerDictionary;
-//}
-
+- (int)validateForCart{
+    if ([self.options count] > 0) {
+        int count = 0;
+        for (VPProductOptionsModel *option in self.options) {
+            if (!option.pickedId) {
+                return count ;
+            }
+            count++;
+        }
+    }
+    
+    return -1;
+}
 
 @end
