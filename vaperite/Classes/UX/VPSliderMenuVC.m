@@ -29,6 +29,7 @@
 
 @property (weak, nonatomic) IBOutlet VPBaseUIButton *btnLogout;
 - (IBAction)btnLogout_Pressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *ivLogout;
 
 @end
 
@@ -59,9 +60,11 @@
     if (!self.loggedInUser) {
         self.btnLogout.hidden = YES;
         self.lblUserName.text = @"";
+        self.ivLogout.hidden  = YES;
     }else{
         self.lblUserName.text = self.loggedInUser.firstName;
         self.btnLogout.hidden = NO;
+        self.ivLogout.hidden  = NO;
     }
 }
 

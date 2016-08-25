@@ -130,6 +130,25 @@
     return [[UIView alloc] initWithFrame:CGRectZero];
 }
 
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    return 100;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    
+    return 0;
+}
+
+
 #pragma mark - Private Methods
 
 - (void)initFromMemory{
@@ -140,11 +159,7 @@
     self.lblCartSubTotal.text = [NSString stringWithFormat:@"Cart sub Total : $%.02f",self.currentCart.total];
 }
 
-#pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
 
 
 //-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -157,17 +172,6 @@
 //    return 0;
 //}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  
-    return 100;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-   
-    return 0;
-}
 
 #pragma mark - IBActions
 

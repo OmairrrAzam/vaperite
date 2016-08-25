@@ -120,9 +120,12 @@
     self.tvReview.delegate = self;
     self.tvReview.text = @"Enter your review...";
     self.tvReview.textColor = [UIColor lightGrayColor];
+    
+    self.tfName.text = [NSString stringWithFormat:@"%@ %@",self.loggedInUser.firstName,self.loggedInUser.lastName];
 }
 
 - (void)updateStars:(NSString*)starNo{
+    
     UIImage *filledStar = [UIImage imageNamed:@"yellow-star.png"];
     UIImage *emptyStar = [UIImage imageNamed:@"grey-star.png"];
     if ([starNo isEqualToString:@"1"]) {
