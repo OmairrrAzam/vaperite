@@ -100,9 +100,9 @@
     
     //if (indexPath.section == 1){
     UILabel *productName    = (UILabel *)[cell.contentView viewWithTag:10];
-    UILabel *price         = (UILabel *)[cell.contentView viewWithTag:11];
-    UILabel *qty           = (UILabel *)[cell.contentView viewWithTag:12];
-    UIImageView *ivPicture = (UIImageView *)[cell.contentView viewWithTag:13];
+    UILabel *price          = (UILabel *)[cell.contentView viewWithTag:11];
+    UILabel *qty            = (UILabel *)[cell.contentView viewWithTag:12];
+    UIImageView *ivPicture  = (UIImageView *)[cell.contentView viewWithTag:13];
         
     VPProductModel *currentProduct = [self.products objectAtIndex:indexPath.row];
         
@@ -118,7 +118,7 @@
                                 } failure:nil];
         
     productName.text     = currentProduct.name;
-    price.text           = [NSString stringWithFormat:@"Price: %@",currentProduct.price];
+    price.text           = [NSString stringWithFormat:@"Price: %.02f",[currentProduct.price floatValue]];
     qty.text             = [NSString stringWithFormat:@"%d",   currentProduct.cartQty];
         
     //}

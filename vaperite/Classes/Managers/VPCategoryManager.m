@@ -42,7 +42,7 @@
 - (void)loadCategoriesByParentId: (NSString*)parentId sessionId:(NSString*)sessionId{
     
     NSDictionary *params = @{ @"apikey": @"techverx", @"apiuser":@"techverx", @"parentid":parentId};
-    
+ 
     VPSessionManager *manager = [VPSessionManager sharedManager];
     
     [manager POST:@"getCategoriesByParentId" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -50,6 +50,7 @@
             
             NSArray *arrDetails = [responseObject objectForKey:@"data"];
             NSArray *categories = [VPCategoryModel loadFromArray:arrDetails];
+            
             [self.delegate categoryManager:self didLoadCategoriesFromParentId:categories];
             
         }

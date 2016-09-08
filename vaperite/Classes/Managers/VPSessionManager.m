@@ -4,7 +4,8 @@
 #import "VPSessionManager.h"
 #import "VPUsersModel.h"
 
-static NSString *kBaseUrl = @"http://ec2-54-208-24-225.compute-1.amazonaws.com/customapi/index/";
+//static NSString *kBaseUrl = @"http://ec2-54-208-24-225.compute-1.amazonaws.com/customapi/index/";
+static NSString *kBaseUrl = @"https://www.vaperite.com/index.php/";
 
 #define AUTH_URL             @"http://ec2-54-208-24-225.compute-1.amazonaws.com"
 #define OAUTH_CALLBACK       @"http%3A%2F%2Flocalhost%2Fmagento"

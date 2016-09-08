@@ -517,6 +517,7 @@
     
     [self stopAnimating];
     self.allCategories = categories;
+   
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Categories" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
    
     for (VPCategoryModel *category in self.allCategories) {

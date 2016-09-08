@@ -229,7 +229,7 @@
         
         int ratingValue = [self.product.rating intValue];
         
-        if (ratingValue <= 20) {
+        if (ratingValue <= 20 && ratingValue > 0) {
             [self.btnStar1 setImage:filledStar forState:UIControlStateNormal];
         }else if(ratingValue > 20 && ratingValue <= 40 ){
             [self.btnStar1 setImage:filledStar forState:UIControlStateNormal];

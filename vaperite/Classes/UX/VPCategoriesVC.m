@@ -68,7 +68,7 @@ NSMutableArray *categoriesImgArray;
     
     UILabel *lblName = (UILabel *)[cell.contentView viewWithTag:20];
     lblName.text = [NSString stringWithFormat:@"%@", selectedCategory.name];
-    NSString *bgImageName = @"";
+    NSString *bgImageName = @"black-bg-vaprite";
     
     if ([self.parentId isEqualToString:@"9"]) {
         bgImageName = @"coil-replacements";
@@ -92,6 +92,7 @@ NSMutableArray *categoriesImgArray;
 
 
 - (void)categoryManager:(VPCategoryManager *)categoryManager didLoadCategoriesFromParentId:(NSArray *)categories{
+    
     self.allSubCategories = categories;
     int count = (int)[self.allSubCategories count];
     
